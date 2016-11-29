@@ -1,0 +1,332 @@
+
+
+\documentclass[a4paper,12pt]{article}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{array}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage[top=1in,bottom=2in,left=1in,right=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{color}
+\usepackage[normalem]{ulem}
+
+\usepackage{booktabs} 
+\usepackage{rotating,tabularx}
+
+
+%\newcommand{\Mn}[1]{ \mathrm{M}_{#1}(\mathbb{R}) }
+%\newcommand{\lex}{ \mathrm{lex} }
+%\newcommand{\vect}{ \mathrm{vec} }
+%\newcommand{\R}{\mathbb{R}}
+%\newcommand{\x}{\mathbf{x}}
+%\newcommand{\vv}{\mathbf{v}}
+%\newcommand{\uu}{\mathbf{u}}
+%\newcommand{\e}{\mathbf{e}}
+%\newcommand{\rd}{\mathrm{d}}
+%\newcommand{\re}{\mathrm{e}}
+%\newcommand{\E}{\mathbb{E}}
+%\newcommand{\Prob}{\mathbb{P}}
+%\newcommand{\op}{\mathrm{op}}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{example}[theorem]{Example}
+%\newtheorem{proposition}[theorem]{Proposition}
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{remark}[theorem]{Remark}
+%\newtheorem{definition}[theorem]{Definition}
+%\newtheorem{example}[theorem]{Example}
+
+\newcommand{\diag}{\mathrm{diag}}
+\newcommand{\tr}{\mathrm{tr}}
+
+
+
+
+%\title{Free Music Archive (FMA): \\ A Dataset For Music Analysis}
+\title{FMA: A Dataset For Music Analysis}
+
+
+\author{Kirell Benzi, Micha\"el Defferrard, Pierre Vandergheynst, Xavier Bresson\\ \vspace{-0.5cm} \\  LTS2, EPFL, Lausanne, Switzerland}
+
+
+\date{\today}
+
+
+
+
+\begin{document}
+
+
+%%%%%%%%%%%%%%%%%%%
+\maketitle
+%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%
+\abstract{We present a new music dataset that can be used for several music analysis tasks. Our major goal is to go beyond the existing limitations of available music datasets, which are either the small size of datasets with raw audio tracks, availability and legality of the music data, or the lack of meta-data for artists analysis or song ratings for recommender systems. Existing datasets such as GTZAN, TagATune, and Million Song Dataset suffer from the previous limitations. It is however essential to establish such benchmark datasets to advance the field of music analysis, like the ImageNet dataset that made possible the large success of deep learning techniques in computer vision. In this paper, we introduce the Free Music Archive (FMA) dataset which size is 86,992 songs with raw audio tracks and meta-data including artist name, song title, music genre, and track counts. For research purposes, we define 2 additional datasets from the original one; a small genre-balanced dataset of 1,000 data and a medium genre-unbalanced dataset of 14,570 data, both with audio tracks and Echonest features. For all datasets, we provide a train-test splitting for future algorithms' comparisons. }
+%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%
+\section{Introduction and Motivation}
+%%%%%%%%%%%%%%%%%%%
+
+\noindent
+{\bf Music Analysis Field.} Developing new mathematical models and algorithms to solve challenging real-world problems is obviously of first importance in any field of research. But such novel techniques must be evaluated and compared to the existing state-of-the-art techniques to be adopted as new standards by research communities. Evaluation and comparison require benchmark datasets to achieve their purpose, which are sometimes challenging to collect and share. In computer vision, the community has developed over the years well-established benchmark datasets such as MNIST \cite{pro:LeCunBottouBengioHaffner98MNIST} publicly accessible at \cite{art:MNIST}, CIFAR \cite{art:Krizhevsky09CIFAR} available at \cite{art:CIFAR}, or ImageNet \cite{art:FeiFei09ImageNet} provided at \cite{art:ImageNet}. All these image datasets are free, legal and easily available on Internet. Such datasets have proved essential to advance the field of computer vision. The most celebrated example is the ImageNet dataset and challenge in 2012. This unprecedented dataset of 1.5M image data allowed to demonstrate the power of deep learning techniques, which was able to win the competition by a large margin over the second best. In music analysis, such benchmark datasets are not easily available and they also lack of essential information. For examples, developing deep learning techniques for music applications require the use of raw audio data, and designing recommender systems need meta-data like artist features and song ratings. Besides, the most influential competition in the field of music analysis organized every year is the Music Information Retrieval Evaluation eXchange (MIREX) \cite{art:MIREX}. MIREX proposes several important music analysis challenges such as song identification, tag classification, music similarity and retrieval, etc. However, participants do not have access to the dataset; neither the test set, nor the important train set. They must upload their code that will be evaluated by the organizers. In other words, participants cannot train their analysis models on any part of the dataset. These existing shortcomings make essential the development of new music datasets to advance the field of music analysis algorithms.   \\
+
+
+\noindent
+{\bf Available music datasets and their limitations.} In music analysis, three datasets have been widely used by the international society for music information retrieval (ISMIR) \cite{art:ISMIR}: the GTZAN, TagATune, and MSD (Million Song Dataset) datasets. However each dataset come with some limitations: \\
+$\bullet$ GTZAN \cite{art:TzanetakisCook02GTZAN} is a collection of 1000 songs with 10 music genres. Each song is represented by a 22050Hz Mono 16-bit wav audio file of 30sec. It is the most popular music dataset with 6,600 answers on Google search, and 600 on Google scholar on Nov 2016. It has been widely used for different music applications. A complete study of this dataset has been done in \cite{art:Sturm12GTZAN}, and the dataset is available at \cite{art:GTZAN}. The main limitations of GTZAN is the legality of the dataset, the small size with 1000 data, no complete meta-data regarding artist names and song titles, and no additional meta-data like ratings. \\
+$\bullet$ TagATune \cite{art:Law07TagATune} was a popular dataset of 5,405 source songs of 230 artists. It was used for music tagging and music metric learning. Its website is \cite{art:TagATune}, but it is not anymore publicly available since 2009.\\
+$\bullet$ The Million Song Dataset (MSD) \cite{art:Bertin11MSD} is a free and legal collection of 1 million music songs. Each song data is composed of high-level and medium-level audio features provided by  Echonest service and meta-data like artist name, song title, track genre, etc. It is available at \cite{art:MSD}. The very large scale of this music dataset would make it an ideal candidate for deep learning, which works best with large datasets. However, deep learning techniques work directly on the raw data (audio tracks in this case, like raw image pixels in computer vision) and not on pre-processed audio features given by Echonest. Unfortunately, this prevents the application of deep learning on this dataset. Finally, Echonest reassigned the indexes of the MDS songs, which today makes (almost) impossible the use of the most music recent features developed by Echonest. \\
+
+
+\noindent
+{\bf What would be the requirements for an ideal music dataset?}  \\
+(1) Availability of raw audio data like 30sec or more\\
+(2) Availability of meta-data such as genres, artist, title, year, lyrics, users' ratings, users' comments, etc\\
+(3) Large-scale dataset to be able to sample the high-dimensional distribution of music genres\\
+(4) Free and easy access of the dataset\\
+(5) Legality of the dataset, no copyright issue with e.g. open access licence\\
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%
+\section{Introducing the FMA dataset}
+%%%%%%%%%%%%%%%%%%%
+
+\noindent
+{\bf The website.} The FMA website \cite{art:FMA} is run by WFMU, the longest-running free-form radio station in the United States. The website provides a large catalogue of artists and high-quality mp3 songs. Each song is legally free to download as artists decided to work under open licence such as Creative Commons license. This is directly inspired by the open source movement, and the goal of the FMA site is to offer a legal and technological platform for artists and listeners to harness the full potential of online music sharing \cite{art:MossFMA}. FMA has been funded by the New York State Music Fund, the MacArthur Foundation, and the National Endowment for the Arts.\\
+
+
+
+\noindent
+{\bf Crawling the data.} The FMA organization provides an API \cite{art:FMA_API} to collect the meta-data associated to each song such as artist name, track title, track genre, and track listens. The collect of the mp3 audio files was done with a web scrapper. The collection of FMA was done in April 2016, and the size of the dataset at this time was 86,992 songs. It was recently announced on July 2016 that the website had reached the landmark of 100,000 songs. \\
+
+
+
+\noindent
+{\bf The raw FMA dataset.} The fully collected dataset on April 2016 contained 86,992 music data. Each music data is composed of an mp3 audio file and some meta-data provided on the FMA website for each song, and crawled by the API. All mp3 audio tracks are coded with sampling rate of 44,100Hz, bit rate 128kb/s, and in stereo. However, not all meta-data is available for each song, and we thus decided to remove the data which has not the following complete meta-information; artist name, track title, track genres, and track listens. This reduced the dataset to 82,113 data. Then, we created a top genre by simply picking the first genre in the original list of track genres. A few examples of data are given in Table \ref{tab1}. Figure \ref{fig2} also presents a part of the distribution of genre sizes of the 82,113 data, which obeys to a power law distribution as often found in natural data collection. We further cleaned the dataset by removing songs which belong to "non-standard" music genres like 'Noise', 'Garage', 'Sound Collage', 'Singer', 'Audio Collage', 'Glitch', 'Unclassifiable', 'Lo-Fi', 'Spoken', 'Poetry', 'Talk Radio', 'Avant-Garde', 'Experimental', 'Ambient', and 'Field Recording'. We also suppressed the songs with the title 'Untitled'. After this filtering, the remaining size is 37,741. Then, we decided to cut the long tail of the power law distribution by removing songs of genres with less than 300 songs, which gave us 30,109 data. Finally, we kept the songs that have the raw audio and all Echonest features. Echonest features are medium-level and high-level audio features provided by Echonest \cite{art:Echonest}, a music platform for developers and media companies which has a collection of 3.5M artists and 37.5M songs. Echonest features can be either computed by uploading the songs to the Echonest website, which are then analyzed and send them back to the user, or simply retrieved from the Echonest database if the songs were analyzed before. All Echonest operations are done through an API \cite{art:Echonest_API}. Our final filtering consists in keeping songs that have both raw audio file and complete Echonest features. The final size of the dataset is 14,570. Figure \ref{fig3} presents a part of the distribution of the genre sizes for this final dataset. \\
+
+  
+ 
+\noindent
+{\bf Proposed benchmark datasets.} For research purposes, we propose 3 datasets:\\
+(1) FMA\_small: This dataset contains 1000 songs with 10 genres equally balanced, that is 100 songs per class. For each song, we extracted 30sec precisely in the middle of the song. The idea is to create an alternative to the popular GTZAN dataset with respect to the size parameter. But unlike GTZAN, all 1000 songs have not only raw audio tracks but also meta-data composed of artist name, track title, track genres, track listens, and Echonest features. The GTZAN data may not have for example song title or artist name, and also no copyright permission. For reproducibility research, we also provide a split 75-25 of the dataset for future techniques' comparisons. Eventually, the genre distribution of this dataset is given in Figure \ref{fig3}.  \\
+(2) FMA\_medium: This dataset has 14,570 songs of 30sec with 20 genres. Unlike FMA\_small, the size distribution of genres is not balanced, but all songs have raw audio files and all meta-data. We also provide a split 75-25 of this dataset. The genre distribution is plotted in Figure \ref{fig2}. \\
+(3) FMA\_large: This is the original full dataset collected on April 2016. It has 86,992 data. No post-processing was applied. This is as real-world data as it can get. The genre distribution is given by Figure \ref{fig1}. \\
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%
+%\section{Classification Experiment [MICHAEL SECTION LATER LATER]}
+%%%%%%%%%%%%%%%%%%%%
+%
+%\noindent
+%{\bf Baseline classification techniques.}  In this section, we consider perhaps the most popular music analysis problem, the music genre recognition (MGR) problem. We apply standard baseline classification techniques on 2 representations of audio data: \\
+%(1) Echonest medium-level 256-dim features, \\
+%(2) Spectrograms of audio data by concatenating 10 spectrograms of 3sec into a single long vector.\\
+%Table xxx reports the classification accuracy on the train and test datasets.\\
+%
+%
+%\noindent
+%{\bf Deep learning.} One major motivation to construct the FMA dataset was to apply the powerful deep learning techniques to the music analysis problem. As a preliminary result, we simply apply a convolutional neural network on the 3sec-spectrograms, and we select the class by majority voting. \\
+%Table xxx reports the classification accuracy on the train and test datasets.\\
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%
+\section{Conclusion and Perspectives}
+%%%%%%%%%%%%%%%%%%%
+
+\noindent
+{\bf Availability and reproducible research.} For the sake of open science, the proposed 3 benchmarked datasets are made available for free at \href{https://lts2.epfl.ch/datasets}{https://lts2.epfl.ch/datasets}. In addition to the existing ones, we hope the music analysis community will benefit from this new dataset.   \\
+
+
+\noindent
+{\bf Potential applications.} We foresee multiple applications of this new dataset. The most obvious one is for music analysis with deep learning techniques. As raw music tracks are available, deep learning techniques like convolutional neural networks \cite{pro:LeCunBottouBengioHaffner98MNIST} and recurrent neural networks \cite{art:HochreiterSchmidhuber97LSTM} can be directly applied. Besides, standard data analysis tasks such as classification, clustering, regression, text analysis, visualization can also be applied to this new music dataset.\\
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%
+\vspace{1cm}
+\bibliography{bib_paper}
+\bibliographystyle{plain}
+%%%%%%%%%%%%%%%%%%%
+
+\newpage
+
+
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=13cm]{histo1.pdf}
+\caption{Histograms of the top 15 music genres for the large FMA dataset of 82,113 songs.}
+\label{fig1}
+\end{figure}
+
+%\begin{table}[h!]
+%\centering
+%\begin{tabular}{lr}
+%\toprule
+%{} &  count \\
+%\midrule
+%top\_genre     &        \\
+%Electronic    &  15098 \\
+%Avant-Garde   &   7715 \\
+%Rock          &   5636 \\
+%Pop           &   5211 \\
+%Experimental  &   4769 \\
+%Folk          &   3339 \\
+%Hip-Hop       &   3273 \\
+%Punk          &   2948 \\
+%Lo-Fi         &   2619 \\
+%Noise         &   2339 \\
+%Soundtrack    &   1937 \\
+%Jazz          &   1573 \\
+%Classical     &   1487 \\
+%Blues         &   1453 \\
+%International &   1397 \\
+%\bottomrule
+%\end{tabular}
+%\caption{xxx}
+%\label{table2}
+%\end{table}
+
+
+
+
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=13cm]{histo2.pdf}
+\caption{Histograms of the 20 music genres for the medium FMA dataset of 14,570 songs.}
+\label{fig2}
+\end{figure}
+
+%\begin{table}[h!]
+%\centering
+%\begin{tabular}{lr}
+%\toprule
+%{} &  count \\
+%\midrule
+%top\_genre           &        \\
+%Electronic          &   2962 \\
+%Rock                &   2385 \\
+%Pop                 &   1636 \\
+%Hip-Hop             &   1059 \\
+%Folk                &   1025 \\
+%Punk                &    882 \\
+%Indie-Rock          &    601 \\
+%Jazz                &    588 \\
+%Old-Time / Historic &    460 \\
+%Psych-Rock          &    456 \\
+%International       &    431 \\
+%Classical           &    408 \\
+%Chiptune            &    254 \\
+%Blues               &    245 \\
+%Psych-Folk          &    245 \\
+%Post-Punk           &    222 \\
+%Metal               &    191 \\
+%Soundtrack          &    172 \\
+%Trip-Hop            &    171 \\
+%Post-Rock           &    118 \\
+%\bottomrule
+%\end{tabular}
+%\caption{xxx}
+%\label{table3}
+%\end{table}
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=10cm]{histo3.pdf}
+\caption{Histograms of the 10 music genres for the small FMA dataset of 1000 songs.}
+\label{fig3}
+\end{figure}
+
+
+\newpage
+
+
+
+%\begin{table}[h!]
+\begin{sidewaystable}
+\tiny{
+\centering
+\begin{tabular}{lrlrllll}
+\toprule
+ fma\_id &                                             artist &  play\_count &                                              title &                                             genres &            top\_genre  \\
+    10 &                                          Kurt Vile &       42936 &                                            Freeway &                                              [Pop] &                  Pop  \\
+    134 &                                               AWOL &         880 &                                       Street Music &                                          [Hip-Hop] &              Hip-Hop  \\
+     141 &                    Alec K. Redfearn \& the Eyesores &         590 &                                               Ohio &                                             [Folk] &                 Folk  \\
+     142 &                    Alec K. Redfearn \& the Eyesores &         670 &                               Punjabi Watery Grave &                                             [Folk] &                 Folk  \\
+    144 &                                   Amoebic Ensemble &         901 &                                            Wire Up &                                             [Jazz] &                 Jazz  \\
+   145 &                                   Amoebic Ensemble &         682 &                                         Amoebiasis &                                             [Jazz] &                 Jazz  \\
+    188 &                                           Ed Askew &         973 &                                            Piano 1 &                                             [Folk] &                 Folk  \\
+     206 &                                           Ed Askew &          73 &                                        Bella Crane &                                             [Folk] &                 Folk \\
+     236 &                                       Banana Clipz &        6695 &                              Push Am (Left, Right) &                              [Electronic, African] &           Electronic  \\
+     237 &                                          Barnacled &        1056 &                    Garbage and Fire &                                             [Jazz] &                 Jazz  \\
+     238 &                                          Barnacled &         961 &                                     France Attacks &                                             [Jazz] &                 Jazz  \\
+     461 &                              Cantonement Jazz Band &        3933 &                                           Bessemer &                               [Blues, Jazz: Vocal] &                Blues  \\
+     462 &                              Cantonement Jazz Band &        3256 &                                     Has Been Blues &                               [Blues, Jazz: Vocal] &                Blues  \\
+     463 &                              Cantonement Jazz Band &        3238 &                                       I'll Be Blue &                               [Blues, Jazz: Vocal] &                Blues  \\
+    824 &                     Here Comes A Big Black Cloud!! &         391 &                                         Black Mold &          [Rock, Loud-Rock, Psych-Rock, Indie-Rock] &                 Rock  \\
+     825 &                     Here Comes A Big Black Cloud!! &        1847 &                                        Death March &          [Rock, Loud-Rock, Psych-Rock, Indie-Rock] &                 Rock  \\
+    837 &                                          Heroin UK &         146 &                                           DopeSick &                                             [Rock] &                 Rock \\
+     889 &                                 Illusion of Safety &         163 &                                          Wasteland &                                       [Electronic] &           Electronic  \\
+     896 &                                        Impediments &        1542 &                                               2012 &                                  [Punk, Power-Pop] &                 Punk  \\
+          992 &                                      Jason Willett &         560 &                   Beautiful Song w/ kick drum solo &                                             [Rock] &                 Rock  \\
+\bottomrule
+\end{tabular}
+\caption{A few song data in the FMA dataset.}
+\label{tab1}
+%\end{table}
+}
+\end{sidewaystable}
+
+
+
+
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
