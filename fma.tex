@@ -25,6 +25,11 @@
 %\usepackage{footnote} \makesavenoteenv{table}
 \usepackage{rotating,tabularx}
 
+\usepackage{array}
+
+\usepackage{color}
+\newcommand{\todo}[1]{{\color{red} #1 }}
+
 \title{FMA: A Dataset For Music Analysis}
 
 \oneauthor
@@ -50,7 +55,6 @@
 We present a new music dataset that can be used for several music analysis tasks. Our major goal is to go beyond the existing limitations of available music datasets, which are either the small size of datasets with raw audio tracks, the availability and legality of the music data, or the lack of meta-data for artists analysis or song ratings for recommender systems. Existing datasets such as GTZAN, TagATune, and Million Song suffer from the previous limitations. It is however essential to establish such benchmark datasets to advance the field of music analysis, like the ImageNet dataset which made possible the large success of deep learning techniques in computer vision. In this paper, we introduce the Free Music Archive (FMA) which contains 77,643 songs and 68 genres spanning 26.9 days of song listening and meta-data including artist name, song title, music genre, and track counts. For research purposes, we define two additional datasets from the original one: a small genre-balanced dataset of 4,000 song data and 10 genres compassing 33.3 hours of raw audio and a medium genre-unbalanced dataset of 14,511 data and 20 genres offering 5.1 days of track listening, both datasets come with meta-data and Echonest audio features. For all datasets, we provide a train-test splitting for future algorithms' comparisons.
 \end{abstract}
 
-
 The released dataset is composed of 100,000 tracks, xx artists, xx albums, xx hours of audio (xx GiB), 164 genres, all under permissive Creative Commons licenses.
 
 The dataset comes with a collection of meta-data such as the song titles, artists and albums, together with full-length audio and a set of pre-computed features as well as a train/test split.
@@ -58,14 +62,16 @@ The dataset comes with a collection of meta-data such as the song titles, artist
 Content-based music information retrieval tasks are typically solved with a two-stage approach: engineered features are extracted from music audio signals, and are then used as input to a regressor or classifier.
 Although that approach was dominant in the past, feature learning and end-to-end learning (from signal to label) have started to receive more attention from the MIR community in recent years. 
 The primary goal of this dataset is to enable researchers to train large models, which require lots of training data, which could potentially avert the semantic gap currently observed between the extracted low-level features such as MFCCs and the high-level targets such as genre.
+Hopefully, the release of such amount of easily accessible data will foster research which will ultimately surpass the performance ceiling observed in e.g. genre recognition, as it as been the case in computer vision with the release of ImageNet.
 
 This paper describes the dataset and how it was created, proposes some tasks and evaluate some baselines for music genre recognition (MGR).
 All the code to reproduce it as well as links to download the data and usage examples are available at \url{https://github.com/mdeff/fma}.
 
 
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction} % and Motivation}
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 \noindent
 {\bf Music Analysis Field.} Developing new mathematical models and algorithms to solve challenging real-world problems is obviously of first importance in any field of research. But such novel techniques must be evaluated and compared to the existing state-of-the-art techniques to be adopted as new standards by research communities. Evaluation and comparison require benchmark datasets to achieve their purpose, which are sometimes challenging to collect and share. In computer vision, the community has developed over the years well-established benchmark datasets such as \href{http://yann.lecun.com/exdb/mnist/}{MNIST} \cite{mnist}, \href{https://www.cs.toronto.edu/~kriz/cifar.html}{CIFAR} \cite{cifar}, or \href{http://www.image-net.org}{ImageNet} \cite{imagenet}. All these image datasets are free, legal and easily available on Internet. Such datasets have proved essential to advance the field of computer vision. The most celebrated example is the ImageNet dataset and challenge in 2012. This unprecedented dataset of 1.5M image data allowed to demonstrate the power of deep learning techniques, which was able to win the competition by a large margin over the second best. In music analysis, such benchmark datasets are not easily available and they also lack of essential information. For examples, developing deep learning techniques for music applications require the use of raw audio data, and designing recommender systems need meta-data like artist features and song ratings. Besides, the most influential competition in the field of music analysis organized every year is the Music Information Retrieval Evaluation eXchange (MIREX).\footnote{\url{http://www.music-ir.org/mirex/wiki/}} MIREX proposes several important music analysis challenges such as song identification, tag classification, music similarity and retrieval, etc. However, participants do not have access to neither the test set, nor the important train set. They must upload their code to a website that will be evaluated by the organizers. In other words, participants cannot train their analysis models on any part of the dataset. These existing shortcomings make essential the development of new music datasets to advance the field of music analysis.   \\
@@ -80,7 +86,7 @@ We discuss below some of the most related datasets, see \tabref{tab:datasets} fo
 	\item[GTZAN] \cite{gtzan} is a collection of 1000 songs with 10 music genres. Each song is represented by a 22,050Hz Mono 16-bit wav audio file of 30sec. It is the first benchmark MGR dataset to have been made publicly available, and as a result continues to be the most used public dataset for MGR \cite{mgr_eval}. A complete study, and critic, of this dataset was done in \cite{gtzan_critic_1}, and the dataset is available online. The main limitations of GTZAN is the legality of the dataset, the small size, no complete meta-data regarding artist names and song titles, and no additional meta-data like ratings.
 	\item[MagnaTagATune] \cite{magnatagatune} is a popular dataset of 5,405 source songs from 230 artists, cut in 25,863 clips. The music was collected from the \href{https://magnatune.com/}{Magnatune} label and was tagged using the \href{http://tagatune.org/}{TagATune} game. The dataset includes meta-data, audio features and raw audio, although the 16 kHz, 32kbps, mono mp3 are of poor audio quality.
 	\item[The Million Song Dataset (MSD)] \cite{msd} is a free and legal collection of 1 million music songs. Each song data is composed of high-level and medium-level audio features provided by  Echonest service and meta-data like artist name, song title, track genre, etc. It has its own dedicated website with related code and additional datasets. The very large scale of this music dataset would make it an ideal candidate for deep learning, which works best with large datasets. However, deep learning techniques work directly on the raw data (audio tracks in this case, like raw image pixels in computer vision) and not on pre-processed audio features given by Echonest. This prevents the application of deep learning on this dataset. Finally, Echonest reassigned the indexing of the MDS songs with its database, which henceworth makes (almost) impossible the use of the most music recent features developed by Echonest.
-		While researchers have been able to download sample audio from the online service \url{7signal.com} and extract features by themselves, the process is tedious \cite{msd_features}.
+		While researchers have been able to download sample audio from the online service \href{https://www.7digital.com}{7digital.com} and extract features by themselves, the process is tedious \cite{msd_features}.
 	\item[AudioSet] \cite{audioset} is a dataset of 2.1 million annotated 10-second sound clips associated with 527 classes. The ontology is quite broad and covers sounds from music to cars, engines or animals. The raw audio is however not included and has to be downloaded from Youtube. It is not clear of what happens if a referenced video gets deleted.
 \end{description}
 
@@ -114,7 +120,7 @@ We discuss below some of the most related datasets, see \tabref{tab:datasets} fo
 		\bottomrule
 	\end{tabular}
 	\begin{tablenotes}
-		\item[1] Audio can be downloaded from a web service. % \url{www.ballroomdancers.com} \url{7signal.com} \url{youtube.com}
+		\item[1] Audio can be downloaded from a web service. % \url{www.ballroomdancers.com} \url{7digital.com} \url{youtube.com}
 		\item[2] The 25,863 clips come from 5,405 songs.
 		\item[3] Low quality 16 kHz, 32kbps, mono mp3.
 	\end{tablenotes}
@@ -129,34 +135,51 @@ We discuss below some of the most related datasets, see \tabref{tab:datasets} fo
 
 % TODO licensing
 
-\begin{table}
+\begin{table*}[t]
 	\centering
 	\begin{threeparttable}
-	\begin{tabular}{lrrcc}
+		\begin{tabular}{lr
+			>{$}r<{$}
+			@{}>{${}={}$}c@{}
+			>{$}l<{$}
+			>{$}c<{$}
+			cc}
 		\toprule
-		dataset & \#clips & length\tnote{1} & \#days\tnote{2} & size\tnote{3} \\
+		dataset & \#samples & \multicolumn{3}{c}{dimensionality} & \text{scale} & size [GB] & size [days] \\
 		\midrule
-		\href{http://mirg.city.ac.uk/codeapps/the-magnatagatune-dataset}{TagATune} \cite{magnatagatune} & 25,863 & 29 & 8.7 & 3 \\ % MagnaTagATune
-		\href{https://research.google.com/audioset/}{AudioSet} \cite{audioset} & 2,100,000 & 10 & 243 & - \\
-		\href{https://labrosa.ee.columbia.edu/millionsong/}{MSD} \cite{msd} & 1,000,000 & 30, 60\tnote{4} & 541 & 625 \\
-		\bf \href{https://github.com/mdeff/fma/}{FMA} & \bf 110,000 & \bf 10-180 & \bf ? & \bf 900 \\
+		\href{http://mirg.city.ac.uk/codeapps/the-magnatagatune-dataset}{TagATune} \cite{magnatagatune} &
+			25,863 & 29\cdot16\cdot10^3\cdot1 && 4.6\cdot10^5 & 1.2\cdot10^{10} & 3 & 8.7 \\ % MagnaTagATune
+		\href{https://research.google.com/audioset/}{AudioSet} \cite{audioset} \tnote{1} &
+			2,100,000 & 10\cdot44\cdot10^3\cdot2 && 8.8\cdot10^5 & 1.8\cdot10^{12} & - & 243 \\
+		\href{https://labrosa.ee.columbia.edu/millionsong/}{MSD} \cite{msd} \tnote{2} &
+			1,000,000 & 49\cdot27\cdot10^3\cdot2 && 2.6\cdot10^6 & 2.6\cdot10^{12} & 625 & 541 \\
+		\href{https://github.com/mdeff/fma/}{FMA} \tnote{3} &
+			110,000 & 180\cdot44\cdot10^3\cdot2 && 1.6\cdot10^7 & 1.7\cdot10^{12} & 900 & 229 \\
+		\midrule
+		\href{http://yann.lecun.com/exdb/mnist/}{MNIST} \cite{mnist} &
+			70,000 & 28\cdot28\cdot1 && 7.8\cdot10^2 & 5.5\cdot10^{7\phantom0} & 0.011 & - \\
+		\href{https://www.cs.toronto.edu/~kriz/cifar.html}{CIFAR-10} \cite{cifar} &
+			60,000 & 32\cdot32\cdot3 && 3.0\cdot10^3 & 1.8\cdot10^{8\phantom0} & 0.16 & - \\
+		\href{http://www.image-net.org}{ImageNet} \cite{imagenet} \tnote{4} &
+			14,000,000 & 482\cdot415\cdot3 && 6.0\cdot10^5 & 8.4\cdot10^{12} & 1000 & - \\
 		\bottomrule
 	\end{tabular}
 	\begin{tablenotes}
-		\item[1] Length of available clips in seconds.
-		\item[2] Number of days to listen to the whole available audio.
-		\item[3] Size of the audio (accounts for duration and quality).
-		\item[4] Most excerpts from 7digital are 30 or 60s \cite{msd_features}.
+		\item[1] \href{https://support.google.com/youtube/answer/6039860}{YouTube recommended} sample rate for music videos.
+		\item[2] Average duration and sample rate. Most excerpts from \href{https://www.7digital.com}{7digital} are 30 or 60s and 22 or 44kHz \cite{msd_features}.
+		\item[3] Average duration and sample rate. See \todo{ad} for details.
+		\item[4] Average resolution. Although most applications resize or crop to $256\cdot256$.
 	\end{tablenotes}
 	\end{threeparttable}
-	\caption{Audio size comparison.}
+	\caption{Size comparison. Dimensionality is (length $\cdot$ sample rate $\cdot$ \#channels) for audio and (xdim $\cdot$ ydim $\cdot$ \#channels) for images. Scale is the number of samples times the dimensionality. Size is for a (zipped) archive of all mp3 or jpeg in GB, which is an indication of the quantity of information, e.g. duration or quality. The last column is the number of days to listen to the whole available audio.}
 	\label{tab:size}
-\end{table}
+\end{table*}
 
 % table quality
 
 Our differentiating factors:
 \begin{description}
+	\item[Large scale.] Large datasets are needed to avoid overtraining and to effectively learn models that incorporate the ambiguities and inconsistencies that one finds with genre. While FMA is not the largest in term of number of clips, every other dataset with readily available quality audio are two orders of magnitude smaller. A possibly more important size metric here is the total amount of audio, i.e. the sum of the lengths of all clips, in which FMA is in a much better position (see \tabref{tab:size}). For comparison, ImageNet \cite{imagenet}, the largest benchmark dataset in computer vision features 14 million images. Despite a much larger collection, the amount of data is comparable to that of MSD or FMA because of the smaller dimensionality, as shown in \tabref{tab:size}. For statistical learning algorithms, the scale of FMA and MSD is thus comparable to ImageNet.
 	\item[Permissive licensing.] MIR research has historically suffered from the lack of publicly available benchmark datasets. Most of these issues stem from the commercial interest in music by record labels, and therefore imposed rigid copyright. All songs are licensed under Creative Commons by the artists and can thus be redistributed.
 * In contrast with images or text for which plenty of data is available online
 	\item[Audio.] most of the largest datasets are distributed with features, sometimes computed by commercial services like the Echonest. Researchers are wary of those proprietary features and have seek to compute features themselves, e.g. on the MSD \cite{msd_features}. In contrast, FMA provides audio for each song.
@@ -187,21 +210,20 @@ We see from \tabref{tab:datasets} that most of the smallest datasets come with a
 Creative Commons: MagnaTagATune
 Proprietary, non-redistributable: MSD, AudioSet?
 
-\noindent
-{\bf What would be the requirements for an ideal music dataset?}  \\
-(1) Availability of raw audio tracks like 30sec or more,\\
-(2) Availability of meta-data such as genres, artist, title, year, lyrics, users' ratings, users' comments, etc,\\
-(3) Large-scale dataset to be able to sample the high-dimensional distribution of music genres\\
-(4) Free and easy access of the dataset,\\
-(5) Legality of the dataset, no copyright issue with e.g. open access licence.\\
+% Do not present like this because we might want representativeness. Which would necessarily include commercial music.
+
+%{\bf What would be the requirements for an ideal music dataset?} \\
+%(1) Availability of raw audio tracks like 30sec or more,\\
+%(2) Availability of meta-data such as genres, artist, title, year, lyrics, users' ratings, users' comments, etc,\\
+%(3) Large-scale dataset to be able to sample the high-dimensional distribution of music genres\\
+%(4) Free and easy access of the dataset,\\
+%(5) Legality of the dataset, no copyright issue with e.g. open access licence.\\
 
 
-
-
-
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The Dataset} %Introducing the FMA dataset}
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 % Describe what it is, what are the meta-data and features.
 
@@ -210,6 +232,10 @@ Most tracks are released under a Creative Commons license\footnote{\url{https://
 
 \subsection{Analysis}
 % Figures and tables from analysis.ipynb
+
+\subsubsection{Genres}
+
+While it is difficult to construct a hierarchy of genres, we follow that of our source.
 
 \subsection{Features} % Feature sets
 
@@ -253,15 +279,17 @@ Regarding the splitting train-test sets, we considered these constraints:\\
 The FMA\_large dataset of 77,643 data contains songs of 30sec length, and artist name, track title, track genres, track listens as meta-data. Our original motivation was to give the full audio tracks, not limited to 30sec, but the size of the whole music tracks is 806.8GB (for approximatively 256 days of music listening) making the hosting a challenging issue.
 
 
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Proposed tasks} % usage, problems
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % List some MIR tasks and propose some who can be done with that dataset
+
 
 genre classification, mood classification, artist identification/recognition, instrument recognition, music annotation (tags),
 Artist Identification, Genre classification, Mood Classification, Instrument identification, Music Similarity, Autotagging, Automatic playlist generation
 
 Can be down: genre, artist, popularity prediction, tags, year prediction
+% Cannot: mood, style, annotations
 
 % TODO
 % Problems
@@ -286,10 +314,17 @@ We propose three genre classification problems of varying difficulty.
 Training / testing division.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Genre Recognition} % MGR, Baselines
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % One of the most common task, we give some baselines so that people have a reference about how hard it is.
+% ground truth for genre: AllMusic Guide (album, artist), Gracenote CDDB (song)
 
-Music genre recognition (MGR) is one of the most researched areas of MIR.
+
+% genre not defined by audio content only
+While the utility of music genre recognition (MGR) has been debated, mostly because of its ambiguity and cultural definition, it is widely used and understood by end-users who find it useful to discuss musical categories \cite{mgr_why}. Moreover, it is one of the most researched areas of MIR.
+
+While there certainly is noise in our labels, we trust the artists to have selected the most appropriate set of genres for their own songs.
 
 %\noindent
 %{\bf Baseline classification techniques.}  In this section, we consider perhaps the most popular music analysis problem, the music genre recognition (MGR) problem. We apply standard baseline classification techniques on 2 representations of audio data: \\
@@ -303,11 +338,10 @@ Music genre recognition (MGR) is one of the most researched areas of MIR.
 %Table xxx reports the classification accuracy on the train and test datasets.\\
 
 
-
-
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion and Perspectives}
-%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 The FMA enables researchers to test algorithms on a large-scale collection, thus allowing to test them on more real-world like environments. By providing audio, we do not limit the benchmarking to pre-computed features and allow scientists to develop and test new feature sets, learn features, or learn mappings directly from the audio.
 
@@ -328,7 +362,11 @@ While this data release is pretty large, it is still two orders of magnitude beh
 
 % last.fm: 45 million http://www.skilledtests.com/wiki/Last.fm_statistics
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Acknowledgments}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 We are grateful to SWITCH and EPFL for hosting the dataset within the context
 of the \href{https://projects.switch.ch/scale-up/}{SCALE-UP} project, funded in
@@ -338,7 +376,9 @@ P-2 program}.
 We are grateful to the team supporting the \href{https://freemusicarchive.org}{Free Music Archive} as well as all the contributing artists and curators for the fantastic content they made available.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \bibliography{refs}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
