@@ -174,17 +174,25 @@ We discuss below some of the most related datasets, see \tabref{tab:datasets} fo
 % table quality
 
 Our differentiating factors:
-\begin{description}
-	\item[Large scale.] Large datasets are needed to avoid overtraining and to effectively learn models that incorporate the ambiguities and inconsistencies that one finds with genre. While FMA is not the largest in term of number of clips, every other dataset with readily available quality audio are two orders of magnitude smaller. A possibly more important size metric here is the total amount of audio, i.e. the sum of the lengths of all clips, in which FMA is in a much better position (see \tabref{tab:size}). For comparison, ImageNet \cite{imagenet}, the largest benchmark dataset in computer vision features 14 million images. Despite a much larger collection, the amount of data is comparable to that of MSD or FMA because of the smaller dimensionality, as shown in \tabref{tab:size}. For statistical learning algorithms, the scale of FMA and MSD is thus comparable to ImageNet.
-	\item[Permissive licensing.] MIR research has historically suffered from the lack of publicly available benchmark datasets. Most of these issues stem from the commercial interest in music by record labels, and therefore imposed rigid copyright. All songs are licensed under Creative Commons by the artists and can thus be redistributed. The meta-data produced by ourselves are released under \todo{Creative Commons ?? v4} and the code under an MIT license.
+
+%\begin{itemize}
+\textbf{Large scale.} Large datasets are needed to avoid overtraining and to effectively learn models that incorporate the ambiguities and inconsistencies that one finds with genre. While FMA is not the largest in term of number of clips, every other dataset with readily available quality audio are two orders of magnitude smaller. A possibly more important size metric here is the total amount of audio, i.e. the sum of the lengths of all clips, in which FMA is in a much better position (see \tabref{tab:size}). For comparison, ImageNet \cite{imagenet}, the largest benchmark dataset in computer vision features 14 million images. Despite a much larger collection, the amount of data is comparable to that of MSD or FMA because of the smaller dimensionality, as shown in \tabref{tab:size}. For statistical learning algorithms, the scale of FMA and MSD is thus comparable to ImageNet.
+
+\textbf{Permissive licensing.} MIR research has historically suffered from the lack of publicly available benchmark datasets. Most of these issues stem from the commercial interest in music by record labels, and therefore imposed rigid copyright. All songs, i.e. all \texttt{.mp3} in the \texttt{.zip} archives, are licensed under Creative Commons by the artists which allows redistribution. The meta-data produced by ourselves, i.e. all the \texttt{.json} files, is released under the terms of the \href{https://creativecommons.org/licenses/by/4.0)}{Creative Commons Attribution 4.0 International License (CC BY 4.0)} and the code, i.e. all the files in the git repository, under the MIT license.
+
 * In contrast with images or text for which plenty of data is available online
-	\item[Audio.] most of the largest datasets are distributed with features, sometimes computed by commercial services like the Echonest. Researchers are wary of those proprietary features and have seek to compute features themselves, e.g. on the MSD \cite{msd_features}. In contrast, FMA provides audio for each song.
-	\item[High quality audio.] full-length original audio uploaded by the artist. Stereo mp3 with bitrates varying between x. Audio, if released or available to download, is usually clips of 10 to 30 seconds. To our knowledge, none of the released datasets up to this date come with full-length audio.
-	\item[Future proof]: all audio and meta-data can be downloaded as ZIP archives, no need to scrap the web yourself. They are checksummed, have a DOI and are hosted on \href{https://zenodo.org}{zenodo.org}, a long-term digital archive powered by CERN. We thus alleviate the risks of tracks to become unavailable, to change without notice or for online services to shut down.
-	% Western / commercial music, how to qualify broadness?
-	\item[Reproducible]: we share all the code used to (i) collect the dataset, (ii) analyze it, (iii) extract the sub-sets, (iv) compute the features and (v) the baselines, so that it can be reproduced or extended. As the original data and APIs are public, anybody can recreate the dataset.
-	\item[Easy to work with]: working with the dataset only requires to download some archives. Moreover, we provide an helper \href{https://pypi.python.org/pypi/freemusicarchive}{Python package} and some usage examples in the \texttt{usage.ipynb} Jupyter notebook to quick start using the data.
-\end{description}
+
+\textbf{Audio.} most of the largest datasets are distributed with features, sometimes computed by commercial services like the Echonest. Researchers are wary of those proprietary features and have seek to compute features themselves, e.g. on the MSD \cite{msd_features}. In contrast, FMA provides audio for each song.
+
+\textbf{High quality audio.} full-length original audio uploaded by the artist. Stereo mp3 with bitrates varying between x. Audio, if released or available to download, is usually clips of 10 to 30 seconds. To our knowledge, none of the released datasets up to this date come with full-length audio.
+
+\textbf{Future proof}: all audio and meta-data can be downloaded as ZIP archives, no need to scrap the web yourself. They are checksummed, have a DOI and are hosted on \href{https://zenodo.org}{zenodo.org}, a long-term digital archive powered by CERN. We thus alleviate the risks of tracks to become unavailable, to change without notice or for online services to shut down.
+
+% Western / commercial music, how to qualify broadness?
+\textbf{Reproducible}: we share all the code used to (i) collect the dataset, (ii) analyze it, (iii) extract the sub-sets, (iv) compute the features and (v) the baselines, so that it can be reproduced or extended. As the original data and APIs are public, anybody can recreate the dataset.
+
+\textbf{Easy to work with}: working with the dataset only requires to download some archives. Moreover, we provide an helper \href{https://pypi.python.org/pypi/freemusicarchive}{Python package} and some usage examples in the \texttt{usage.ipynb} Jupyter notebook to quick start using the data.
+%\end{itemize}
 
 % Magnatagature dead links: http://tagatune.org/Datasets.html http://tagatune.org/Magnatagatune.html
 % Announcement: https://musicmachinery.com/2009/04/01/magnatagatune-a-new-research-data-set-for-mir/
@@ -258,7 +266,7 @@ At this stage the number of genres is 138, but half have only a few samples. Thu
 
 The FMA\_large dataset of 77,643 data contains songs of 30sec length, and artist name, track title, track genres, track listens as meta-data. Our original motivation was to give the full audio tracks, not limited to 30sec, but the size of the whole music tracks is 806.8GB (for approximatively 256 days of music listening) making the hosting a challenging issue.
 
-See \texttt{generation.ipynb} for full details.
+See \texttt{creation.ipynb} for full details.
 
 \begin{table*}
 	\tiny
@@ -281,7 +289,7 @@ See \texttt{generation.ipynb} for full details.
 			  992 &                                      Jason Willett &         560 &                   Beautiful Song w/ kick drum solo &                                             [Rock] &                 Rock  \\
 	\bottomrule
 	\end{tabular}
-	\caption{Some rows and columns of the \texttt{tracks.json} table. \todo{representative and varied}}
+	\caption{Some rows and columns of the table stored in \texttt{tracks.json}. \todo{representative and varied}}
 	\label{tab:tracks}
 \end{table*}
 
@@ -312,7 +320,7 @@ See \texttt{analysis.ipynb} for more details.
 		45 & 2 & Psych-Rock & 500 \\
 		\bottomrule
 	\end{tabular}
-	\caption{Number of songs per genre. Top part is the 16 top-level genres, bottom part is the second- and third-level genres.}
+	\caption{Number of songs per genre. Top part is the 16 top-level genres, bottom part is the second- and third-level genres. The genre hierarchy is stored in \texttt{genres.json}.}
 	\label{tab:genres}
 \end{table}
 
@@ -355,7 +363,7 @@ Below are the constraints we followed:
 	\item We forced an artist to be either in the train set, or the test set (meaning the artist's songs cannot be in both train and test sets).
 	\item We filled alternatively the train set and test set in the descending order of the count of artist songs. This forces the two sets to have the same distribution of songs per artist.
 \end{enumerate}
-A track is assigned in train or split for all the subsets and the above constraints are satisfied for all sets. See \texttt{generation.ipynb} for full details.
+A track is assigned in train or split for all the subsets and the above constraints are satisfied for all sets. See \texttt{creation.ipynb} for full details.
 
 \subsection{Subsets} \label{sec:subsets}
 
@@ -370,7 +378,7 @@ A track is assigned in train or split for all the subsets and the above constrai
 		small  &   4,000 & 10  & 30    & 3.4  & 1.4  \\
 		medium &  14,511 & 20  & 30    & 12.2 & 5.1  \\
 		large  & 110,000 & 164 & 30    & 90   & 26.9 \\
-		huge   & 110,000 & 164 & <1800 & 900  & 229  \\
+		full   & 110,000 & 164 & <1800 & 900  & 229  \\
 		\bottomrule
 	\end{tabular}
 	\caption{Proposed subsets of the FMA.}
@@ -379,6 +387,7 @@ A track is assigned in train or split for all the subsets and the above constrai
 
 Finally, for the dataset to be useful as a development set or for people with lower computational resources, we propose the following subsets, each of which is a subset or the larger set:
 \begin{enumerate}
+	\item \textbf{Full}: this is the complete dataset as described in \secref{sec:content}.
 	\item \textbf{Large}: this is the full dataset except audio is 30 seconds clips extracted from the middle of the tracks.
 	\item \textbf{Medium}: all tracks which have Echonest features.
 	\item \textbf{Small}: tracks from 10 top-level genres, balanced with 400 tracks per genre, 1 genre per track. This subset is similar to the very popular GTZAN in terms of size and genre distribution with the added benefits of the FMA, that is meta-data, pre-computed features and copyright-free audio.
@@ -506,11 +515,13 @@ While this data release is pretty large, it is still two orders of magnitude beh
 
 
 We are grateful to SWITCH and EPFL for hosting the dataset within the context
-of the \href{https://projects.switch.ch/scale-up/}{SCALE-UP} project, funded in
+of the \href{https://projects.switch.ch/scale-up}{SCALE-UP} project, funded in
 part by the swissuniversities \href{http://www.swissuniversities.ch/isci}{SUC
 P-2 program}.
 
 We are grateful to the team supporting the \href{https://freemusicarchive.org}{Free Music Archive} as well as all the contributing artists and curators for the fantastic content they made available.
+
+We also want to thank the team behind \href{https://zenodo.org}{zenodo.org}, whose free hosting and archiving of digital research artifacts is promoting a more open scientific process.
 
 \bibliography{refs}
 \end{document}
