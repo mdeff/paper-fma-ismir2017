@@ -45,14 +45,14 @@
 
 % about 150-200 words.
 \begin{abstract}
-The Free Music Archive (FMA) is an open and easily accessible music dataset that can be used to evaluate several tasks in music information retrieval (MIR).
+The Free Music Archive (FMA) is an open and easily accessible dataset that can be used to evaluate several tasks in music information retrieval (MIR).
 % TODO: which tasks
 While content-based MIR tasks have typically been solved with feature engineering,
 %with a two-stage approach: engineered features are extracted from music audio signals, and are then used as input to a regressor or classifier.
-feature learning and end-to-end learning %, i.e. learning from signals to labels
-are receiving more attention from the community. 
+the community is becoming interested in feature learning and end-to-end learning. %, i.e. learning from signals to labels
+That endeavor is however restrained by the limited availability of large audio datasets.
 % The primary goal of this dataset is to enable the training of large models, which require lots of training data, which could potentially avert the semantic gap currently observed between the extracted low-level features such as MFCCs and the high-level targets such as genre.
-Those models are however data-hungry and this dataset is meant to foster research which will ultimately surpass the performance ceiling observed in e.g. genre recognition (MGR).
+By releasing the FMA we hope to foster research which will improve the state-of-the-art in several tasks and hopefully surpass the performance ceiling observed in e.g. genre recognition (MGR).
 % as it happened in computer vision with the release of ImageNet.
 The released data is composed of \todo{110,000 tracks, xx artists, xx albums}, 164 genres, for a total of 229 days of audio and 900 GiB, all under permissive Creative Commons licenses.
 It features a collection of meta-data such as the song title, artist name, album or genres, together with full-length and high-quality audio, user data such as play counts, as well as a set of pre-computed features. We propose a train / test split and three subsets: a small genre-balanced dataset of 4,000 songs and 10 genres, a medium genre-unbalanced dataset of 14,511 songs and 20 genres, and a 90 GiB version of the full set, with clips trimmed to 30s.
@@ -70,10 +70,9 @@ All the code to reproduce it as well as links to download the data and usage exa
 \section{Introduction} % and Motivation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 % hook
-While the development of new mathematical models and algorithms to solve challenging real-world problems is obviously of first importance to any field of research, evaluation and comparison to the existing state-of-the-art is necessary for a technique to be widely adopted by research communities. Such tasks require benchmark datasets. % to achieve their purpose, which are sometimes challenging to collect and share.
-In computer vision, the community has developed over the years established benchmark datasets such as \href{http://yann.lecun.com/exdb/mnist/}{MNIST} \cite{mnist}, \href{https://www.cs.toronto.edu/~kriz/cifar.html}{CIFAR} \cite{cifar}, or \href{http://www.image-net.org}{ImageNet} \cite{imagenet}. These datasets are free, legal, easily available, and have proved essential to advance the field. The most celebrated example, the \href{http://www.image-net.org/challenges/LSVRC/2012/}{ILSVRC2012 challenge} on an unprecedented ImageNet subset of 1.3M images \cite{imagenet_challenge}, allowed to demonstrate the power of deep learning (DL), which won the competition with an 11\% accuracy advantage over the second best \cite{convnet_imagenet}.
+While the development of new mathematical models and algorithms to solve challenging real-world problems is obviously of first importance to any field of research, evaluation and comparison to the existing state-of-the-art is necessary for a technique to be widely adopted by research communities. Such tasks require open benchmark datasets to be reproducible. % to achieve their purpose, which are sometimes challenging to collect and share.
+In computer vision, the community has developed over the years established benchmark datasets such as \href{http://yann.lecun.com/exdb/mnist/}{MNIST} \cite{mnist}, \href{https://www.cs.toronto.edu/~kriz/cifar.html}{CIFAR} \cite{cifar}, or \href{http://www.image-net.org}{ImageNet} \cite{imagenet}. These datasets are free, legal, easily available, and have proved essential to advance the field. The most celebrated example, the \href{http://www.image-net.org/challenges/LSVRC/2012/}{ILSVRC2012 challenge} on an unprecedented ImageNet subset of 1.3M images \cite{imagenet_challenge}, demonstrated the power of deep learning (DL), which won the competition with an 11\% accuracy advantage over the second best \cite{convnet_imagenet}, and unlocked incredible achievements in both fields \cite{dl}.
 
 \begin{table}[t]
 	\centering
@@ -429,6 +428,8 @@ Artist Identification, Genre classification, Mood Classification, Instrument ide
 Can be down: genre, artist, popularity prediction, tags, year prediction
 % Cannot: mood, style, annotations
 
+% Musicology
+
 % Use: unsupervised learning for categorization, does genre emerge how ?
 % Task: classify 3secs excerpt. Much more samples, voting is often used.
 
@@ -453,7 +454,8 @@ We propose three genre classification problems of varying difficulty.
 	\item Hard, based on \texttt{fma\_large.zip}: all 164 genres, unbalanced with x-y tracks per genre, multiple genres per track
 \end{enumerate}
 
-Training / testing division.
+\subsection{Recommendation} % Recommender Systems}
+% Cite Kirell's paper
 
 \subsection{Limitations}
 
@@ -474,7 +476,7 @@ We can however expect people to cross-reference the dataset with other resources
 % MSD: Year Prediction
 
 % genre not defined by audio content only
-While the utility of music genre recognition (MGR) has been debated, mostly because of its ambiguity and cultural definition, it is widely used and understood by end-users who find it useful to discuss musical categories \cite{mgr_why}. Moreover, it is one of the most researched areas of MIR.
+While the utility of music genre recognition (MGR) has been debated, mostly because of its ambiguity and cultural definition, it is widely used and understood by end-users who find it useful to discuss musical categories \cite{mgr_why}.
 
 \subsection{Data}
 
@@ -513,6 +515,11 @@ See \texttt{baselines.ipynb} for more details.
 	\label{tab:mgr}
 \end{table}
 
+% Moreover, it is one of the most researched areas of MIR.
+While MGR has been MIR's flagship application for a while, prediction accuracy reached a glass ceiling \cite{mgr_why}.
+%thanks to the advent of specialized DL architectures with testable performances which can be compared.
+With availability of audio, DL architectures such as convolutional neural networks and recurrent neural networks can be applied to the waveform to avoid any feature engineering. While those approaches have fallen behind learning from higher-level representations such as spectrograms \cite{dieleman_endtoend}, a greater exploration of the design space will hopefully provide alternatives to solving MIR challenges \cite{mir_dl_feature_learning}.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion and Perspectives}
@@ -521,11 +528,11 @@ See \texttt{baselines.ipynb} for more details.
 
 % importance of open data
 
-The FMA enables researchers to test algorithms on a large-scale collection, closer to real-world environments. Even though it is still two orders of magnitude behind commercial services who have access to tens of millions of songs,\footnote{\href{http://the.echonest.com}{37M Echonest}, \href{https://en.wikipedia.org/wiki/Spotify}{30M Spotify}, \href{http://www.skilledtests.com/wiki/Last.fm_statistics}{45M last.fm}, \href{http://bupz.com/best-websites-to-buy-musics}{45M 7digital}, \href{https://www.apple.com/pr/library/2013/02/06iTunes-Store-Sets-New-Record-with-25-Billion-Songs-Sold.html}{26M iTunes}} it is of the same scale as the largest image dataset (see \tabref{tab:size}), which is also far behind the amount of tagged photos \href{https://www.facebook.com}{Facebook} has access to for example.
+The FMA enables researchers to test algorithms on a large-scale collection, closer to real-world environments. Even though it is still two orders of magnitude behind commercial services who have access to tens of millions of songs,\footnote{\href{http://the.echonest.com}{37M Echonest}, \href{https://en.wikipedia.org/wiki/Spotify}{30M Spotify}, \href{http://www.skilledtests.com/wiki/Last.fm_statistics}{45M last.fm}, \href{http://bupz.com/best-websites-to-buy-musics}{45M 7digital}, \href{https://www.apple.com/pr/library/2013/02/06iTunes-Store-Sets-New-Record-with-25-Billion-Songs-Sold.html}{26M iTunes}} it is of the same scale as the largest image dataset (see \tabref{tab:size}) which opened the door to dramatic performance improvements for many tasks in computer vision.
+%is also far behind the amount of tagged photos \href{https://www.facebook.com}{Facebook} has access to for example.
 By providing audio, we do not limit the benchmarking to pre-computed features and allow scientists to develop and test new feature sets, learn features, or learn mappings directly from the audio.
-While genre recognition has been MIR's flagship application for a while, prediction accuracy reached a glass ceiling \cite{mgr_why}. We hope that the advent of a large open dataset for that task will have the same effect as the release of ImageNet, i.e. a massive improvement in accuracy thanks to the advent of specialized DL architectures with testable performances which can be compared.
-With availability of audio, DL architectures such as convolutional neural networks and recurrent neural networks can be applied to the waveform, treating it as a 1D vector along a time axis, to avoid any feature engineering.
-While those approaches have fallen behind learning from higher-level representations such as spectrograms \cite{dieleman_endtoend}, a greater exploration of the design space will hopefully provide alternatives to solving MIR challenges \cite{mir_dl_feature_learning}.
+% talk about meta-data ?
+% Kirell: less DL oriented, some people don't like it. Insist on available audio.
 
 % Once that problem is well advanced, researchers will be able to tackle more difficult tasks such as tagging or annotation.
 % Besides, standard data analysis tasks such as classification, clustering, regression, text analysis, visualization can also be applied to this new music dataset.
