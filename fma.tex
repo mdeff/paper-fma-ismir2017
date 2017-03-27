@@ -154,7 +154,7 @@ In computer vision, the community has developed over the years established bench
 	\begin{tablenotes}
 		\item[1] \href{https://support.google.com/youtube/answer/6039860}{YouTube recommended} sample rate for music videos.
 		\item[2] Average duration and sample rate. Most excerpts from \href{https://www.7digital.com}{7digital} are 30 or 60s and 22 or 44kHz \cite{msd_features}. See \todo{ad} for FMA.
-		\item[3] Average resolutions. Most applications resize or crop to $256\cdot256$, for $2.6\cdot10^{11}$ and $2.8\cdot10^{12}$.
+		\item[3] Average resolutions. Most applications resize or crop to $256\cdot256$ for a scale of $2.6\cdot10^{11}$ and $2.8\cdot10^{12}$.
 		\item[4] Object detection / classification task. It is the most used dataset for image classification.
 	\end{tablenotes}
 	\end{threeparttable}
@@ -394,8 +394,8 @@ A track is assigned in train or split for all the subsets and the above constrai
 
 Finally, for the dataset to be useful as a development set or for people with lower computational resources, we propose the following subsets, each of which is a subset or the larger set:
 \begin{enumerate}
-	\item \textbf{Full}: this is the complete dataset as described in \secref{sec:content}.
-	\item \textbf{Large}: this is the full dataset except audio is 30 seconds clips extracted from the middle of the tracks.
+	\item \textbf{Full}: the complete dataset, described in \secref{sec:content}.
+	\item \textbf{Large}: the full dataset with audio limited to 30 seconds clips extracted from the middle of the tracks. That reduces the size of the data by a factor 10.
 	\item \textbf{Medium}: all tracks which have Echonest features.
 	\item \textbf{Small}: tracks from 10 top-level genres, balanced with 400 tracks per genre, 1 genre per track. This subset is similar to the very popular GTZAN in terms of size and genre distribution with the added benefits of the FMA, that is meta-data, pre-computed features and copyright-free audio.
 \end{enumerate}
@@ -426,7 +426,6 @@ genre classification, mood classification, artist identification/recognition, in
 Artist Identification, Genre classification, Mood Classification, Instrument identification, Music Similarity, Autotagging, Automatic playlist generation
 
 Can be down: genre, artist, popularity prediction, tags, year prediction
-% Cannot: mood, style, annotations
 
 % Musicology
 
@@ -440,13 +439,15 @@ Can be down: genre, artist, popularity prediction, tags, year prediction
 % Play count prediction
 % Covers: generate covers per genre / artist
 
+\subsection{Meta-data}
+
 Meta-data analysis: which genres are artists contributing to, drift in time, curators.
 While this collection does obviously not contain hits from well-known artists, it would be interesting to study to what extent it is representative of mainstream music.
 %is representative of the commercial music that most users are interested in.
 
-As it happened with e.g. the MSD, people may find and link other sources of data with the dataset, such as lyrics or tags associated to the songs, e.g. from last.fm.
+\subsection{Genre Recognition}
 
-We propose three genre classification problems of varying difficulty.
+We propose three genre classification problems of varying difficulty. We'll establish some baselines for that specific problem in the next section.
 
 \begin{enumerate}
 	\item Easy, based on \texttt{fma\_small.zip}: 10 top-level genres, balanced with 400 tracks per genre, 1 genre per track
@@ -460,9 +461,12 @@ We propose three genre classification problems of varying difficulty.
 \subsection{Limitations}
 
 \todo{what cannot be done currently}
+% Cannot: mood, style, annotations
 
 % Assess ground truth quality or augment genres by independent annotators, e.g. mechanical turk or crowdflowers
+% Cross-verify on allmusic.com
 % metadata such as genre, mood, groove, composer, performer, lyrics, meter, chord progressions,  instruments  present
+% tags annotation
 
 We can however expect people to cross-reference the dataset with other resources to unlock additional tasks, as has happened for example with the MSD and \href{http://www.allmusic.com}{AllMusic}, \href{https://www.last.fm}{last.fm} and \href{https://beatunes.com}{beaTunes} for genre recognition \cite{msd_features, msd_genres}, \href{https://musixmatch.com}{musixmatch} for lyrics, \href{https://secondhandsongs.com}{SecondHandSongs} for cover songs, or \href{https://www.thisismyjam.com}{This Is My Jam} for user play counts.
 
@@ -491,6 +495,19 @@ While there certainly is noise in our labels, we trust the artists to have selec
 To assess the difficulty of the task we tested various standard classifiers on mainstream features.
 
 A major motivation to construct the dataset was to apply the powerful Deep Learning techniques to music analysis. As a preliminary result, we trained a convolutional neural network on 3sec-spectrograms, and we select the class by majority voting.
+
+% Graph ConvNet
+% Would be good to popularize the method and make the connection with my core research. Will have to be compared to std ConvNets.
+% Node classification: each node is a track
+%	* powerful in a semi-supervised setting (traditional use of graphs in ML)
+%	* do this with Chibu or as a master thesis
+%	* artist relations --> disconnected graph
+%	* user relations (users playlists form communities)
+% Kirell [ICASSP recommender avec Vassilis]:
+%	* généralement c'est la similarité musicale
+%	* mix: metadata + audio features + social
+%	* on apprend une métrique qui pondère bien le tout par rapport au genre par exemple
+% Signal classification would mean finding a representation which can be supported by a graph. Notes on spectrograms ?
 
 \subsection{Evaluation and results}
 
@@ -548,7 +565,7 @@ We are grateful to SWITCH and EPFL for hosting the dataset within the context
 of the \href{https://projects.switch.ch/scale-up}{SCALE-UP} project, funded in
 part by the swissuniversities \href{http://www.swissuniversities.ch/isci}{SUC
 P-2 program}.
-% We also want to thank the team behind \href{https://zenodo.org}{zenodo.org}, whose free hosting and archiving of digital research artifacts is promoting a more open scientific process.
+% We are grateful to \href{https://zenodo.org}{zenodo.org}, whose free hosting and archiving of digital research artifacts is promoting a more open scientific process.
 
 \bibliography{refs}
 \end{document}
