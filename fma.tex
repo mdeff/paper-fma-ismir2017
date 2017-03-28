@@ -25,11 +25,24 @@
 
 \title{FMA: A Dataset For Music Analysis}
 
-\oneauthor
-{Michaël Defferrard, \hspace{.2cm} Kirell Benzi, \hspace{.2cm} Pierre Vandergheynst, \hspace{.2cm} Xavier Bresson}
- {{\tt michael.defferrard@epfl.ch, kirell.benzi@epfl.ch} \\
-  {\tt pierre.vandergheynst@epfl.ch, xavier.bresson@epfl.ch} \\
-  LTS2, EPFL, Lausanne, Switzerland}
+\multauthor
+{Michaël Defferrard \hspace{.6cm} Kirell Benzi \hspace{.6cm} Pierre Vandergheynst \hspace{.6cm} Xavier Bresson$^1$}
+{
+	LTS2, EPFL, Lausanne, Switzerland \hspace{1cm}
+	{\small$^1$XB is now at NTU, Singapore. Work conducted when he was at EPFL.}\\
+	{\tt\small \{michael.defferrard,kirell.benzi,pierre.vandergheynst\}@epfl.ch, xbresson@ntu.edu.sg}
+  }
+
+%\thanks{Xavier Bresson is now with NTU, Singapore. This work was conducted when he was at EPFL.}
+
+%\multauthor
+%{$^1$ \hspace{1cm} Second author$^1$ \hspace{1cm} Third author$^2$} { \bfseries{Fourth author$^3$ \hspace{1cm} Fifth author$^2$ \hspace{1cm} Sixth author$^1$}\\
+%  $^1$ Department of Computer Science, University , Country\\
+%$^2$ International Laboratories, City, Country\\
+%$^3$  Company, Address\\
+%{\tt\small CorrespondenceAuthor@ismir.edu, PossibleOtherAuthor@ismir.edu}
+%}
+%\def\authorname{First author, Second author, Third author, Fourth author, Fifth author, Sixth author}
 
 %\threeauthors
 %  {First Author} {Affiliation1 \\ {\tt author1@ismir.edu}}
@@ -55,9 +68,11 @@ That endeavor is however restrained by the limited availability of large audio d
 By releasing the FMA we hope to foster research which will improve the state-of-the-art in several tasks and hopefully surpass the performance ceiling observed in e.g. genre recognition (MGR).
 % as it happened in computer vision with the release of ImageNet.
 The released data is composed of \todo{110,000 tracks, xx artists, xx albums}, 164 genres, for a total of 229 days of audio and 900 GiB, all under permissive Creative Commons licenses.
-It features a collection of meta-data such as the song title, artist name, album or genres, together with full-length and high-quality audio, user data such as play counts, as well as a set of pre-computed features. We propose a train / test split and three subsets: a small genre-balanced dataset of 4,000 songs and 10 genres, a medium genre-unbalanced dataset of 14,511 songs and 20 genres, and a 90 GiB version of the full set, with clips trimmed to 30s.
-This paper describes the dataset and how it was created, proposes some tasks and evaluate some baselines for MGR.
-All the code to reproduce it as well as links to download the data and usage examples are available at \url{https://github.com/mdeff/fma}.
+It features a collection of meta-data such as the song title, artist name, album or genres, together with full-length and high-quality audio, user data such as play counts, as well as a set of pre-computed features. We propose a train/validation/test split and three subsets: a small genre-balanced dataset of 4,000 songs and 10 genres, a medium genre-unbalanced dataset of 14,511 songs and 20 genres, and a 90 GiB version of the full set, with clips trimmed to 30s.
+This paper describes the dataset and how it was created, proposes some tasks, and evaluates some baselines for MGR.
+% Xavier: tasks, such as ...
+Code, data, and usage examples are available at \url{https://github.com/mdeff/fma}.
+%All the code to create,  as well as links to download the data and usage examples are available at \url{https://github.com/mdeff/fma}.
 
 % Our major goal is to go beyond the existing limitations of available music datasets, which are either the small size of datasets with raw audio tracks, the availability and legality of the music data, or the lack of meta-data for artists analysis or song ratings for recommender systems. Existing datasets such as GTZAN, TagATune, and Million Song suffer from the previous limitations. It is however essential to establish such benchmark datasets to advance the field of music analysis, like the ImageNet dataset which made possible the large success of deep learning techniques in computer vision.
 
@@ -79,7 +94,7 @@ In computer vision, the community has developed over the years established bench
 	\begin{threeparttable}
 	\begin{tabular}{l@{ }rrcc}
 		\toprule
-		dataset & \#clips & \#artists & year & audio \\
+		dataset\tnote{1} & \#clips & \#artists & year & audio \\
 		\midrule
 		\href{https://staff.aist.go.jp/m.goto/RWC-MDB/}{RWC} \cite{RWC} & 465 & - & 2001 & yes \\
 		\href{http://calab1.ucsd.edu/~datasets/cal500/}{CAL500} \cite{cal500} & 500 & 500 & 2007 & yes \\
@@ -93,22 +108,23 @@ In computer vision, the community has developed over the years established bench
 		\href{http://www.seyerlehner.info/index.php?p=1_3_Download}{Unique} \cite{unique} & 3,115 & 3,115 & 2010 & yes \\
 		\href{http://www.seyerlehner.info/index.php?p=1_3_Download}{1517-Artists} \cite{1517artists} & 3,180 & 1,517 & 2008 & yes \\
 		\href{http://www.ppgia.pucpr.br/~silla/lmd/}{LMD} \cite{lmd} & 3,227 & - & 2007 & no \\
-		\href{http://anasynth.ircam.fr/home/media/ExtendedBallroom}{EBallroom} \cite{extballroom} & 4,180 & - & 2016 & no\tnote{1} \\
+		\href{http://anasynth.ircam.fr/home/media/ExtendedBallroom}{EBallroom} \cite{extballroom} & 4,180 & - & 2016 & no\tnote{2} \\
 		\href{https://labrosa.ee.columbia.edu/projects/musicsim/uspop2002.html}{USPOP} \cite{uspop} & 8,752 & 400 & 2003 & no \\
 		\href{http://calab1.ucsd.edu/~datasets/cal10k/}{CAL10k} \cite{cal10k} & 10,271 & 4,597 & 2010 & no \\ % Swat10k
-		\href{http://mirg.city.ac.uk/codeapps/the-magnatagatune-dataset}{TagATune} \cite{magnatagatune} & 25,863\tnote{2} & 230 & 2009 & yes\tnote{3} \\ % MagnaTagATune
+		\href{http://mirg.city.ac.uk/codeapps/the-magnatagatune-dataset}{TagATune} \cite{magnatagatune} & 25,863\tnote{3} & 230 & 2009 & yes\tnote{4} \\ % MagnaTagATune
 		\href{http://jmir.sourceforge.net/index_Codaich.html}{Codaich} \cite{codaich} & 26,420 & 1,941 & 2006 & no \\ % paper 20,849
 		\bf \href{https://github.com/mdeff/fma/}{FMA} & \bf 110,000 & \bf \todo{?} & \bf 2017 & \bf yes \\
 		\href{http://www.omras2.org/}{OMRAS2} \cite{omras} & 152,410 & 6,938 & 2009 & no \\
-		\href{https://labrosa.ee.columbia.edu/millionsong/}{MSD} \cite{msd} & 1,000,000 & 44,745 & 2011 & no\tnote{1} \\
-		\href{https://research.google.com/audioset/}{AudioSet} \cite{audioset} & 2,084,320 & - & 2017 & no\tnote{1} \\
+		\href{https://labrosa.ee.columbia.edu/millionsong/}{MSD} \cite{msd} & 1,000,000 & 44,745 & 2011 & no\tnote{2} \\
+		\href{https://research.google.com/audioset/}{AudioSet} \cite{audioset} & 2,084,320 & - & 2017 & no\tnote{2} \\
 		\bottomrule
 	\end{tabular}
 	\begin{tablenotes}
 		% 103-Artists is also known as DB-L, Extended Ballroom
-		\item[1] Audio can be downloaded from \href{http://www.ballroomdancers.com}{ballroomdancers.com}, \href{https://www.7digital.com}{7digital.com}, \href{https://www.youtube.com}{youtube.com}.
-		\item[2] The 25,863 clips are cut from 5,405 songs.
-		\item[3] Low quality 16 kHz, 32kbps, mono mp3.
+		\item[1] Names are links to datasets' homepage.
+		\item[2] Audio can be downloaded from \href{http://www.ballroomdancers.com}{ballroomdancers.com}, \href{https://www.7digital.com}{7digital.com}, \href{https://www.youtube.com}{youtube.com}.
+		\item[3] The 25,863 clips are cut from 5,405 songs.
+		\item[4] Low quality 16 kHz, 32kbps, mono mp3.
 	\end{tablenotes}
 	\end{threeparttable}
 	\caption{Comparison with some other datasets.} % Genre classification datasets.
@@ -163,6 +179,8 @@ In computer vision, the community has developed over the years established bench
 \end{table*}
 % Magnatagature dead links: http://tagatune.org/Datasets.html http://tagatune.org/Magnatagatune.html
 % Announcement: https://musicmachinery.com/2009/04/01/magnatagatune-a-new-research-data-set-for-mir/
+
+% Xavier: De meme pour Table 2, c'est interessant bien sur, mais encore une fois, les datasets de MSD et autres n'ont pas disponible (directement et facilement) les raw audio data. Cela rend confusing le main message. Aussi, je ne parlerais pas des MNIST, CIFAR et autres image datasets, ce n'est pas le point de ce papier, targeted music, et cela peut rendre notre message confusing.
 
 % Besides, the most influential competition in the field of music analysis organized every year is the Music Information Retrieval Evaluation eXchange (MIREX).\href{http://www.music-ir.org/mirex/wiki/}{MIREX} proposes several important music analysis challenges such as song identification, tag classification, music similarity and retrieval, etc. However, participants do not have access to neither the test set, nor the important train set. They must upload their code to a website that will be evaluated by the organizers. In other words, participants cannot train their analysis models on any part of the dataset.
 
@@ -228,7 +246,7 @@ Moreover, anybody can recreate or extend the collection, thanks to public songs 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-%\subsection{The Free Music Archive}
+\subsection{The Free Music Archive}
 
 The dataset is a dump of the \href{https://freemusicarchive.org/}{Free Music Archive}, an interactive library of high-quality, legal audio downloads directed by \href{https://wfmu.org/}{WFMU}, the longest-running freeform radio station in the United States.
 The archive is funded by the New York State Music Fund, the MacArthur Foundation, the National Endowment for the Arts, and from the project's users.
@@ -240,10 +258,10 @@ Inspired by Creative Commons and the open-source software movement, the FMA prov
 
 \begin{table}
 	\centering
-	\begin{tabular}{|ll|}
+	\begin{tabular}{|llll|}
 		\hline
-		track\_id & track\_title \\
-		album\_title & artist\_name \\
+		track\_id & track\_title & album\_title & artist\_name \\
+		genres & play\_count & & \\
 		\hline
 	\end{tabular}
 	\caption{List of per-song meta-data.}
@@ -363,12 +381,13 @@ See \texttt{features.ipynb} for more details.
 
 \subsection{Splits}
 
-A train / test split is proposed to make research on the FMA reproducible.
+A split into training, validation and test sets is proposed to make research on the FMA reproducible. The training and validation sets should be merged if cross-validation is used instead.
 Below are the constraints we followed:
 \begin{enumerate}
-	\item For each genre, we randomly split train and test songs with the same ratio 80-20\%.
-	\item We forced an artist to be either in the train set, or the test set (meaning the artist's songs cannot be in both train and test sets).
-	\item We filled alternatively the train set and test set in the descending order of the count of artist songs. This forces the two sets to have the same distribution of songs per artist.
+	\item The songs were split with the same ratio 80/10/10\% across all genres, i.e. a ratio of about 6 between training and validation/test sets.
+	% PTB 19/3/3, MNIST 60/10, ImageNet 1200/50/100 --> ratio ~6-12
+	\item We forced an artist to appear in one set only, i.e. all songs from a given artist either appear in test, validation or train.
+	\item We alternatively filled the three sets in descending order of the count of artist songs. It forces the three sets to have the same distribution of songs per artist.
 \end{enumerate}
 A track is assigned in train or split for all the subsets and the above constraints are satisfied for all sets. See \texttt{creation.ipynb} for full details.
 
@@ -560,11 +579,9 @@ By providing audio, we do not limit the benchmarking to pre-computed features an
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-We are grateful to the team supporting the \href{https://freemusicarchive.org}{Free Music Archive} as well as all the contributing artists and curators for the fantastic content they made available.
-We are grateful to SWITCH and EPFL for hosting the dataset within the context
-of the \href{https://projects.switch.ch/scale-up}{SCALE-UP} project, funded in
-part by the swissuniversities \href{http://www.swissuniversities.ch/isci}{SUC
-P-2 program}.
+We want to thank the team supporting the \href{https://freemusicarchive.org}{Free Music Archive} as well as all the contributing artists and curators for the fantastic content they made available. In a \href{https://freemusicarchive.org/member/cheyenne_h/blog/FMA_Dataset_for_Researchers}{blog post about this dataset}, Cheyenne Hohman, the Director at the Archive, wrote that "by embracing the some rights reserved philosophy of Creative Commons, artists are not only making their music available for the public to listen to, but also for educational and research applications"
+We are grateful to SWITCH and EPFL for hosting the dataset within the context of the \href{https://projects.switch.ch/scale-up}{SCALE-UP} project, funded in part by the swissuniversities \href{http://www.swissuniversities.ch/isci}{SUC P-2 program}.
+Xavier Bresson is supported by NRF Fellowship NRFF2017-10.
 % We are grateful to \href{https://zenodo.org}{zenodo.org}, whose free hosting and archiving of digital research artifacts is promoting a more open scientific process.
 
 \bibliography{refs}
