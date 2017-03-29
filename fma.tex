@@ -273,6 +273,7 @@ Song meta-data, such as the title, album, name of the artist, genres as well as 
 \todo{Top-level genres.} Then, we created a top genre by simply picking the first genre in the original list of track genres provided by the artists.
 
 %\subsection{Data Cleaning}
+% classes with less than 1% of the number of tracks of the biggest class Pop/Rock are removed
 
 \todo{Adjust when redone.}
 As a first filtering, we kept the data that has audio tracks, reducing the size to 86,886 music data. 
@@ -358,36 +359,29 @@ See \texttt{analysis.ipynb} for more details.
 
 \subsection{Features} % Feature sets
 
-We extracted a wide range of audio features from the audio, using the \href{https://github.com/librosa/librosa}{librosa} Python library. An overview
-on these features is given in \tabref{tab:features}.
-In addition, a number of descriptive medium-level and high-level audio features extracted by \href{http://the.echonest.com/}{The Echo Nest}, a music platform for developers and media companies, are provided for some tracks. These features include tempo, loudness, timings of fade-in and fade-out, and MFCC-like features for a number of segments.
-Those features can be obtained either by uploading the songs to their website, which are then analyzed and sent back to the user, or simply retrieved from their database if the songs are known to them, i.e. they were analyzed before. All of which can be done through an \href{http://developer.echonest.com}{API}. In our case, we only retrieved features from songs which were already in their database.
-See \texttt{features.ipynb} for more details.
+% good features according to \cite{msd_features}: Statistical Spectrum Descriptors from rp_extract
 
-\begin{table}
-	\centering
-	\begin{tabular}{llr}
-		\toprule
-		Feature set & Extractor & Dimensionality \\
-		\midrule
-		MFCCs \cite{mfcc} & librosa & 26 \\
-		MFCCs \cite{mfcc} & librosa & 26 \\
-		MFCCs \cite{mfcc} & librosa & 26 \\
-		\bottomrule
-	\end{tabular}
-	\caption{Overview of features extracted from the FMA samples.}
-	\label{tab:features}
-\end{table}
+The upper part of \tabref{tab:features} lists the (mostly spectral) features we extracted from the audio with the \href{https://github.com/librosa/librosa}{librosa} Python library, version 0.5.0.
+Each feature set is extracted on windows of 2048 samples spaced by 512 samples. We then computed 7 statistics over all windows: the mean, standard deviation, skew, kurtosis, median, minimum and maximum.
+All those pre-computed features are distributed in \texttt{features.csv} for all tracks.\footnote{The code to compute them can be found in \texttt{features.ipynb}}
+
+In addition,
+% a number of descriptive medium-level and high-level audio
+features extracted by \href{http://the.echonest.com/}{The Echo Nest}, a music platform, are provided for some tracks. These features include high-level audio features (acousticness, danceability, energy, instrumentalness, liveness, speechiness, tempo, valence), social features (artist discovery, artist familiarity, artist hotttness, song currency, song hotttness), and MFCC-like temporal features for a number of segments \cite{echonest_temporal}. They are distributed in \texttt{echonest.csv}.
+%Echonest audio features are described in Kirell's paper
+%Those features can be obtained either by uploading the songs to their website, which are then analyzed and sent back to the user, or simply retrieved from their database if the songs are known to them, i.e. they were analyzed before. All of which can be done through an \href{http://developer.echonest.com}{API}. In our case, we only retrieved features from songs which were already in their database.
 
 \subsection{Splits}
 
-A split into training, validation and test sets is proposed to make research on the FMA reproducible. The training and validation sets should be merged if cross-validation is used instead.
+% PTB 19/3/3, MNIST 60/10, ImageNet 1200/50/100 --> ratio ~6-12
+A 80/10/10\% split into training, validation and test sets is proposed to make research on the FMA reproducible. The training and validation sets should be merged if cross-validation is used instead.
 Below are the constraints we followed:
+% Data was stratified according to the following criteria: ground truth, artist and times filters
 \begin{enumerate}
-	\item The songs were split with the same ratio 80/10/10\% across all genres, i.e. a ratio of about 6 between training and validation/test sets.
-	% PTB 19/3/3, MNIST 60/10, ImageNet 1200/50/100 --> ratio ~6-12
-	\item We forced an artist to appear in one set only, i.e. all songs from a given artist either appear in test, validation or train.
-	\item We alternatively filled the three sets in descending order of the count of artist songs. It forces the three sets to have the same distribution of songs per artist.
+	\item Stratified sampling was used to preserve the percentage of samples for each class. This is important for minority classes.
+	\item Stratified sampling with an artist filter, i.e. forcing an artist to appear in one set only. All songs from a given artist either appear in train, validation or test, never in two of them.
+	\item Stratified sampling with a time filter, i.e. for each genre using the earlier songs in the training set, and the later releases in the validation and test sets.
+	\item Finally, we alternatively filled the three sets in descending order of the count of artist songs. This forces the three sets to have the same distribution of songs per artist (in addition to songs per genre).
 \end{enumerate}
 A track is assigned in train or split for all the subsets and the above constraints are satisfied for all sets. See \texttt{creation.ipynb} for full details.
 
@@ -427,6 +421,7 @@ Finally, for the dataset to be useful as a development set or for people with lo
 % List some MIR tasks and propose some who can be done with that dataset
 
 % MSD: metadata analysis, artist recognition, automatic music tagging, recommendation, cover song recognition, lyrics, limitations
+% MSD: Year Prediction
 
 % MSD website typical MIR tasks:
 % Segmentation
@@ -465,6 +460,7 @@ While this collection does obviously not contain hits from well-known artists, i
 %is representative of the commercial music that most users are interested in.
 
 \subsection{Genre Recognition}
+% ground truth for genre: AllMusic Guide (album, artist), Gracenote CDDB (song)
 
 We propose three genre classification problems of varying difficulty. We'll establish some baselines for that specific problem in the next section.
 
@@ -475,7 +471,7 @@ We propose three genre classification problems of varying difficulty. We'll esta
 \end{enumerate}
 
 \subsection{Recommendation} % Recommender Systems}
-% Cite Kirell's paper
+% Cite Kirell's paper: Song recommendation with non-negative matrix factorization and graph total variation
 
 \subsection{Limitations}
 
@@ -484,77 +480,74 @@ We propose three genre classification problems of varying difficulty. We'll esta
 
 % Assess ground truth quality or augment genres by independent annotators, e.g. mechanical turk or crowdflowers
 % Cross-verify on allmusic.com
-% metadata such as genre, mood, groove, composer, performer, lyrics, meter, chord progressions,  instruments  present
+% metadata such as genre, mood, groove, composer, performer, lyrics, meter, chord progressions, instruments present
 % tags annotation
 
 We can however expect people to cross-reference the dataset with other resources to unlock additional tasks, as has happened for example with the MSD and \href{http://www.allmusic.com}{AllMusic}, \href{https://www.last.fm}{last.fm} and \href{https://beatunes.com}{beaTunes} for genre recognition \cite{msd_features, msd_genres}, \href{https://musixmatch.com}{musixmatch} for lyrics, \href{https://secondhandsongs.com}{SecondHandSongs} for cover songs, or \href{https://www.thisismyjam.com}{This Is My Jam} for user play counts.
+
+% Allmusic: The Web page offers a wide range of music information, including album reviews, artist biographies, discographies well as classification of albums according to genres, styles, moods and themes. Information is provided and curated by experts.
+% Genre information is very coarse, provided as a single tag for each album.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Genre Recognition} % MGR, Baselines
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% One of the most common task, we give some baselines so that people have a reference about how hard it is.
-% ground truth for genre: AllMusic Guide (album, artist), Gracenote CDDB (song)
 
-% MSD: Year Prediction
 
+Music genres are categories that have arisen through a complex interplay of cultures, artists, and market forces to characterize similarities between compositions and organize music collections. Yet, the boundaries between genres still remain fuzzy, making the problem of music genre recognition (MGR) a nontrivial task.
 % genre not defined by audio content only
-While the utility of music genre recognition (MGR) has been debated, mostly because of its ambiguity and cultural definition, it is widely used and understood by end-users who find it useful to discuss musical categories \cite{mgr_why}.
+While its utility has been debated, mostly because of its ambiguity and cultural definition, it is widely used and understood by end-users who find it useful to discuss musical categories \cite{mgr_why}.
+As such, it is one of the most researched areas of MIR.
+%\subsection{Data}
+The FMA is especially suited for MGR as it features fine genre information, i.e. multiple genres associated to individual songs, has a built-in genre hierarchy (\tabref{tab:genres}), and is annotated by the artists themselves.
+% While there certainly is noise in our labels, we trust the artists to have selected the most appropriate set of genres for their own songs.
 
-\subsection{Data}
+%\subsection{Methods}
 
-While there certainly is noise in our labels, we trust the artists to have selected the most appropriate set of genres for their own songs.
+%\subsection{Evaluation and results}
 
-% Spectrograms of audio data by concatenating 10 spectrograms of 3sec into a single long vector.
-% DL on spectrograms
-% DL on audio (should work better)
+\tabref{tab:mgr} reports classification accuracies obtained on the \todo{small} subset with \todo{14} different mainstream feature sets and 5 standard classifiers using scikit-learn \cite{scikit-learn}, version 0.18.1. Specifically, we employed \todo{Naive Bayes, Support Vector Machines (polynomial kernel with exponent 1), k-nearest Neighbours with $k=1$, a J48 Decision Tree, and Random Forests}. All classifiers were tested with mostly default settings.\footnote{See \texttt{baselines.ipynb} for all details.} Reported performances should not be taken as the state-art-of-the-art but rather as a lower-bound and an indication of the task's difficulty. Moreover, the produced code can serve as a reference and is easily modified to accommodate other features and classifiers.
 
-\subsection{Methods}
+% As a preliminary result, we trained a convolutional neural network on 3sec-spectrograms, and we select the class by majority voting.
 
-To assess the difficulty of the task we tested various standard classifiers on mainstream features.
+While MGR has been MIR's flagship application for a while, prediction accuracy reached a glass ceiling \cite{mgr_why}.
+A major motivation to construct this dataset was to enable the use of the powerful deep learning set of techniques to music analysis.
+%thanks to the advent of specialized DL architectures with testable performances which can be compared.
+With availability of audio, DL architectures such as convolutional neural networks and recurrent neural networks can be applied to the waveform to avoid any feature engineering. While those approaches have fallen behind learning from higher-level representations such as spectrograms \cite{dieleman_endtoend}, a greater exploration of the design space will hopefully provide alternatives to solving MIR challenges \cite{mir_dl_feature_learning}.
 
-A major motivation to construct the dataset was to apply the powerful Deep Learning techniques to music analysis. As a preliminary result, we trained a convolutional neural network on 3sec-spectrograms, and we select the class by majority voting.
-
-% Graph ConvNet
-% Would be good to popularize the method and make the connection with my core research. Will have to be compared to std ConvNets.
-% Node classification: each node is a track
-%	* powerful in a semi-supervised setting (traditional use of graphs in ML)
-%	* do this with Chibu or as a master thesis
-%	* artist relations --> disconnected graph
-%	* user relations (users playlists form communities)
-% Kirell [ICASSP recommender avec Vassilis]:
-%	* généralement c'est la similarité musicale
-%	* mix: metadata + audio features + social
-%	* on apprend une métrique qui pondère bien le tout par rapport au genre par exemple
-% Signal classification would mean finding a representation which can be supported by a graph. Notes on spectrograms ?
-
-\subsection{Evaluation and results}
-
-The performance of various classifiers on various features are shown in \tabref{tab:mgr} as baselines for future work.
-See \texttt{baselines.ipynb} for more details.
-
-%Table xxx reports the classification accuracy on the train and test datasets.\\
+%Some very recent advances are indeed promising Chuo
 
 \begin{table}
 	\centering
-	\begin{tabular}{lccccc}
+	\begin{tabular}{lrrrrrr}
 		\toprule
-		Features & NB & SVM & kNN & DT & RF \\
+		Feature set & Dim. & NB & SVM & kNN & DT & RF \\
 		\midrule
-		MFCCs  & 30.12 & 30.12 & 30.12 & 30.12 \\
-		MFCCs  & 30.12 & 30.12 & 30.12 & 30.12 \\
-		MFCCs  & 30.12 & 30.12 & 30.12 & 30.12 \\
-		Echonest  & 30.12 & 30.12 & 30.12 & 30.12 \\
+		Chroma \cite{chroma} & 84 \\
+		Tonnetz \cite{tonnetz} & 42 \\
+		MFCC \cite{mfcc} & 140 \\
+		Spec. centroid & 7 \\
+		Spec. bandwidth & 7 \\
+		Spec. contrast \cite{contrast} & 49 \\
+		Spec. rolloff & 7 \\
+		RMSE & 7 \\ % Root-mean-square energy
+		Zero-crossing rate & 7 \\
+		\midrule
+		Ech. audio & 8 \\
+		Ech. social & 5 \\
+		Ech. temporal \cite{echonest_temporal} & 224 \\
+		\midrule
+		% Number and use them for aggregates
+		MFCC+Chroma & x \\
+		All & 150 \\
 		\bottomrule
 	\end{tabular}
-	\caption{Genre recognition results for various features and classifiers.}
+	%\caption{Genre recognition results for various features and classifiers.}
+	\caption{MGR results for various features and classifiers.}
+	% Todo small / medium / large / full
 	\label{tab:mgr}
+	\label{tab:features}
 \end{table}
-
-% Moreover, it is one of the most researched areas of MIR.
-While MGR has been MIR's flagship application for a while, prediction accuracy reached a glass ceiling \cite{mgr_why}.
-%thanks to the advent of specialized DL architectures with testable performances which can be compared.
-With availability of audio, DL architectures such as convolutional neural networks and recurrent neural networks can be applied to the waveform to avoid any feature engineering. While those approaches have fallen behind learning from higher-level representations such as spectrograms \cite{dieleman_endtoend}, a greater exploration of the design space will hopefully provide alternatives to solving MIR challenges \cite{mir_dl_feature_learning}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -564,7 +557,7 @@ With availability of audio, DL architectures such as convolutional neural networ
 
 % importance of open data
 
-The FMA enables researchers to test algorithms on a large-scale collection, closer to real-world environments. Even though it is still two orders of magnitude behind commercial services who have access to tens of millions of songs,\footnote{\href{http://the.echonest.com}{37M Echonest}, \href{https://en.wikipedia.org/wiki/Spotify}{30M Spotify}, \href{http://www.skilledtests.com/wiki/Last.fm_statistics}{45M last.fm}, \href{http://bupz.com/best-websites-to-buy-musics}{45M 7digital}, \href{https://www.apple.com/pr/library/2013/02/06iTunes-Store-Sets-New-Record-with-25-Billion-Songs-Sold.html}{26M iTunes}} it is of the same scale as the largest image dataset (see \tabref{tab:size}) which opened the door to dramatic performance improvements for many tasks in computer vision.
+Benchmarking is an important aspect in experimental sciences -- results reported by individual research groups need to be comparable. Important aspects of these are datasets that can be easily shared among researchers, together with a set of defined tasks and splits. The FMA enables researchers to test algorithms on a large-scale collection, closer to real-world environments. Even though it is still two orders of magnitude behind commercial services who have access to tens of millions of songs,\footnote{\href{http://the.echonest.com}{37M Echonest}, \href{https://en.wikipedia.org/wiki/Spotify}{30M Spotify}, \href{http://www.skilledtests.com/wiki/Last.fm_statistics}{45M last.fm}, \href{http://bupz.com/best-websites-to-buy-musics}{45M 7digital}, \href{https://www.apple.com/pr/library/2013/02/06iTunes-Store-Sets-New-Record-with-25-Billion-Songs-Sold.html}{26M iTunes}} it is of the same scale as the largest image dataset (see \tabref{tab:size}) which opened the door to dramatic performance improvements for many tasks in computer vision.
 %is also far behind the amount of tagged photos \href{https://www.facebook.com}{Facebook} has access to for example.
 By providing audio, we do not limit the benchmarking to pre-computed features and allow scientists to develop and test new feature sets, learn features, or learn mappings directly from the audio.
 % talk about meta-data ?
@@ -572,6 +565,8 @@ By providing audio, we do not limit the benchmarking to pre-computed features an
 
 % Once that problem is well advanced, researchers will be able to tackle more difficult tasks such as tagging or annotation.
 % Besides, standard data analysis tasks such as classification, clustering, regression, text analysis, visualization can also be applied to this new music dataset.
+
+% Maybe in some future utopia, those kind of collaborations could shape a future where sharing is first and researchers feed open platforms with their algorithms while they feed us with data. That would especially be useful for recommendation systems.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

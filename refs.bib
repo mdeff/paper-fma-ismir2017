@@ -59,8 +59,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+% general MIR review (audio and symbolic representations)
+@article{mir_review_1,
+  title={Music retrieval: A tutorial and review},
+  author={Orio, Nicola and others},
+  journal={Foundations and Trends{\textregistered} in Information Retrieval},
+  volume={1},
+  number={1},
+  pages={1--90},
+  year={2006},
+  publisher={Now Publishers, Inc.}
+}
+
 % general MIR review
-@article{mir_review,
+@article{mir_review_2,
   title={Content-based music information retrieval: Current directions and future challenges},
   author={Casey, Michael A and Veltkamp, Remco and Goto, Masataka and Leman, Marc and Rhodes, Christophe and Slaney, Malcolm},
   journal={Proceedings of the IEEE},
@@ -149,6 +161,52 @@
   publisher={PTR Prentice Hall}
 }
 
+@article{chroma,
+  title={A chorus section detection method for musical audio signals and its application to a music listening station},
+  author={Goto, Masataka},
+  journal={IEEE Transactions on Audio, Speech, and Language Processing},
+  volume={14},
+  number={5},
+  pages={1783--1794},
+  year={2006},
+  publisher={IEEE}
+}
+
+@inproceedings{chroma_cens,
+  title={Chroma Toolbox: MATLAB implementations for extracting variants of chroma-based audio features},
+  author={Müller, Meinard and Ewert, Sebastian},
+  booktitle={Proceedings of the 12th International Conference on Music Information Retrieval (ISMIR)},
+  year={2011},
+}
+
+@inproceedings{tonnetz,
+  title={Detecting harmonic change in musical audio},
+  author={Harte, Christopher and Sandler, Mark and Gasser, Martin},
+  booktitle={Proceedings of the 1st ACM workshop on Audio and music computing multimedia},
+  pages={21--26},
+  year={2006},
+  organization={ACM}
+}
+
+@inproceedings{contrast,
+  title={Music type classification by spectral contrast feature},
+  author={Jiang, Dan-Ning and Lu, Lie and Zhang, Hong-Jiang and Tao, Jian-Hua and Cai, Lian-Hong},
+  booktitle={Multimedia and Expo, 2002. ICME'02. Proceedings. 2002 IEEE International Conference on},
+  volume={1},
+  pages={113--116},
+  year={2002},
+  organization={IEEE}
+}
+
+@inproceedings{echonest_temporal,
+  title={Capturing the temporal domain in echonest features for improved classification effectiveness},
+  author={Schindler, Alexander and Rauber, Andreas},
+  booktitle={International Workshop on Adaptive Multimedia Retrieval},
+  pages={214--227},
+  year={2012},
+  organization={Springer}
+}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Feature extractors
@@ -181,6 +239,24 @@
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Tools
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+@article{scikit-learn,
+ title={Scikit-learn: Machine Learning in {P}ython},
+ author={Pedregosa, F. and Varoquaux, G. and Gramfort, A. and Michel, V.
+         and Thirion, B. and Grisel, O. and Blondel, M. and Prettenhofer, P.
+         and Weiss, R. and Dubourg, V. and Vanderplas, J. and Passos, A. and
+         Cournapeau, D. and Brucher, M. and Perrot, M. and Duchesnay, E.},
+ journal={Journal of Machine Learning Research},
+ volume={12},
+ pages={2825--2830},
+ year={2011}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Feature learning
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -209,6 +285,31 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
+% DL on spectrograms
+@article{choi2016transfer,
+  title={Transfer learning for music classification and regression tasks},
+  author={Choi, Keunwoo and Fazekas, György and Sandler, Mark and Cho, Kyunghyun},
+  journal={arXiv preprint arXiv:1703.09179},
+  year={2017}
+}
+
+% DL on spectrograms
+@article{choi2016convolutional,
+  title={Convolutional Recurrent Neural Networks for Music Classification},
+  author={Choi, Keunwoo and Fazekas, George and Sandler, Mark and Cho, Kyunghyun},
+  journal={arXiv preprint arXiv:1609.04243},
+  year={2016}
+}
+
+% DL on spectrograms
+@article{choi2016automatic,
+  title={Automatic tagging using deep convolutional neural networks},
+  author={Choi, Keunwoo and Fazekas, George and Sandler, Mark},
+  journal={arXiv preprint arXiv:1606.00298},
+  year={2016}
+}
+
+% DL on spectrograms and audio --> spectrograms better
 @inproceedings{dieleman_endtoend,
   title={End-to-end learning for music audio},
   author={Dieleman, Sander and Schrauwen, Benjamin},
