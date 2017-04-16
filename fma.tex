@@ -23,6 +23,16 @@
 
 \newcommand{\todo}[1]{{\color{red} #1}}
 
+\newcommand{\ntracks}{106,574 }
+\newcommand{\nartists}{16,341 }
+\newcommand{\nalbums}{14,854 }
+\newcommand{\ngenres}{161 }
+\newcommand{\tduration}{343 }
+\newcommand{\aduration}{278 }
+\newcommand{\size}{900 }
+
+\newcommand{\tspace}{\hspace{0.7em}}
+
 \title{FMA: A Dataset For Music Analysis}
 
 \multauthor
@@ -67,8 +77,8 @@ That endeavor is however restrained by the limited availability of large audio d
 % The primary goal of this dataset is to enable the training of large models, which require lots of training data, which could potentially avert the semantic gap currently observed between the extracted low-level features such as MFCCs and the high-level targets such as genre.
 By releasing the FMA we hope to foster research which will improve the state-of-the-art in several tasks and hopefully surpass the performance ceiling observed in e.g. genre recognition (MGR).
 % as it happened in computer vision with the release of ImageNet.
-The released data is composed of 106,930 tracks, 16,401 artists, 14,873 albums, 161 genres, for a total of 344 days of audio and 900 GiB, all under permissive Creative Commons licenses.
-It features a collection of metadata such as the song title, artist name, album or genres, together with full-length and high-quality audio, user data such as play counts, as well as a set of pre-computed features. We propose a train/validation/test split and three subsets: a small genre-balanced dataset of 4,000 songs and 10 genres, a medium genre-unbalanced dataset of 14,511 songs and 20 genres, and a 90 GiB version of the full set, with clips trimmed to 30s.
+The released data is composed of \ntracks tracks, \nartists artists, \nalbums albums, \ngenres genres, for a total of \tduration days of audio and \size GiB, all under permissive Creative Commons licenses.
+It features a collection of metadata such as the song title, album, artist name and genres; user data such as play counts and favorites; free-form text such as description, biography and tags; together with full-length and high-quality audio as well as some pre-computed features. We propose a train/validation/test split and three subsets: a small genre-balanced dataset of 8,000 songs from 8 major genres, a medium genre-unbalanced dataset of 25,000 songs from 16 genres, and a 90 GiB version of the full set with clips trimmed to 30s.
 This paper describes the dataset and how it was created, proposes some tasks, and evaluates some baselines for MGR.
 % Xavier: tasks, such as ...
 Code, data, and usage examples are available at \url{https://github.com/mdeff/fma}.
@@ -113,7 +123,7 @@ In computer vision, the community has developed over the years established bench
 		\href{http://calab1.ucsd.edu/~datasets/cal10k/}{CAL10k} \cite{cal10k} & 10,271 & 4,597 & 2010 & no \\ % Swat10k
 		\href{http://mirg.city.ac.uk/codeapps/the-magnatagatune-dataset}{TagATune} \cite{magnatagatune} & 25,863\tnote{3} & 230 & 2009 & yes\tnote{4} \\ % MagnaTagATune
 		\href{http://jmir.sourceforge.net/index_Codaich.html}{Codaich} \cite{codaich} & 26,420 & 1,941 & 2006 & no \\ % paper 20,849
-		\bf \href{https://github.com/mdeff/fma/}{FMA} & \bf 106,930 & \bf 16,401 & \bf 2017 & \bf yes \\
+		\bf \href{https://github.com/mdeff/fma/}{FMA} & \bf \ntracks & \bf \nartists & \bf 2017 & \bf yes \\
 		\href{http://www.omras2.org/}{OMRAS2} \cite{omras} & 152,410 & 6,938 & 2009 & no \\
 		\href{https://labrosa.ee.columbia.edu/millionsong/}{MSD} \cite{msd} & 1,000,000 & 44,745 & 2011 & no\tnote{2} \\
 		\href{https://research.google.com/audioset/}{AudioSet} \cite{audioset} & 2,084,320 & - & 2017 & no\tnote{2} \\
@@ -155,7 +165,7 @@ In computer vision, the community has developed over the years established bench
 		\href{https://labrosa.ee.columbia.edu/millionsong/}{MSD} \cite{msd} \tnote{2} &
 			1,000,000 & 49\cdot27\cdot10^3\cdot2 && 2.6\cdot10^6 & 2.6\cdot10^{12} & 625 & 541 \\
 		\href{https://github.com/mdeff/fma/}{FMA} \tnote{2} &
-			106,930 & 278\cdot44\cdot10^3\cdot2 && 2.4\cdot10^7 & 2.6\cdot10^{12} & 900 & 343 \\
+			\ntracks & \aduration\cdot44\cdot10^3\cdot2 && 2.4\cdot10^7 & 2.6\cdot10^{12} & \size & \tduration \\
 		\midrule
 		\href{http://yann.lecun.com/exdb/mnist/}{MNIST} \cite{mnist} &
 			70,000 & 28\cdot28\cdot1 && 7.8\cdot10^2 & 5.5\cdot10^{7\phantom0} & 0.011 & - \\
@@ -266,122 +276,123 @@ Inspired by Creative Commons and the open-source software movement, the FMA prov
 	\centering
 	\begin{tabular}{|llll|}
 		\hline
-		track\_id & album\_id & artist\_id & title \\
-		duration & bitrate & samplerate \\
-		\#listens & interest & \#comments & \#favorites \\
-		genres & play\_count & & \\
+		track\_id & title & number & \\
+		information & language\_code & license & \\
+		composer & publisher & lyricist & \\
+		genres & genres\_all & genre\_top & \\
+		duration & bit\_rate & interest & \\ %samplerate \\
+		\#listens & \#comments & \#favorites & tags \\
+		date\_created & date\_recorded & & \\
 		\hline
-		album\_id & title & \#tracks \\
-		date\_created & date\_released \\
-		\#listens & \#comments & \#favorites \\
+		album\_id & title & type & \#tracks \\
+		information & engineer & producer & \\
+		\#listens & \#comments & \#favorites & tags \\
+		date\_created & date\_released & & \\
 		\hline
-		artist\_id & name & location \\
-		\#comments & \#favorites \\
+		artist\_id & name & & \\
+		bio & members & \multicolumn{2}{l|}{associated\_labels} \\
+		website & wikipedia\_page & \multicolumn{2}{l|}{related\_projects} \\
+		location & longitude & latitude & \\
+		& \#comments & \#favorites & tags \\
+		date\_created & active\_year\_end & \multicolumn{2}{l|}{active\_year\_begin} \\
 		\hline
 	\end{tabular}
-	\caption{List of per-track, per-album and per-artist metadata contained in \texttt{tracks.csv}, \texttt{albums.csv} and \texttt{artists.csv}.}
+	\caption{List of per-track, per-album and per-artist metadata distributed in \texttt{tracks.csv}.}
+	%Not all of them are filled for each track.\footnote{See }
+	%\texttt{albums.csv} and \texttt{artists.csv}.}
 	% genres.csv ?
 	\label{tab:metadata}
 \end{table}
 
-Song metadata, such as the title, album, name of the artist, genres as well as some usage statistics, was crawled using the available \href{https://freemusicarchive.org/api}{API}. See \tabref{tab:metadata} for a list and \texttt{webapi.ipynb} for how to query the API with our helpers. The collected meta-information is stored in the \texttt{tracks.csv} table, which \tabref{tab:tracks} shows an excerpt. As of April 1st 2017, the date of collection, the online archive largest track id was 155,321, of which 109,727 were valid (probably some tracks went deleted). Additionally, the used genre hierarchy, shown in \tabref{tab:genres}, was collected and stored in \texttt{genres.csv}. Audio was then downloaded over HTTPS.
-
-\todo{Top-level genres.} Then, we created a top genre by simply picking the first genre in the original list of track genres provided by the artists.
+% Collection
+As of April 1st 2017, the date of collection, the online archive largest track id was 155,320, of which 109,727 were valid (the missing 45,594 ids probably correspond to deleted tracks). In addition to per-track metadata, the used hierarchy of 161 genres and extended album (480 not found) and artist (250 not found) information were collected via the available \href{https://freemusicarchive.org/api}{API}.\footnote{See \texttt{webapi.ipynb} to query the API with our helpers.}. Finally, mp3 audio was downloaded over HTTPS.
+% Cleaning
+Out of all collected track ids, 180 mp3s could not be downloaded, 286 could not be trimmed by ffmpeg, and features could not be extracted from 71. Finally, the license of 2,616 songs prohibited their redistribution, leaving us with \ntracks tracks.
 
 %\subsection{Data Cleaning}
 % classes with less than 1% of the number of tracks of the biggest class Pop/Rock are removed
 
-\todo{Adjust when redone.}
-As a first filtering, we kept the data that has audio tracks, reducing the size to 86,886 music data. 
-We removed data without genre information, giving 79,947 song data.
-At this stage the number of genres is 138, but half have only a few samples. Thus we decided to only retain the genres with more than 100 samples. This defines a dataset of 77,643 music data with 68 genres. We further cleaned the dataset by removing tracks which belong to ``non-standard'' music genres like 'Noise', 'Garage', 'Sound Collage', 'Singer', 'Audio Collage', 'Glitch', 'Unclassifiable', 'Lo-Fi', 'Spoken', 'Poetry', 'Talk Radio', 'Avant-Garde', 'Experimental', 'Ambient', and 'Field Recording'. We also suppressed the songs with the title 'Untitled'. Besides, we decided to cut the long tail of the power law distribution by removing songs of genres with less than 300 songs.
-
-The FMA\_large dataset of 77,643 data contains songs of 30sec length, and artist name, track title, track genres, track listens as metadata. Our original motivation was to give the full audio tracks, not limited to 30sec, but the size of the whole music tracks is 806.8GB (for approximatively 256 days of music listening) making the hosting a challenging issue.
-
-See \texttt{creation.ipynb} for full details.
+%At this stage the number of genres is 138, but half have only a few samples. Thus we decided to only retain the genres with more than 100 samples. This defines a dataset of 77,643 music data with 68 genres. We further cleaned the dataset by removing tracks which belong to ``non-standard'' music genres like 'Noise', 'Garage', 'Sound Collage', 'Singer', 'Audio Collage', 'Glitch', 'Unclassifiable', 'Lo-Fi', 'Spoken', 'Poetry', 'Talk Radio', 'Avant-Garde', 'Experimental', 'Ambient', and 'Field Recording'. We also suppressed the songs with the title 'Untitled'. Besides, we decided to cut the long tail of the power law distribution by removing songs of genres with less than 300 songs.
 
 \begin{table*}
 	\tiny
 	\centering
-	\begin{tabular}{lrlrllll}
+\begin{tabular}{@{}l@{\tspace}l@{\tspace}l@{\tspace}l@{\tspace}r@{\tspace}r@{\tspace}l@{\tspace}r@{\tspace}l@{\tspace}l@{\tspace}l@{}}
 	\toprule
-	 fma\_id &                                             artist &  play\_count &                                              title &                                             genres &            top\_genre  \\
-	 \toprule
-		10 &                                          Kurt Vile &       42936 &                                            Freeway &                                              [Pop] &                  Pop  \\
-		134 &                                               AWOL &         880 &                                       Street Music &                                          [Hip-Hop] &              Hip-Hop  \\
-		 142 &                    Alec K. Redfearn \& the Eyesores &         670 &                               Punjabi Watery Grave &                                             [Folk] &                 Folk  \\
-		 236 &                                       Banana Clipz &        6695 &                              Push Am (Left, Right) &                              [Electronic, African] &           Electronic  \\
-		 237 &                                          Barnacled &        1056 &                    Garbage and Fire &                                             [Jazz] &                 Jazz  \\
-		 461 &                              Cantonement Jazz Band &        3933 &                                           Bessemer &                               [Blues, Jazz: Vocal] &                Blues  \\
-		824 &                     Here Comes A Big Black Cloud!! &         391 &                                         Black Mold &          [Rock, Loud-Rock, Psych-Rock, Indie-Rock] &                 Rock  \\
-		 825 &                     Here Comes A Big Black Cloud!! &        1847 &                                        Death March &          [Rock, Loud-Rock, Psych-Rock, Indie-Rock] &                 Rock  \\
-		837 &                                          Heroin UK &         146 &                                           DopeSick &                                             [Rock] &                 Rock \\
-		 889 &                                 Illusion of Safety &         163 &                                          Wasteland &                                       [Electronic] &           Electronic  \\
-		 896 &                                        Impediments &        1542 &                                               2012 &                                  [Punk, Power-Pop] &                 Punk  \\
-			  992 &                                      Jason Willett &         560 &                   Beautiful Song w/ kick drum solo &                                             [Rock] &                 Rock  \\
+	\multicolumn{6}{@{}l}{track} & \multicolumn{3}{@{}l}{album} & \multicolumn{2}{@{}l}{artist} \\
+	track\_id & title & genres\_all & genre\_top & dur. & listens & title & listens & tags & name & location \\
+	\midrule
+	150073 & Welcome to Asia & [2, 79] & International & 81 & 683 & Reprise & 4091 & [world music, dubtronica, fusion] & DubRaJah & Russia \\
+	140943 & Sleepless Nights & [322, 5] & Classical & 246 & 1777 & Creative Commons Vol. 7 & 28900 & [classical, alternate, soundtrack, piano, ... & Dexter Britain & United Kingdom \\
+	64604 & i dont want to die alone & [32, 38, 456] & Experimental & 138 & 830 & Summer Gut String & 7408 & [improvised, minimalist, noise, ... & Buildings and Mountains & Oneonta, NY \\
+	23500 & A Life In A Day & [236, 286, 15] & Electronic & 264 & 1149 & A Life in a Day & 6691 & [idm, candlestick, romanian, candle, ... & Candlestickmaker & Romania \\
+	131150 & Yeti-Bo-Betty & [25, 12, 85] & Rock & 124 & 183 & No Life After Crypts & 3594 & [richmond, fredericksburg, trash rock, ... & The Crypts! & Fredericksburg \\
 	\bottomrule
 	\end{tabular}
-	\caption{Some rows and columns of the table stored in \texttt{tracks.csv}. \todo{representative and varied}}
+	\caption{Some rows and columns of the table stored in \texttt{tracks.csv}.}
 	\label{tab:tracks}
 \end{table*}
 
-\subsection{Content} \label{sec:content}
+\subsection{Content}
 % Figures and tables from analysis.ipynb
 % TODO audio properties: samplerate (% 44kHz), bitrate (% 128, VBR), channels (% mono, stereo)
 
-All tracks come with the metadata listed in \tabref{tab:metadata}, although some values may be missing.
-All audio tracks are mp3-encoded with sampling rate of 44,100Hz, bit rate 128kb/s, and in stereo. 
+The collected track, album and artist meta-informations\footnote{Raw data is available in \texttt{raw\_tracks.csv}, \texttt{raw\_albums.csv}, and \texttt{raw\_artists.csv}.} were cleaned, uniformly formatted, merged and stored in \texttt{tracks.csv}\footnote{See \texttt{creation.ipynb} for the code which created the dataset.} which \tabref{tab:tracks} shows an excerpt. That file is a relational table where each rows represent a track. \tabref{tab:metadata} lists the collected song metadata and user data, although some values may be missing for some tracks. The audio for each track is stored in a file wich name is the track id. All songs are mp3-encoded, most of them with sampling rate of 44,100 Hz, bit rate 320 kb/s, and in stereo.
+See the \texttt{analysis.ipynb} notebook for a much more detailed analysis of the content.
 
-\todo{describe the metadata}
+%\todo{describe the metadata}
 
-%\subsubsection{Genres}
-
-While it is difficult to construct a hierarchy of genres, we follow that of our source. \tabref{tab:genres} and \figref{fig:genres} show the distribution of the \todo{??} most common genres. As often encountered with natural categories, it obeys a power law.
-See \texttt{analysis.ipynb} for more details.
-
-% not strictly genres (e.g. one of them is romantic dinner music)
-% one non-music category
+\subsection{Genres}
 
 \begin{table}
 	\centering
-	\begin{tabular}{cclc}
+	\begin{tabular}{ccclr}
 		\toprule
-		ID & Parent & Genre & \#songs \\
+		id & parent & top\_level & title & \#tracks \\
 		\midrule
-		4 & None & Electronic & 50,000 \\
-		4 & None & Electronic & 50,000 \\
-		4 & None & Electronic & 50,000 \\
+		38 & None & 38 & Experimental & 38,154 \\
+		15 & None & 15 & Electronic & 34,413 \\
+		12 & None & 12 & Rock & 32,923 \\
+		1235 & None & 1235 & Instrumental & 14,938 \\
+		10 & None & 10 & Pop & 13,845 \\
+		17 & None & 17 & Folk & 12,706 \\
 		\midrule
-		45 & 2 & Psych-Rock & 500 \\
-		45 & 2 & Psych-Rock & 500 \\
-		45 & 2 & Psych-Rock & 500 \\
+		25 & 12 & 12 & Punk & 9,261 \\
+		89 & 25 & 12 & Post-Punk & 1,858 \\
+		1  & 38 & 38 & Avant-Garde & 8,693 \\
 		\bottomrule
 	\end{tabular}
-	\caption{Number of songs per genre. Top part is the 16 top-level genres, bottom part is the second- and third-level genres. The genre hierarchy is stored in \texttt{genres.csv}.}
+	\caption{An excerpt of the genre hierarchy stored in \texttt{genres.csv}. Top part is some of the 16 top-level genres, bottom part is some second- and third-level genres.}
 	\label{tab:genres}
 \end{table}
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\linewidth]{histo_large.pdf}
-	\caption{Power law distribution of the top 20 genres.}
-	\label{fig:genres}
+	\includegraphics[width=\linewidth]{genre_distribution.pdf}
+	\caption{Power law distribution of the genres.}
+	\label{fig:genre_distribution}
 \end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=0.5\linewidth]{genre_hierarchy.pdf}
-	\caption{Genre hierarchy example from the top-level Soul-RnB genre, \texttt{genre\_id}=14.}
+	\caption{Example of genre hierarchy for the top-level Soul-RnB genre. Left number is the \texttt{genre\_id}, right number is the number of tracks.}
 	\label{fig:genre_hierarchy}
 \end{figure}
 
+While it is difficult to devise a hierarchy of genres, we followed that of our source. Indeed, the website offers a parent genre for each of the 163 available genres. \tabref{tab:genres} shows an excerp of that information along with the number of tracks per genre and the associated top-level genre, that is the root of the genre tree. \figref{fig:genre_hierarchy} shows an excerpt of the tree.
+In the per-track table, the \texttt{genres} column contain the genre ids indicated by the artist. Then, given such hierarchical information, we constructed a \texttt{genres\_all} column which contains all the genres encountered when traversing the tree from the indicated genres to the roots. Finally, if the traversal yields only one root, the track is given a top-level genre stored in the \texttt{genre\_top} column.
+\figref{fig:genre_distribution} shows the distribution of the most common genres. As often encountered with natural categories, it obeys a power law.
+ 
+% MSD:
+% not strictly genres (e.g. one of them is romantic dinner music)
+% one non-music category
+
 \subsection{Features} % Feature sets
 
-% good features according to \cite{msd_features}: Statistical Spectrum Descriptors from rp_extract
-
 The upper part of \tabref{tab:features} lists the (mostly spectral) features we extracted from the audio with the \href{https://github.com/librosa/librosa}{librosa} Python library, version 0.5.0.
-Each feature set is extracted on windows of 2048 samples spaced by 512 samples. We then computed 7 statistics over all windows: the mean, standard deviation, skew, kurtosis, median, minimum and maximum.
-All those pre-computed features are distributed in \texttt{features.csv} for all tracks.\footnote{The code to compute them can be found in \texttt{features.ipynb}}
+Each feature set (except zero-crossing rate) is computed on windows of 2048 samples spaced by hops of 512 samples. Seven statistics were then computed over all windows: the mean, standard deviation, skew, kurtosis, median, minimum and maximum.
+Those 518 pre-computed features are distributed in \texttt{features.csv} for all tracks.\footnote{See \texttt{features.py} for the code which computed the features.}
 
 In addition,
 % a number of descriptive medium-level and high-level audio
@@ -395,14 +406,14 @@ features extracted by \href{http://the.echonest.com/}{Echonest}, a music platfor
 	\centering
 	\begin{tabular}{lrrccc}
 		\toprule
-		dataset & clips & genres & length & \multicolumn{2}{c}{Size} \\
+		dataset & clips & genres & length & \multicolumn{2}{c}{size} \\
 		\cmidrule{5-6}
-		        &         &          &  [s]   & [GB] & [days] \\
+		        &       &        &  [s]   & [GB] & [days] \\
 		\midrule
-		small  &   8,000 &   8 &  30 & 3.4  & 2.8  \\
-		medium &  25,000 &  16 &  30 & 12.2 & 8.7  \\
-		large  & 104,469 & 161 &  30 & 90   & 36.3 \\
-		full   & 106,930 & 161 & 278 & 900  & 344  \\
+		small  &    8,000 &   8 &  30 & 3.4  & 2.8  \\
+		medium &   25,000 &  16 &  30 & 12.2 & 8.7  \\
+		large  & \ntracks & 161 &  30 & 90   & 37 \\
+		full   & \ntracks & 161 & \aduration & \size & \tduration  \\
 		\bottomrule
 	\end{tabular}
 	\caption{Proposed subsets of the FMA.}
@@ -411,12 +422,13 @@ features extracted by \href{http://the.echonest.com/}{Echonest}, a music platfor
 
 Finally, for the dataset to be useful as a development set or for people with lower computational resources, we propose the following subsets, each of which is a subset or the larger set:
 \begin{enumerate}
-	\item \textbf{Full}: the complete dataset, described in \secref{sec:content}.
-	\item \textbf{Large}: the full dataset with audio limited to 30 seconds clips extracted from the middle of the tracks (or entire song if shorter than 30 seconds). That reduces the size of the data by a factor 10.
-	\item \textbf{Medium}: all tracks which have Echonest features.
-	\item \textbf{Small}: tracks from 10 top-level genres, balanced with 400 tracks per genre, 1 genre per track. This subset is similar to the very popular GTZAN in terms of size and genre distribution with the added benefits of the FMA, that is metadata, pre-computed features and copyright-free audio.
+	\item \textbf{Full}: the complete dataset, described above.
+	\item \textbf{Large}: the full dataset with audio limited to 30 seconds clips extracted from the middle of the tracks (or entire song if shorter than 30 seconds). That trimming reduces the size of the data by a factor 10.
+	\item \textbf{Medium}: 25,000 popular tracks with good metadata, e.g. only one top-level genre, and quality audio.
+	\item \textbf{Small}: 8,000 tracks from 8 top-level genres, balanced with 1000 tracks per genre, 1 top genre per track. This subset is similar to the very popular GTZAN \cite{gtzan} with the added benefits of the FMA, that is metadata, pre-computed features and copyright-free audio.
 \end{enumerate}
-\tabref{tab:subsets} highlights the main differentiating factors between the proposed subsets. See \texttt{analysis.ipynb} for an analysis of the subsets' content similar to that shown in \secref{sec:content}.
+\tabref{tab:subsets} highlights the main differentiating factors between the proposed subsets.
+%See \texttt{analysis.ipynb} for an analysis of the subsets' content similar to that shown in \secref{sec:content}.
 
 \subsection{Splits}
 
@@ -425,12 +437,12 @@ A 80/10/10\% split into training, validation and test sets is proposed to make r
 Below are the constraints we followed:
 % Data was stratified according to the following criteria: ground truth, artist and times filters
 \begin{enumerate}
-	\item Stratified sampling was used to preserve the percentage of samples for each class. This is important for minority classes.
-	\item Stratified sampling with an artist filter, i.e. forcing an artist to appear in one set only. All songs from a given artist either appear in train, validation or test, never in two of them.
-	\item Stratified sampling with a time filter, i.e. for each genre using the earlier songs in the training set, and the later releases in the validation and test sets.
-	\item Finally, we alternatively filled the three sets in descending order of the count of artist songs. This forces the three sets to have the same distribution of songs per artist (in addition to songs per genre).
+	\item Stratified sampling was used to preserve the percentage of tracks per genre. This is important for minority genres.
+	\item An artist filter was used, i.e. an artist was forced to appear in one set only. %All songs from a given artist either appear in train, validation or test, never in two of them.
+	%\item Stratified sampling with a time filter, i.e. for each genre using the earlier songs in the training set, and the later releases in the validation and test sets.
+	\item The three sets were forced to have the same distribution of songs per artist. %The three sets were alternatively filled in descending order of the count of artist songs. 
 \end{enumerate}
-A track is assigned in the same split across all the subsets. The above constraints are satisfied for all subsets. See \texttt{creation.ipynb} for full details.
+The above constraints are satisfied for all subsets, and a track is assigned to the same split across all of them. See \texttt{creation.ipynb} for full details.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
