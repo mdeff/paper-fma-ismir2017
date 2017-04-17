@@ -21,9 +21,6 @@
 \usepackage{booktabs, threeparttable, tabularx}
 \usepackage{enumitem} \setlist{itemsep=0pt,topsep=0pt,parsep=0pt,partopsep=0pt}
 
-\usepackage{caption}
-%\captionsetup[figure]{skip=0pt}
-
 \newcommand{\todo}[1]{{\color{red} #1}}
 
 \newcommand{\ntracks}{106,574 }
@@ -34,7 +31,8 @@
 \newcommand{\aduration}{278 }
 \newcommand{\size}{900 }
 
-\newcommand{\tspace}{\hspace{0.7em}}
+\newcommand{\tspacea}{\hspace{0.7em}}
+\newcommand{\tspaceb}{\hspace{0.9em}}
 
 \title{FMA: A Dataset For Music Analysis}
 
@@ -45,8 +43,6 @@
 	{\small$^1$XB is now at NTU, Singapore. Work conducted when he was at EPFL.}\\
 	{\tt\small \{michael.defferrard,kirell.benzi,pierre.vandergheynst\}@epfl.ch, xbresson@ntu.edu.sg}
   }
-
-%\thanks{Xavier Bresson is now with NTU, Singapore. This work was conducted when he was at EPFL.}
 
 %\multauthor
 %{$^1$ \hspace{1cm} Second author$^1$ \hspace{1cm} Third author$^2$} { \bfseries{Fourth author$^3$ \hspace{1cm} Fifth author$^2$ \hspace{1cm} Sixth author$^1$}\\
@@ -93,10 +89,10 @@ Code, data, and usage examples are available at \url{https://github.com/mdeff/fm
 \end{abstract}
 
 
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction} % and Motivation}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 % hook
 While the development of new mathematical models and algorithms to solve challenging real-world problems is obviously of first importance to any field of research, evaluation and comparison to the existing state-of-the-art is necessary for a technique to be widely adopted by research communities. Such tasks require open benchmark datasets to be reproducible. % to achieve their purpose, which are sometimes challenging to collect and share.
@@ -157,7 +153,7 @@ In computer vision, the community has developed over the years established bench
 			@{\hspace{2.7em}}>{$}c<{$}
 			@{\hspace{2.7em}}c@{\hspace{2.7em}}c}
 		\toprule
-		Dataset & \#samples & \multicolumn{3}{c}{Dimensionality} & \multicolumn{3}{c}{Size} \\
+		dataset & \#samples & \multicolumn{3}{c}{dimensionality} & \multicolumn{3}{c}{size} \\
 		\cmidrule{6-8}
 				&           & \multicolumn{3}{c}{}               & \text{scale} & [GB] & [days] \\
 		\midrule
@@ -182,7 +178,7 @@ In computer vision, the community has developed over the years established bench
 	\end{tabular}
 	\begin{tablenotes}
 		\item[1] \href{https://support.google.com/youtube/answer/6039860}{YouTube recommended} sample rate for music videos.
-		\item[2] Average duration and sample rate. Most excerpts from \href{https://www.7digital.com}{7digital} are 30 or 60s and 22 or 44kHz \cite{msd_features}. See \todo{ad} for FMA.
+		\item[2] Average duration and sample rate. Most excerpts from \href{https://www.7digital.com}{7digital} are 30 or 60s and 22 or 44kHz \cite{msd_features}.
 		\item[3] Average resolutions. Most applications resize or crop to $256\cdot256$ for a scale of $2.6\cdot10^{11}$ and $2.8\cdot10^{12}$.
 		\item[4] Object detection / classification task. It is the most used dataset for image classification.
 	\end{tablenotes}
@@ -204,8 +200,7 @@ In computer vision, the community has developed over the years established bench
 		\centering
 		\includegraphics[width=\linewidth]{album_release_year.pdf}
 	\end{minipage}
-	\vspace{-1em}
-	\caption{(Left) Growth of the archive, created in 2008. (Right) Number of albums released per year (1902-2017).}
+	\caption{(left) Growth of the archive, created in 11/2008. (right) Number of albums released per year, from 1902 to 2017.}
 	\label{fig:growth}
 	\label{fig:album_release_year}
 \end{figure*}
@@ -213,7 +208,7 @@ In computer vision, the community has developed over the years established bench
 \begin{table*}
 	\tiny
 	\centering
-\begin{tabular}{@{}l@{\tspace}l@{\tspace}l@{\tspace}l@{\tspace}r@{\tspace}r@{\tspace}l@{\tspace}r@{\tspace}l@{\tspace}l@{\tspace}l@{}}
+\begin{tabular}{@{}l@{\tspacea}l@{\tspacea}l@{\tspacea}l@{\tspacea}r@{\tspacea}r@{\tspacea}l@{\tspacea}r@{\tspacea}l@{\tspacea}l@{\tspacea}l@{}}
 	\toprule
 	\multicolumn{6}{@{}l}{track} & \multicolumn{3}{@{}l}{album} & \multicolumn{2}{@{}l}{artist} \\
 	track\_id & title & genres\_all & genre\_top & dur. & listens & title & listens & tags & name & location \\
@@ -225,7 +220,7 @@ In computer vision, the community has developed over the years established bench
 	131150 & Yeti-Bo-Betty & [25, 12, 85] & Rock & 124 & 183 & No Life After Crypts & 3594 & [richmond, fredericksburg, trash rock, ... & The Crypts! & Fredericksburg \\
 	\bottomrule
 	\end{tabular}
-	\caption{Some rows and columns of the table stored in \texttt{tracks.csv}.}
+	\caption{Some rows and columns of the metadata table, stored in \texttt{tracks.csv}.}
 	\label{tab:tracks}
 \end{table*}
 
@@ -254,7 +249,7 @@ In computer vision, the community has developed over the years established bench
 		date\_created & active\_year\_end & \multicolumn{2}{l|}{active\_year\_begin} \\
 		\hline
 	\end{tabular}
-	\caption{List of per-track, per-album and per-artist metadata distributed in \texttt{tracks.csv}.}
+	\caption{List of available per-track, per-album and per-artist metadata, i.e. the columns of \texttt{tracks.csv}.}
 	%Not all of them are filled for each track.\footnote{See }
 	%\texttt{albums.csv} and \texttt{artists.csv}.}
 	% genres.csv ?
@@ -296,7 +291,8 @@ CC BY 4.0} and MIT licenses.
 They either contain features derived from the audio or provide links to download the audio from an online service. The problem with the former is that researchers are stuck with the set of chosen features and prevented to leverage feature learning algorithms or end-to-end learning systems such as DL, while the later  makes no assurance that the files or services won't disappear or change without notice.
 Moreover, researchers are wary of proprietary features such as those computed by commercial services like \href{http://the.echonest.com/}{Echonest} and have extracted features by themselves on the MSD by downloading sample audio, a tedious process \cite{msd_features}.
 Finally, released or available to download audio is usually clips of 10 to 30 seconds, sometimes of low quality.
-In comparison, FMA is distributed with legally redistributable full-length, high-quality and non-modified audio. \todo{See Table ? for a quantitative analysis of quality.}
+In comparison, FMA is distributed with legally redistributable full-length, high-quality and non-modified audio.
+% \todo{See Table ? for a quantitative analysis of quality.}
 % TODO table quality
 
 \textbf{Complete.} In addition to audio, the dataset comes with a wealth of metadata, shown in \tabref{tab:metadata}. Basically all the metadata available through the API has been archived. In addition to the basics like title, album or artist names, this includes per-song genres and user data such as per-track/album/artist favorites, play counts and comments.
@@ -310,7 +306,9 @@ There is also free-form text such as per-track/album/artist tags, album descript
 % Todo an helper \href{https://pypi.python.org/pypi/freemusicarchive}{Python package} and
 some usage examples in the \texttt{usage.ipynb} Jupyter notebook to quick start using the data.
 
-\textbf{Future proof and reproducible.} Archives are checksummed, \todo{have a DOI and are hosted on \href{https://zenodo.org}{zenodo.org}, a long-term digital archive powered by the \href{https://home.cern}{CERN}}. Doing so alleviates the risks of tracks to become unavailable, to change without notice or for online services to shut down.
+\textbf{Future proof and reproducible.} All files and archives are checksummed and hosted in a long-term digital archive.
+%\todo{have a DOI and are hosted on \href{https://zenodo.org}{zenodo.org}, a long-term digital archive powered by the \href{https://home.cern}{CERN}}.
+Doing so alleviates the risks of tracks to become unavailable, to change without notice or for online services to shut down.
 Moreover, we share all the code used to (i) collect the data, (ii) analyze it, (iii) generate the subsets and splits, (iv) compute the features and (v) test the baselines, so that it can be reproduced or extended.
 Finally, anybody can recreate or extend the collection, thanks to public songs and APIs.
 
@@ -334,14 +332,14 @@ Finally, anybody can recreate or extend the collection, thanks to public songs a
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth]{duration_distribution.pdf}
-	\caption{Gaussian distribution of track durations.}
+	\caption{Track duration, from 0 to 3 hours.}
 	\label{fig:duration_distribution}
 \end{figure}
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth]{listens_distribution.pdf}
-	\caption{Power-law distribution of album play counts.}
+	\caption{Album listens, from 0 to 3.6 millions.}
 	\label{fig:listens_distribution}
 \end{figure}
 
@@ -394,9 +392,17 @@ See the \texttt{analysis.ipynb} notebook for a much more detailed analysis of th
 		1  & 38 & 38 & Avant-Garde & 8,693 \\
 		\bottomrule
 	\end{tabular}
-	\caption{An excerpt of the genre hierarchy stored in \texttt{genres.csv}. Top part is some of the 16 top-level genres, bottom part is some second- and third-level genres.}
+	\caption{An excerpt of the genre hierarchy, stored in \texttt{genres.csv}. Some of the 16 top-level genres appear in the top part, while some second- and third-level genres appear in the bottom part.}
 	\label{tab:genres}
 \end{table}
+
+While it is difficult to devise a hierarchy of genres, we followed that of our source. Indeed, the website offers a parent genre for each of the 163 available genres. \tabref{tab:genres} shows an excerp of that information along with the number of tracks per genre and the associated top-level genre, that is the root of the genre tree. \figref{fig:genre_hierarchy} shows an excerpt of the tree.
+In the per-track table, the \texttt{genres} column contain the genre ids indicated by the artist. Then, given such hierarchical information, we constructed a \texttt{genres\_all} column which contains all the genres encountered when traversing the tree from the indicated genres to the roots. Finally, if the traversal yields only one root, the track is given a top-level genre stored in the \texttt{genre\_top} column.
+\figref{fig:genre_distribution} shows the distribution of the most common genres. As often encountered with natural categories, it obeys a power law.
+ 
+% MSD:
+% not strictly genres (e.g. one of them is romantic dinner music)
+% one non-music category
 
 \begin{figure}
 	\begin{minipage}[t]{0.44\linewidth}
@@ -407,8 +413,7 @@ See the \texttt{analysis.ipynb} notebook for a much more detailed analysis of th
 		\centering
 		\includegraphics[width=\linewidth]{genres_per_track.pdf}
 	\end{minipage}
-	\vspace{-1em}
-	\caption{(Left) Example of genre hierarchy for the top-level Soul-RnB genre. Left number is the \texttt{genre\_id}, right number is the number of tracks per genre. (Right) Number of genres per track (\texttt{genres\_all}).}
+	\caption{(left) Example of genre hierarchy for the top-level Soul-RnB genre. Left number is the \texttt{genre\_id}, right number is the number of tracks per genre. (right) Number of genres per track, from 0 to 31 (\texttt{genres\_all}).}
 	\label{fig:genre_hierarchy}
 	\label{fig:genres_per_track}
 \end{figure}
@@ -416,17 +421,9 @@ See the \texttt{analysis.ipynb} notebook for a much more detailed analysis of th
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\linewidth]{genre_distribution.pdf}
-	\caption{Power law distribution of genres.}
+	\caption{Tracks per genre, from 1 to 38,154.}
 	\label{fig:genre_distribution}
 \end{figure}
-
-While it is difficult to devise a hierarchy of genres, we followed that of our source. Indeed, the website offers a parent genre for each of the 163 available genres. \tabref{tab:genres} shows an excerp of that information along with the number of tracks per genre and the associated top-level genre, that is the root of the genre tree. \figref{fig:genre_hierarchy} shows an excerpt of the tree.
-In the per-track table, the \texttt{genres} column contain the genre ids indicated by the artist. Then, given such hierarchical information, we constructed a \texttt{genres\_all} column which contains all the genres encountered when traversing the tree from the indicated genres to the roots. Finally, if the traversal yields only one root, the track is given a top-level genre stored in the \texttt{genre\_top} column.
-\figref{fig:genre_distribution} shows the distribution of the most common genres. As often encountered with natural categories, it obeys a power law.
- 
-% MSD:
-% not strictly genres (e.g. one of them is romantic dinner music)
-% one non-music category
 
 \subsection{Features} % Feature sets
 
@@ -444,10 +441,10 @@ features extracted by \href{http://the.echonest.com/}{Echonest}, a music platfor
 
 Finally, for the dataset to be useful as a development set or for people with lower computational resources, we propose the following subsets, each of which is a subset or the larger set:
 \begin{enumerate}
-	\item \textbf{Full}: the complete dataset, described above.
+	\item \textbf{Full}: the complete dataset, described above. All \ngenres genres, unbalanced with 1 to 38,154 tracks per genre (\figref{fig:genre_distribution}) and 0 to 31 genres per track (\figref{fig:genres_per_track}).
 	\item \textbf{Large}: the full dataset with audio limited to 30 seconds clips extracted from the middle of the tracks (or entire song if shorter than 30 seconds). That trimming reduces the size of the data by a factor 10.
-	\item \textbf{Medium}: 25,000 popular tracks with good metadata, e.g. only one top-level genre, and quality audio.
-	\item \textbf{Small}: 8,000 tracks from 8 top-level genres, balanced with 1000 tracks per genre, 1 top genre per track. This subset is similar to the very popular GTZAN \cite{gtzan} with the added benefits of the FMA, that is metadata, pre-computed features and copyright-free audio.
+	\item \textbf{Medium}: 25,000 of the most popular tracks with good metadata and quality audio. Genre unbalanced with 21 to 7,103 tracks per top genre, but only one top genre per track.
+	\item \textbf{Small}: 8,000 tracks from 8 top genres, balanced with 1000 tracks per genre, 1 genre per track. This subset is similar to the very popular GTZAN \cite{gtzan} with the added benefits of the FMA, that is metadata, pre-computed features, and copyright-free audio.
 \end{enumerate}
 \tabref{tab:subsets} highlights the main differentiating factors between the proposed subsets.
 %See \texttt{analysis.ipynb} for an analysis of the subsets' content similar to that shown in \secref{sec:content}.
@@ -455,14 +452,14 @@ Finally, for the dataset to be useful as a development set or for people with lo
 \subsection{Splits}
 
 % PTB 19/3/3, MNIST 60/10, ImageNet 1200/50/100 --> ratio ~6-12
-A 80/10/10\% split into training, validation and test sets is proposed to make research on the FMA reproducible. The training and validation sets should be merged if cross-validation is used instead.
+An 80/10/10\% split into training, validation and test sets is proposed to make research on the FMA reproducible. The training and validation sets should be merged if cross-validation is used instead.
 Below are the constraints we followed:
 % Data was stratified according to the following criteria: ground truth, artist and times filters
 \begin{enumerate}
 	\item Stratified sampling was used to preserve the percentage of tracks per genre. This is important for minority genres.
 	\item An artist filter was used, i.e. an artist was forced to appear in one set only. %All songs from a given artist either appear in train, validation or test, never in two of them.
 	%\item Stratified sampling with a time filter, i.e. for each genre using the earlier songs in the training set, and the later releases in the validation and test sets.
-	\item The three sets were forced to have the same distribution of songs per artist. %The three sets were alternatively filled in descending order of the count of artist songs. 
+	\item Artists with lots of songs were distributed between the sets. %The three sets were alternatively filled in descending order of the count of artist songs. 
 \end{enumerate}
 The above constraints are satisfied for all subsets, and a track is assigned to the same split across all of them. See \texttt{creation.ipynb} for full details.
 
@@ -490,83 +487,74 @@ The above constraints are satisfied for all subsets, and a track is assigned to 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % List some MIR tasks and propose some who can be done with that dataset
 
-% MSD: metadata analysis, artist recognition, automatic music tagging, recommendation, cover song recognition, lyrics, limitations
-% MSD: Year Prediction
 
-% MSD website typical MIR tasks:
+With its rich set of metadata, user data, audio and features, the FMA is amenable to many tasks in MIR. We share below some possible uses, which serves to illustrate the breadth of data available in the dataset.
+
+% Metadata analysis
+% Recommendation / Recommender systems, Music Similarity
+% Music classification
+	% Genre recognition / classification
+	% Artist identification / recognition
+	% Year prediction / recognition
+% Automatic (music) tagging / autotagging --> tag prediction
+
+%On an other hand, unsupervised learning methods could be used for music categorization. Does genre emerge? How?
+
 % Segmentation
-% Automatic tagging
-% Year recognition
-% Imputation of missing data
-% Artist name, release, song title analysis
-% Preview audio
-% Yahoo ratings dataset
 % Visualization
-% Artist recognition
-% Cover song recognition
-% Lyrics
-
-genre classification, mood classification, artist identification/recognition, instrument recognition, music annotation (tags),
-Artist Identification, Genre classification, Mood Classification, Instrument identification, Music Similarity, Autotagging, Automatic playlist generation
-
-Can be down: genre, artist, popularity prediction, tags, year prediction
-
 % Musicology
 
-% Use: unsupervised learning for categorization, does genre emerge how ?
-% Task: classify 3secs excerpt. Much more samples, voting is often used.
+%\subsection{Album covers}
+% image covers: generate covers per genre / artist
+% study the influence of covers on ratings
 
-% TODO
-% Problems
-% Genre classif / mutli-genre classif
-% Recommendation
-% Play count prediction
-% Covers: generate covers per genre / artist
+\subsection{Metadata Analysis}
 
-\subsection{Metadata}
-
-Meta-data analysis: which genres are artists contributing to, drift in time, curators.
-While this collection does obviously not contain hits from well-known artists, it would be interesting to study to what extent it is representative of mainstream music.
-%is representative of the commercial music that most users are interested in.
-
-% How similar to commercially available music / other datasets / common sets
-
-\subsection{Genre Recognition}
-% ground truth for genre: AllMusic Guide (album, artist), Gracenote CDDB (song)
-
-We propose three genre classification problems of varying difficulty. We'll establish some baselines for that specific problem in the next section.
-
-\begin{enumerate}
-	\item Easy, based on \texttt{fma\_small.zip}: 10 top-level genres, balanced with 400 tracks per genre, 1 genre per track
-	\item Medium, based on \texttt{fma\_medium.zip}: all 16 top-level genres, unbalanced with x-y tracks per genre, multiple genres per track
-	\item Hard, based on \texttt{fma\_large.zip}: all 164 genres, unbalanced with x-y tracks per genre, multiple genres per track
-\end{enumerate}
-
-* Single top\_genres prediction on medium and small (16 top-level genres, 1 top-level genre per track)
-* Multiple top\_genres on large and full (16 top-level genres, 0 to 8 top-level genres per track)
-* Multiple genres on all subsets (161 genres, 0 to 25 genres per track)
+While the original intention of the dataset was to release a large volume of audio for machine learning algorithms, analyzing metadata from such a collection is also extremely interesting.
+For instance, one could address questions like: How broads artists are, i.e. to which genres do they contribute to? Do we observe some drift in time for the vocabulary used in song titles, album names or artist names? To which extent tags correspond to genres? What other semantic categories can we found in them?
+Other lines of work are to test algorithms for the imputation of missing data, or to study to what extent is the FMA representative of mainstream music, or how similar it is to other datasets.
 
 \subsection{Recommendation} % Recommender Systems}
 % Cite Kirell's paper: Song recommendation with non-negative matrix factorization and graph total variation
 
-The availability of user data makes the FMA suitable to evaluate content-based recommender systems.
+Due to the potential commercial value of a working system, music recommendation and music similarity are ones of the best studied areas of MIR. So far, content-based systems have fallen short at predicting user ratings when compared to collaborative filtering methods.
+The availability of user data such as play counts for tracks and albums as well as number of comments and favorites for tracks, albums and artists opens the possibility of a large-scale evaluation of content-based recommender systems based on rich metadata, audio, or derived features, with a clean ground truth.
+
+\subsection{Music Classification and Annotation}
+%\subsection{Automatic Music Tagging}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{tag_distribution.pdf}
+	\caption{Per-track, album and artist tags, from 0 to 150.}
+	\label{fig:tag_distribution}
+\end{figure}
+
+Music classification is a key problem in MIR with many potential applications. For one, a classification system enables end users to search for the types of music they are interested in. On the other hand, different music types are managed more effectively and efficiently once they are categorized into different groups \cite{mir_review_classif}.
+The classification tasks which can be evaluated on the available labels for the FMA include genre recognition, artist identification, year prediction, and music annotation. Automatic tagging is a classification problem which cover different semantic categories, where tags are labels which can be any musical term that describes the genre, mood, instrumentation, and style of the song.
+%The task of music annotation has recently gained much popularity in the MIR community.
+In the FMA, tags can be found at the track, album and artist level: 23,496 tracks (22\%), 2,659 albums (18\%) and 1,605 artists (10\%) have at least one tag. \figref{fig:tag_distribution} shows their distribution.\footnote{One of the artist tag is often the artist name, which we subtracted in our counts.}
 
 \subsection{Limitations}
-
-\todo{what cannot be done currently}
-% Cannot: mood, style, annotations
-
-% Assess ground truth quality or augment genres by independent annotators, e.g. mechanical turk or crowdflowers
-% Cross-verify on allmusic.com
-% metadata such as genre, mood, groove, composer, performer, lyrics, meter, chord progressions, instruments present
-% tags annotation
-
+% ground truth for genre: AllMusic Guide (album, artist), Gracenote CDDB (song)
 % musicbrainz, playme, 7digital
+% Allmusic: album reviews, artist biographies, discographies as well as classification of albums according to genres, styles, moods and themes. Information is provided and curated by experts.
 
+% Cover song recognition
+% Lyrics
+% Automatic playlist generation
+% style?
+% Music classification
+	% mood classification,
+	% instrument recognition / identification
+	% music annotation --> temporal labels, e.g. instrument / note
+
+% metadata such as genre, mood, groove, composer, performer, lyrics, meter, chord progressions, instruments present
+
+While the FMA can be used to evaluate many tasks, metadata is missing for e.g. cover song recognition, mood classification or instrument recognition.
 We can however expect people to cross-reference the dataset with other resources to unlock additional tasks, as has happened for example with the MSD and \href{http://www.allmusic.com}{AllMusic}, \href{https://www.last.fm}{last.fm} and \href{https://beatunes.com}{beaTunes} for genre recognition \cite{msd_features, msd_genres}, \href{https://musixmatch.com}{musixmatch} for lyrics, \href{https://secondhandsongs.com}{SecondHandSongs} for cover songs, or \href{https://www.thisismyjam.com}{This Is My Jam} for user play counts.
 
-% Allmusic: The Web page offers a wide range of music information, including album reviews, artist biographies, discographies well as classification of albums according to genres, styles, moods and themes. Information is provided and curated by experts.
-% Genre information is very coarse, provided as a single tag for each album.
+Diversity is another issue: as suggested by \figref{fig:genre_distribution}, this collection is biased toward experimental music, electronic and rock. Moreover, it probably does not contain hits from renown artists or commercial music.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -581,12 +569,18 @@ As such, it is one of the most researched areas of MIR.
 %\subsection{Data}
 The FMA is especially suited for MGR as it features fine genre information, i.e. multiple genres associated to individual songs, has a built-in genre hierarchy (\tabref{tab:genres}), and is annotated by the artists themselves.
 % While there certainly is noise in our labels, we trust the artists to have selected the most appropriate set of genres for their own songs.
+Genre recognition problems of increasing difficulty are:
+\begin{enumerate}
+	\item Single top genre prediction on the small subset.
+	\item Single top genre prediction on the medium subset.
+	\item Multiple top genres prediction on the large / full set.
+	\item Multiple genres prediction on the large / full set.
+\end{enumerate}
 
 %\subsection{Methods}
-
 %\subsection{Evaluation and results}
 
-\tabref{tab:mgr} reports classification accuracies obtained on the \todo{small} subset with \todo{15} different mainstream feature sets and 5 standard classifiers using scikit-learn \cite{scikit-learn}, version 0.18.1. Specifically, we employed \todo{Naive Bayes, Support Vector Machines (polynomial kernel with exponent 1), k-nearest Neighbours with $k=1$, a J48 Decision Tree, and Random Forests}. All classifiers were tested with mostly default settings.\footnote{See \texttt{baselines.ipynb} for all details.} Reported performances should not be taken as the state-art-of-the-art but rather as a lower-bound and an indication of the task's difficulty. Moreover, the produced code can serve as a reference and is easily modified to accommodate other features and classifiers.
+\tabref{tab:mgr} reports classification accuracies for problem 2 with 9 different mainstream feature sets and some combinations as well as 4 standard classifiers using scikit-learn \cite{scikit-learn}, version 0.18.1. Specifically, we employed linear regression (LR) with an $L^2$ penalty, k-nearest neighbors (kNN) with $k=200$, support vector machines (SVM) with a radial basis function (RBF) kernel and a multilayer perceptron (MLP) with 100 hidden neurons. All classifiers were tested with mostly default settings.\footnote{See \texttt{baselines.ipynb} for all details.} Reported performances should not be taken as the state-art-of-the-art but rather as a lower-bound and an indication of the task's difficulty. Moreover, the produced code can serve as a reference and is easily modified to accommodate other features and classifiers.
 
 % As a preliminary result, we trained a convolutional neural network on 3sec-spectrograms, and we select the class by majority voting.
 
@@ -599,31 +593,31 @@ With availability of audio, DL architectures such as convolutional neural networ
 
 \begin{table}
 	\centering
-	\begin{tabular}{lrrrrrr}
+	\begin{tabular}{l@{\tspaceb}r@{\tspaceb}c@{\tspaceb}c@{\tspaceb}c@{\tspaceb}c}
 		\toprule
-		Feature set & Dim. & NB & SVM & kNN & DT & RF \\
+		feature set & dim. & LR & kNN & SVM & MLP \\
 		\midrule
-		1 Chroma \cite{chroma} & 84 \\
-		2 Tonnetz \cite{tonnetz} & 42 \\
-		3 MFCC \cite{mfcc} & 140 \\
-		4 Spec. centroid & 7 \\
-		5 Spec. bandwidth & 7 \\
-		6 Spec. contrast \cite{contrast} & 49 \\
-		7 Spec. rolloff & 7 \\
-		8 RMSE & 7 \\ % Root-mean-square energy
-		9 Zero-crossing rate & 7 \\
+		1 Chroma \cite{chroma} & 84 & 44 & 44 & 48 & 49 \\
+		2 Tonnetz \cite{tonnetz} & 42 & 40 & 37 & 42 & 41 \\
+		3 MFCC \cite{mfcc} & 140 & 58 & 55 & 61 & 53 \\
+		4 Spec. centroid & 7 & 42 & 45 & 46 & 48 \\
+		5 Spec. bandwidth & 7 & 41 & 45 & 44 & 45\\
+		6 Spec. contrast \cite{contrast} & 49 & 51 & 50 & 54 & 53 \\
+		7 Spec. rolloff & 7 & 42 & 46 & 48 & 48 \\
+		8 RMSE & 7 & 37 & 39 & 39 & 39 \\ % Root-mean-square energy
+		9 Zero-crossing rate & 7 & 42 & 45 & 45 & 46 \\
 		\midrule
-		Ech. audio & 8 \\
-		Ech. social & 5 \\
-		Ech. temporal \cite{echonest_temporal} & 224 \\
+		Ech. audio & 8 & - & - & - & - \\
+		Ech. social & 5 & - & - & - & - \\
+		Ech. temporal \cite{echonest_temporal} & 224 & - & - & - & - \\
 		\midrule
 		% Number and use them for aggregates
-		3 + 6 & 189 \\
-		3 + 6 + 1 & 273 \\
-		All & 150 \\
+		3 + 6 & 189 & 60 & 55 & 63 & 54 \\
+		3 + 6 + 4 & 273 & 60 & 55 & 63 & 53 \\
+		1 to 9 & 518 & 61 & 52 & 63 & 58 \\
 		\bottomrule
 	\end{tabular}
-	\caption{Genre recognition results for various features and classifiers on the FMA \todo{small} subset.}
+	\caption{Accuracies of various features and classifiers for top genre recognition on the medium subset.}
 	\label{tab:mgr}
 	\label{tab:features}
 \end{table}
@@ -645,7 +639,14 @@ By providing audio, we do not limit the benchmarking to pre-computed features an
 % Once that problem is well advanced, researchers will be able to tackle more difficult tasks such as tagging or annotation.
 % Besides, standard data analysis tasks such as classification, clustering, regression, text analysis, visualization can also be applied to this new music dataset.
 
+% Future work
+In addition to the proposed usage and many others people will find, future work on the dataset itself may consider to scrap the website for information not available through the API, e.g. the number of downloads or the user comments. Moreover, cross-referencing with other resources or crowd-sourcing (with e.g. \href{https://www.mturk.com}{Mechanical Turk} or \href{https://www.crowdflower.com/}{CrowdFlower}) is desirable to obtain additional labels or measure agreement on the current ones by independent annotators.
+
+In a \href{https://freemusicarchive.org/member/cheyenne_h/blog/FMA_Dataset_for_Researchers}{blog post about this dataset}, Cheyenne Hohman, the Director at the Archive, wrote that "by embracing the some rights reserved philosophy of Creative Commons, artists are not only making their music available for the public to listen to, but also for educational and research applications".
+% Let's hope the research community may contribute back and that we can engage in a mutually benefit.
 % Maybe in some future utopia, those kind of collaborations could shape a future where sharing is first and researchers feed open platforms with their algorithms while they feed us with data. That would especially be useful for recommendation systems.
+
+% Foster usage of CC and interplay between artists, platforms, users and researchers.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -653,7 +654,7 @@ By providing audio, we do not limit the benchmarking to pre-computed features an
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-We want to thank the team supporting the \href{https://freemusicarchive.org}{Free Music Archive} as well as all the contributing artists and curators for the fantastic content they made available. In a \href{https://freemusicarchive.org/member/cheyenne_h/blog/FMA_Dataset_for_Researchers}{blog post about this dataset}, Cheyenne Hohman, the Director at the Archive, wrote that "by embracing the some rights reserved philosophy of Creative Commons, artists are not only making their music available for the public to listen to, but also for educational and research applications".
+We want to thank the team supporting the \href{https://freemusicarchive.org}{Free Music Archive} as well as all the contributing artists and curators for the fantastic content they made available.
 We are grateful to SWITCH and EPFL for hosting the dataset within the context of the \href{https://projects.switch.ch/scale-up}{SCALE-UP} project, funded in part by the swissuniversities \href{http://www.swissuniversities.ch/isci}{SUC P-2 program}.
 % We are grateful to \href{https://zenodo.org}{zenodo.org}, whose free hosting and archiving of digital research artifacts is promoting a more open scientific process.
 Xavier Bresson is supported by NRF Fellowship NRFF2017-10.
