@@ -461,7 +461,7 @@ Below are the constraints we followed:
 	\item Stratified sampling was used to preserve the percentage of tracks per genre. This is important for minority genres.
 	\item An artist filter was used, i.e. an artist was forced to appear in one set only. %All songs from a given artist either appear in train, validation or test, never in two of them.
 	%\item Stratified sampling with a time filter, i.e. for each genre using the earlier songs in the training set, and the later releases in the validation and test sets.
-	\item Artists with lots of songs were distributed between the sets. %The three sets were alternatively filled in descending order of the count of artist songs. 
+	\item Artists with lots of tracks were allocated across sets. %The three sets were alternatively filled in descending order of the count of artist songs.
 \end{enumerate}
 The above constraints are satisfied for all subsets, and a track is assigned to the same split across all of them.\footref{creation}
 
@@ -583,7 +583,7 @@ We consider the following problems of increasing difficulty:
 %\subsection{Methods}
 %\subsection{Evaluation and results}
 
-\tabref{tab:mgr} reports classification accuracies for problem 2 with 9 different mainstream feature sets and some combinations as well as 4 standard classifiers using scikit-learn, version 0.18.1 \cite{scikit-learn}. Specifically, we employed linear regression (LR) with an $L^2$ penalty, k-nearest neighbors (kNN) with $k=200$, support vector machines (SVM) with a radial basis function (RBF) kernel and a multilayer perceptron (MLP) with 100 hidden neurons. All classifiers were tested with otherwise default settings.\footnote{See \texttt{baselines.ipynb} for all details.} Reported accuracies should not be taken as the state-art-of-the-art but rather as a lower-bound and an indication of the task's difficulty. Moreover, the developed code can serve as a reference and is easily modified to accommodate other features and classifiers.
+\tabref{tab:mgr} reports accuracies for problem 2 with 9 mainstream feature sets and some combinations as well as 4 standard classifiers using scikit-learn, version 0.18.1 \cite{scikit-learn}. Specifically, we employed linear regression (LR) with an $L^2$ penalty, k-nearest neighbors (kNN) with $k=200$, support vector machines (SVM) with a radial basis function (RBF) kernel and a multilayer perceptron (MLP) with 100 hidden neurons. All classifiers were tested with otherwise default settings.\footnote{See \texttt{baselines.ipynb} for all details.} Reported performance should not be taken as the state-of-the-art but rather as a lower-bound and an indication of the task's difficulty. Moreover, the developed code can serve as a reference and is easily modified to accommodate other features and classifiers.
 
 % As a preliminary result, we trained a convolutional neural network on 3sec-spectrograms, and we select the class by majority voting.
 
@@ -645,8 +645,10 @@ By providing audio, we do not limit the benchmarking to pre-computed features an
 % Future work
 In addition to the proposed usage and many others people will find, future work on the dataset itself may consider to scrap the website for information not available through the API, e.g.\ the number of downloads or the user comments. Moreover, cross-referencing with other resources or crowd-sourcing (with e.g.\ \href{https://www.mturk.com}{Mechanical Turk} or \href{https://www.crowdflower.com/}{CrowdFlower}) is desirable to obtain additional labels or measure agreement on the current ones by independent annotators.
 
-In a \href{https://freemusicarchive.org/member/cheyenne_h/blog/FMA_Dataset_for_Researchers}{blog post about this dataset}, Cheyenne Hohman, the Director at the Archive, wrote that ''by embracing the some rights reserved philosophy of Creative Commons, artists are not only making their music available for the public to listen to, but also for educational and research applications``.
-Let's hope for a future where sharing is first and researchers feed open platforms with their algorithms while they feed us with data.
+In a \href{https://freemusicarchive.org/member/cheyenne_h/blog/FMA_Dataset_for_Researchers}{post about the dataset}, Cheyenne Hohman, the Director at the Archive, wrote that ''by embracing the
+~\ldots~%some rights reserved
+philosophy of Creative Commons, artists are not only making their music available for the public to listen to, but also for educational and research applications``.
+Let's hope for a future where sharing is first and researchers feed open platforms with algorithms while they feed us with data.
 % Foster usage of CC and tighter interplay / integration between artists, platforms, users and researchers.
 
 
