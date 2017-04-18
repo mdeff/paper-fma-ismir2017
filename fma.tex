@@ -77,7 +77,7 @@ That endeavor is however restrained by the limited availability of large audio d
 By releasing the FMA, we hope to foster research which will improve the state-of-the-art in several tasks and hopefully surpass the performance ceiling observed in e.g.\ genre recognition (MGR).
 % as it happened in computer vision with the release of ImageNet.
 The released data is composed of \ntracks tracks, \nartists artists, \nalbums albums, \ngenres genres, for a total of \tduration days of audio and \size GiB, all under permissive Creative Commons licenses.
-It features a collection of metadata such as the song title, album, artist name and genres; user data such as play counts and favorites; free-form text such as description, biography and tags; together with full-length and high-quality audio as well as some pre-computed features. We propose a train/validation/test split and three subsets: a small genre-balanced dataset of 8,000 songs from 8 major genres, a medium genre-unbalanced dataset of 25,000 songs from 16 genres, and a 90 GiB version of the full set with clips trimmed to 30s.
+It features a collection of metadata such as the song title, album, artist name and genres; user data such as play counts and favorites; free-form text such as description, biography, tags, and comments; together with full-length and high-quality audio as well as some pre-computed features. We propose a train/validation/test split and three subsets: a small genre-balanced dataset of 8,000 songs from 8 major genres, a medium genre-unbalanced dataset of 25,000 songs from 16 genres, and a 90 GiB version of the full set with clips trimmed to 30s.
 This paper describes the dataset and how it was created, proposes some tasks, and evaluates some baselines for MGR.
 Code, data, and usage examples are available at \url{https://github.com/mdeff/fma}.
 
@@ -152,7 +152,7 @@ In computer vision, the community has developed over the years established bench
 		\toprule
 		dataset & \#samples & \multicolumn{3}{c}{dimensionality} & \multicolumn{3}{c}{size} \\
 		\cmidrule{6-8}
-				&           & \multicolumn{3}{c}{}               & \text{scale} & [GiB] & [days] \\
+				&           & \multicolumn{3}{c}{}               & \text{volume} & [GiB] & [days] \\
 		\midrule
 		\href{http://mirg.city.ac.uk/codeapps/the-magnatagatune-dataset}{TagATune} \cite{magnatagatune} &
 			25,863 & 29\cdot16\cdot10^3\cdot1 && 4.6\cdot10^5 & 1.2\cdot10^{10} & 3 & 8.7 \\ % MagnaTagATune
@@ -176,11 +176,11 @@ In computer vision, the community has developed over the years established bench
 	\begin{tablenotes}
 		\item[1] \href{https://support.google.com/youtube/answer/6039860}{YouTube recommended} sample rate for music videos.
 		\item[2] Average duration and sample rate. Most excerpts from \href{https://www.7digital.com}{7digital} are 30 or 60s and 22 or 44kHz \cite{msd_features}.
-		\item[3] Average resolutions. Most applications resize or crop to $256\cdot256$ for a scale of $2.6\cdot10^{11}$ and $2.8\cdot10^{12}$.
+		\item[3] Average resolutions. Most applications resize or crop to $256\cdot256$ for a volume of $2.6\cdot10^{11}$ and $2.8\cdot10^{12}$.
 		\item[4] Object detection / classification task. It is the most used dataset for image classification.
 	\end{tablenotes}
 	\end{threeparttable}
-	\caption{Comparison between the largest public audio and image datasets. Dimensionality is (length $\cdot$ sample rate $\cdot$ \#channels) for audio and (xdim $\cdot$ ydim $\cdot$ \#channels) for images. Scale is the number of samples times the dimensionality. Size is for a (zipped) archive of all \texttt{.mp3} or \texttt{.jpg} in GB, an indication of the quantity of information affected by the size and diversity of the data. The last column is the number of days necessary to listen to the whole available audio.}
+	\caption{Comparison between the largest public audio and image datasets. Dimensionality is (length $\cdot$ sample rate $\cdot$ \#channels) for audio and (xdim $\cdot$ ydim $\cdot$ \#channels) for images. Volume is the number of samples times the dimensionality. Size is for a (zipped) archive of all \texttt{.mp3} or \texttt{.jpg} in GiB, an indication of the quantity of information affected by the size and diversity of the data. The last column is the number of days necessary to listen to the whole available audio.}
 	\label{tab:size}
 \end{table*}
 % Magnatagature dead links: http://tagatune.org/Datasets.html http://tagatune.org/Magnatagatune.html
@@ -269,8 +269,8 @@ On the other hand, the proposed dataset offers the following qualities, which in
 
 % Value proposition.
 \textbf{Large scale.} Large datasets are needed to avoid overtraining and to effectively learn models that incorporate the ambiguities and inconsistencies that one finds with musical categories. They are also more diverse and allows to average out annotation noise.
-While FMA features less clips than MSD or AudioSet, every other dataset with readily available quality audio are two orders of magnitude smaller (see \tabref{tab:datasets}).
-For statistical learning algorithms, the scale of FMA is comparable to ImageNet and the most used ILSVRC (see \tabref{tab:size}) and shall thus be sufficient for the foreseable future.
+While FMA features less clips than MSD or AudioSet, every other dataset with readily available quality audio are two orders of magnitude smaller (\tabref{tab:datasets}).
+For statistical learning algorithms, the scale of FMA is comparable to ImageNet and the most used ILSVRC (\tabref{tab:size}) and shall thus be sufficient for the foreseable future.
 Note that while image datasets are larger, the amount of data is similar because of their smaller dimensionality.
 
 \textbf{Permissive licensing.} MIR research has historically suffered from the lack of publicly available benchmark datasets, which stem from the commercial interest in music by record labels, and therefore imposed rigid copyright.
@@ -466,7 +466,7 @@ The above constraints are satisfied for all subsets, and a track is assigned to 
 		\toprule
 		dataset & clips & genres & length & \multicolumn{2}{c}{size} \\
 		\cmidrule{5-6}
-		        &       &        &  [s]   & [GB] & [days] \\
+		        &       &        &  [s]   & [GiB] & [days] \\
 		\midrule
 		small  &    8,000 &   8 &  30 & 3.4  & 2.8  \\
 		medium &   25,000 &  16 &  30 & 12.2 & 8.7  \\
