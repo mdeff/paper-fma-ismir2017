@@ -38,10 +38,11 @@
 \title{FMA: A Dataset For Music Analysis}
 
 \multauthor
-{Michaël Defferrard \hspace{.6cm} Kirell Benzi \hspace{.6cm} Pierre Vandergheynst \hspace{.6cm} Xavier Bresson$^1$}
+{Michaël Defferrard$^*$ \hspace{.6cm} Kirell Benzi$^*$ \hspace{.6cm} Pierre Vandergheynst$^*$ \hspace{.6cm} Xavier Bresson$^\dagger$}
 {
-	LTS2, EPFL, Lausanne, Switzerland \hspace{1cm}
-	{\small$^1$XB is now at NTU, Singapore. Work conducted when he was at EPFL.}\\
+	$^*$LTS2, EPFL, Lausanne, Switzerland \hspace{0.4cm}
+	$^\dagger$SCSE, NTU, Singapore \hspace{0.4cm}
+	{\small Work conducted when XB was at EPFL.}\\
 	{\tt\small \{michael.defferrard,kirell.benzi,pierre.vandergheynst\}@epfl.ch, xbresson@ntu.edu.sg}
   }
 
@@ -68,7 +69,7 @@
 
 % about 150-200 words.
 \begin{abstract}
-The Free Music Archive (FMA) is an open and easily accessible dataset that can be used to evaluate several tasks in music information retrieval (MIR) such as music classification and annotation or recommendation.
+We introduce the Free Music Archive (FMA), an open and easily accessible dataset that can be used to evaluate several tasks in music information retrieval (MIR) such as music classification and annotation or recommendation.
 While content-based MIR tasks have typically been solved with feature engineering,
 %with a two-stage approach: engineered features are extracted from music audio signals, and are then used as input to a regressor or classifier.
 the community is becoming interested in feature learning and end-to-end learning. %, i.e. learning from signals to labels
@@ -128,7 +129,7 @@ In computer vision, the community has developed over the years established bench
 	\begin{tablenotes}
 		% 103-Artists is also known as DB-L, Extended Ballroom
 		\item[1] Names are clickable links to datasets' homepage.
-		\item[2] Audio can be downloaded from \href{http://www.ballroomdancers.com}{ballroomdancers.com}, \href{https://www.7digital.com}{7digital.com}, \href{https://www.youtube.com}{youtube.com}.
+		\item[2] Audio not directly available, can be downloaded from \href{http://www.ballroomdancers.com}{ballroomdancers.com}, \href{https://www.7digital.com}{7digital.com}, \href{https://www.youtube.com}{youtube.com}.
 		\item[3] The 25,863 clips are cut from 5,405 songs.
 		\item[4] Low quality 16 kHz, 32kbps, mono mp3.
 	\end{tablenotes}
@@ -176,11 +177,11 @@ In computer vision, the community has developed over the years established bench
 	\begin{tablenotes}
 		\item[1] \href{https://support.google.com/youtube/answer/6039860}{YouTube recommended} sample rate for music videos.
 		\item[2] Average duration and sample rate. Most excerpts from \href{https://www.7digital.com}{7digital} are 30 or 60s and 22 or 44kHz \cite{msd_features}.
-		\item[3] Average resolutions. Most applications resize or crop to $256\cdot256$ for a volume of $2.6\cdot10^{11}$ and $2.8\cdot10^{12}$.
+		\item[3] Average resolutions. Most applications resize or crop to $256\cdot256$ for a scale of $2.6\cdot10^{11}$ and $2.8\cdot10^{12}$.
 		\item[4] Object detection / classification task. It is the most used dataset for image classification.
 	\end{tablenotes}
 	\end{threeparttable}
-	\caption{Comparison between the largest public audio and image datasets. Dimensionality is (length $\cdot$ sample rate $\cdot$ \#channels) for audio and (xdim $\cdot$ ydim $\cdot$ \#channels) for images. Volume is the number of samples times the dimensionality. Size is for a (zipped) archive of all \texttt{.mp3} or \texttt{.jpg} in GiB, an indication of the quantity of information affected by the size and diversity of the data. The last column is the number of days necessary to listen to the whole available audio.}
+	\caption{Comparison between the largest public audio and image datasets. Dimensionality is (length $\cdot$ sample rate $\cdot$ \#channels) for audio and (xdim $\cdot$ ydim $\cdot$ \#channels) for images. Scale is the number of samples times the dimensionality. Size is for a (zipped) archive of all \texttt{.mp3} or \texttt{.jpg} in GiB, an indication of the quantity of information affected by the size and diversity of the data. The last column is the number of days necessary to listen to the whole available audio.}
 	\label{tab:size}
 \end{table*}
 % Magnatagature dead links: http://tagatune.org/Datasets.html http://tagatune.org/Magnatagatune.html
@@ -284,8 +285,8 @@ CC BY 4.0} and MIT licenses.
 % Proprietary, non-redistributable: MSD, AudioSet?
 
 \textbf{High-quality audio.}
-\tabref{tab:datasets} shows that while the smaller datasets are usually distributed with audio, often regardless of copyrights, most of the larger don't.
-They either contain features derived from the audio or provide links to download the audio from an online service. The problem with the former is that researchers are stuck with the set of chosen features and are prevented to leverage feature learning algorithms or end-to-end learning systems such as DL, while the later  makes no assurance that the files or services won't disappear or change without notice.
+\tabref{tab:datasets} shows that while the smaller datasets are usually distributed with audio, often regardless of copyrights, most of the larger do not.
+They either contain features derived from the audio or provide links to download the audio from an online service. The problem with the former is that researchers are stuck with the set of chosen features and are prevented to leverage feature learning algorithms or end-to-end learning systems such as DL, while the later  makes no assurance that the files or services will not disappear or change without notice.
 Moreover, researchers are wary of proprietary features such as those computed by commercial services like \href{http://the.echonest.com/}{Echonest} and have extracted features by themselves on the MSD by downloading sample audio, a tedious process \cite{msd_features}.
 Finally, released or available to download audio is usually clips of 10 to 30 seconds, sometimes of low quality.
 In comparison, FMA is distributed with legally redistributable full-length, high-quality and non-modified audio.
@@ -344,7 +345,7 @@ Finally, anybody can recreate or extend the collection, thanks to public songs a
 
 The dataset is a dump of the \href{https://freemusicarchive.org/}{Free Music Archive}, an interactive library of high-quality, legal audio downloads directed by \href{https://wfmu.org/}{WFMU}, the longest-running freeform radio station in the United States.
 The archive is funded by the New York State Music Fund, the MacArthur Foundation, the National Endowment for the Arts, and from the project's users.
-The website provides a large catalog of artists and high-quality mp3-encoded songs, hand-picked by established audio curators. Each song is legally free to download as artists decided to release their works under a permissive license, most tracks being released under a \href{https://creativecommons.org/}{Creative Commons license} which allows redistribution of the audio. Cheyenne Hohman, the director of the FMA, \href{http://freemusicarchive.org/member/cheyenne_h/blog/100000_SONGS}{announced} in July 2016 that the website had reached the landmark of 100,000 tracks.
+The website provides a large catalog of artists and high-quality mp3-encoded songs, hand-picked by established audio curators. Each song is legally free to download as artists decided to release their works under a permissive license, most tracks being released under a \href{https://creativecommons.org/}{Creative Commons license} which allows redistribution of the audio. Cheyenne Hohman, the director of the FMA, \href{http://freemusicarchive.org/member/cheyenne_h/blog/100000_SONGS}{announced} in July 2016 that the website had reached the landmark of 100,000 tracks \cite{art:MossFMA}.
 Inspired by Creative Commons and the open-source software movement, the FMA provides a legal and technological platform for curators, artists, and listeners to harness the potential of music sharing. While the archive is free and open to anyone, written and audio content is curated, and permission to upload or edit content is granted on an invitation basis \cite{art:MossFMA}.
 
 \subsection{Creation} % Collection, Creation, Generation
@@ -381,8 +382,8 @@ See the \texttt{analysis.ipynb} notebook for a much more detailed analysis of th
 		15 & None & 15 & Electronic & 34,413 \\
 		12 & None & 12 & Rock & 32,923 \\
 		1235 & None & 1235 & Instrumental & 14,938 \\
-		10 & None & 10 & Pop & 13,845 \\
-		17 & None & 17 & Folk & 12,706 \\
+		%10 & None & 10 & Pop & 13,845 \\
+		%17 & None & 17 & Folk & 12,706 \\
 		\midrule
 		25 & 12 & 12 & Punk & 9,261 \\
 		89 & 25 & 12 & Post-Punk & 1,858 \\
@@ -418,8 +419,12 @@ In the per-track table, the \texttt{genres} column contain the genre ids indicat
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\linewidth]{genre_distribution.pdf}
-	\caption{Tracks per genre, from 1 to 38,154.}
+	\\ \vspace{1em}
+	\includegraphics[width=\linewidth]{genre_top_distribution.pdf}
+	\caption{(top) Tracks per genre, from 1 to 38,154.
+	(bottom) Tracks per top genre (medium), from 21 to 7,103.}
 	\label{fig:genre_distribution}
+	\label{fig:genre_top_distribution}
 \end{figure}
 
 \subsection{Features} % Feature sets
@@ -440,7 +445,7 @@ Finally, for the dataset to be useful as a development set or for people with lo
 \begin{enumerate}
 	\item \textbf{Full}: the complete dataset, described above. All \ngenres genres, unbalanced with 1 to 38,154 tracks per genre (\figref{fig:genre_distribution}) and 0 to 31 genres per track (\figref{fig:genres_per_track}).
 	\item \textbf{Large}: the full dataset with audio limited to 30 seconds clips extracted from the middle of the tracks (or entire track if shorter than 30 seconds). That trimming reduces the size of the data by a factor 10.
-	\item \textbf{Medium}: 25,000 of the most popular tracks with good metadata and quality audio. Genre unbalanced with 21 to 7,103 tracks per top genre, but only one top genre per track.
+	\item \textbf{Medium}: 25,000 of the most popular tracks with good metadata and quality audio. Genre unbalanced with 21 to 7,103 tracks per top genre (\figref{fig:genre_top_distribution}), but only one top genre per track.
 	\item \textbf{Small}: 8,000 tracks from 8 top genres, balanced with 1,000 tracks per genre, 1 genre per track. This subset is similar to the very popular GTZAN \cite{gtzan} with the added benefits of the FMA, that is metadata, pre-computed features, and copyright-free audio.
 \end{enumerate}
 \tabref{tab:subsets} highlights the main differentiating factors between the proposed subsets.
@@ -567,7 +572,7 @@ As such, it is one of the most researched areas of MIR.
 %\subsection{Data}
 The FMA is especially suited for MGR as it features fine genre information, i.e. multiple genres associated to individual songs, has a built-in genre hierarchy (\tabref{tab:genres}), and is annotated by the artists themselves.
 % While there certainly is noise in our labels, we trust the artists to have selected the most appropriate set of genres for their own songs.
-Genre recognition problems of increasing difficulty are:
+We consider the following problems of increasing difficulty:
 \begin{enumerate}
 	\item Single top genre prediction on the small subset.
 	\item Single top genre prediction on the medium subset.
