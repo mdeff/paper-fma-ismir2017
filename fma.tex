@@ -30,7 +30,7 @@
 \newcommand{\ngenres}{161 }
 \newcommand{\tduration}{343 }
 \newcommand{\aduration}{278 }
-\newcommand{\size}{900 }
+\newcommand{\size}{940 }
 
 \newcommand{\tspacea}{\hspace{0.7em}}
 \newcommand{\tspaceb}{\hspace{0.9em}}
@@ -78,7 +78,7 @@ That endeavor is however restrained by the limited availability of large audio d
 By releasing the FMA, we hope to foster research which will improve the state-of-the-art in several tasks and hopefully surpass the performance ceiling observed in e.g.\ genre recognition (MGR).
 % as it happened in computer vision with the release of ImageNet.
 The released data is composed of \ntracks tracks, \nartists artists, \nalbums albums, \ngenres genres, for a total of \tduration days of audio and \size GiB, all under permissive Creative Commons licenses.
-It features a collection of metadata such as the song title, album, artist name and genres; user data such as play counts and favorites; free-form text such as description, biography, tags, and comments; together with full-length and high-quality audio as well as some pre-computed features. We propose a train/validation/test split and three subsets: a small genre-balanced dataset of 8,000 songs from 8 major genres, a medium genre-unbalanced dataset of 25,000 songs from 16 genres, and a 90 GiB version of the full set with clips trimmed to 30s.
+It features a collection of metadata such as the song title, album, artist name and genres; user data such as play counts and favorites; free-form text such as description, biography, tags, and comments; together with full-length and high-quality audio as well as some pre-computed features. We propose a train/validation/test split and three subsets: a small genre-balanced set of 8,000 songs from 8 major genres, a medium genre-unbalanced set of 25,000 songs from 16 genres, and a 94 GiB version of the full set with clips trimmed to 30s.
 This paper describes the dataset and how it was created, proposes some tasks, and evaluates some baselines for MGR.
 Code, data, and usage examples are available at \url{https://github.com/mdeff/fma}.
 
@@ -158,9 +158,9 @@ In computer vision, the community has developed over the years established bench
 		\href{http://mirg.city.ac.uk/codeapps/the-magnatagatune-dataset}{TagATune} \cite{magnatagatune} &
 			25,863 & 29\cdot16\cdot10^3\cdot1 && 4.6\cdot10^5 & 1.2\cdot10^{10} & 3 & 8.7 \\ % MagnaTagATune
 		\href{https://research.google.com/audioset/}{AudioSet} \cite{audioset} \tnote{1} &
-			2,084,320 & 10\cdot44\cdot10^3\cdot2 && 8.8\cdot10^5 & 1.8\cdot10^{12} & - & 241 \\
+			2,084,320 & 10\cdot44\cdot10^3\cdot2 && 8.8\cdot10^5 & 1.8\cdot10^{12} & 776 & 241 \\
 		\href{https://labrosa.ee.columbia.edu/millionsong/}{MSD} \cite{msd} \tnote{2} &
-			1,000,000 & 49\cdot27\cdot10^3\cdot2 && 2.6\cdot10^6 & 2.6\cdot10^{12} & 625 & 541 \\
+			1,000,000 & 49\cdot27\cdot10^3\cdot2 && 2.6\cdot10^6 & 2.6\cdot10^{12} & 625 & 567 \\
 		\href{https://github.com/mdeff/fma/}{FMA} \tnote{2} &
 			\ntracks & \aduration\cdot44\cdot10^3\cdot2 && 2.4\cdot10^7 & 2.6\cdot10^{12} & \size & \tduration \\
 		\midrule
@@ -175,7 +175,7 @@ In computer vision, the community has developed over the years established bench
 		\bottomrule
 	\end{tabular}
 	\begin{tablenotes}
-		\item[1] \href{https://support.google.com/youtube/answer/6039860}{YouTube recommended} sample rate for music videos.
+		\item[1] \href{https://support.google.com/youtube/answer/6039860}{YouTube recommended} sample rate for music videos. Size in GiB calculated for mp3 encoded at 320 kbit/s.
 		\item[2] Average duration and sample rate. Most excerpts from \href{https://www.7digital.com}{7digital} are 30 or 60s and 22 or 44kHz \cite{msd_features}.
 		\item[3] Average resolutions. Most applications resize or crop to $256\cdot256$ for a scale of $2.6\cdot10^{11}$ and $2.8\cdot10^{12}$.
 		\item[4] Object detection / classification task. It is the most used dataset for image classification.
@@ -186,6 +186,9 @@ In computer vision, the community has developed over the years established bench
 \end{table*}
 % Magnatagature dead links: http://tagatune.org/Datasets.html http://tagatune.org/Magnatagatune.html
 % Announcement: https://musicmachinery.com/2009/04/01/magnatagatune-a-new-research-data-set-for-mir/
+% Robin: Alors il télécharge aussi des clips audios de 10 secondes, non-compressé et à 48 kHz pour un total de 4 Terabytes! Donc environ 8x la taille de ton dataset il semble.
+% uncompressed: 2084320*10*48e3*2*2 / 1024**4 = 3.6
+% 320 kbit/s mp3: 2084320*10*320e3 / 8 / 1024**3 = 776
 
 % Xavier: De meme pour Table 2, c'est interessant bien sur, mais encore une fois, les datasets de MSD et autres n'ont pas disponible (directement et facilement) les raw audio data. Cela rend confusing le main message. Aussi, je ne parlerais pas des MNIST, CIFAR et autres image datasets, ce n'est pas le point de ce papier, targeted music, et cela peut rendre notre message confusing.
 
@@ -361,17 +364,6 @@ Out of all collected track ids, 180 mp3s could not be downloaded, 286 could not 
 
 %At this stage the number of genres is 138, but half have only a few samples. Thus we decided to only retain the genres with more than 100 samples. This defines a dataset of 77,643 music data with 68 genres. We further cleaned the dataset by removing tracks which belong to ``non-standard'' music genres like 'Noise', 'Garage', 'Sound Collage', 'Singer', 'Audio Collage', 'Glitch', 'Unclassifiable', 'Lo-Fi', 'Spoken', 'Poetry', 'Talk Radio', 'Avant-Garde', 'Experimental', 'Ambient', and 'Field Recording'. We also suppressed the songs with the title 'Untitled'. Besides, we decided to cut the long tail of the power law distribution by removing songs of genres with less than 300 songs.
 
-\subsection{Content}
-% Figures and tables from analysis.ipynb
-% TODO audio properties: samplerate (% 44kHz), bitrate (% 128, VBR), channels (% mono, stereo)
-
-The collected track, album and artist meta-informations\footnote{Raw data is available in \texttt{raw\_tracks.csv}, \texttt{raw\_albums.csv}, and \texttt{raw\_artists.csv}.} were cleaned, uniformly formatted, merged and stored in \texttt{tracks.csv}\footnote{\label{creation}See \texttt{creation.ipynb} for the code which created the dataset.} which \tabref{tab:tracks} shows an excerpt. That file is a relational table where each row represents a track and columns are listed in \tabref{tab:metadata}, although some values may be missing for some tracks. The audio for each track is stored in a file wich name is the track id. All songs are mp3-encoded, most of them with sampling rate of 44,100 Hz, bit rate 320 kb/s, and in stereo. Figures~\ref{fig:album_release_year},~\ref{fig:duration_distribution} and \ref{fig:listens_distribution} show the distribution of albums per year, track durations, and play counts per album.
-See the \texttt{analysis.ipynb} notebook for a much more detailed analysis of the content.
-
-%\todo{describe the metadata}
-
-\subsection{Genres}
-
 \begin{table}
 	\centering
 	\begin{tabular}{ccclr}
@@ -394,14 +386,6 @@ See the \texttt{analysis.ipynb} notebook for a much more detailed analysis of th
 	\label{tab:genres}
 \end{table}
 
-While it is difficult to devise a hierarchy of genres, we followed that of our source. Indeed, the website offers a parent genre for each of the 163 available genres. \tabref{tab:genres} shows an excerp of that information along with the number of tracks per genre and the associated top-level genre, that is the root of the genre tree. \figref{fig:genre_hierarchy} shows an excerpt of the tree.
-In the per-track table, the \texttt{genres} column contain the genre ids indicated by the artist. Then, given such hierarchical information, we constructed a \texttt{genres\_all} column which contains all the genres encountered when traversing the tree from the indicated genres to the roots. Finally, if the traversal yields only one root, the track is given a top-level genre stored in the \texttt{genre\_top} column.
-\figref{fig:genres_per_track}~and~\ref{fig:genre_distribution} shows the number of genres per track and tracks per genre. As often encountered with natural categories, it obeys a power law.
- 
-% MSD:
-% not strictly genres (e.g. one of them is romantic dinner music)
-% one non-music category
-
 \begin{figure}
 	\begin{minipage}[t]{0.44\linewidth}
 		\centering
@@ -416,13 +400,33 @@ In the per-track table, the \texttt{genres} column contain the genre ids indicat
 	\label{fig:genres_per_track}
 \end{figure}
 
+\subsection{Content}
+% Figures and tables from analysis.ipynb
+% TODO audio properties: samplerate (% 44kHz), bitrate (% 128, VBR), channels (% mono, stereo)
+
+The collected track, album and artist meta-informations\footnote{\texttt{raw\_tracks.csv}, \texttt{raw\_albums.csv}, \texttt{raw\_artists.csv}} were cleaned, uniformly formatted, merged and stored in \texttt{tracks.csv}\footnote{\label{creation}See \texttt{creation.ipynb} for the code which created the dataset.} which \tabref{tab:tracks} shows an excerpt. That file is a relational table where each row represents a track and columns are listed in \tabref{tab:metadata}, although some values may be missing for some tracks. The audio for each track is stored in a file wich name is the track id. All songs are mp3-encoded, most of them with sampling rate of 44,100 Hz, bit rate 320 kb/s, and in stereo. Figures~\ref{fig:album_release_year},~\ref{fig:duration_distribution} and \ref{fig:listens_distribution} show the distribution of albums per year, track durations, and play counts per album.
+See the \texttt{analysis.ipynb} notebook for a much more detailed analysis of the content.
+
+%\todo{describe the metadata}
+
+\subsection{Genres}
+
+While it is difficult to devise a hierarchy of genres, we followed that of our source. Indeed, the website offers a parent genre for each of the 163 available genres. \tabref{tab:genres} shows an excerp of that information along with the number of tracks per genre and the associated top-level genre, that is the root of the genre tree. \figref{fig:genre_hierarchy} shows an excerpt of the tree.
+In the per-track table, the \texttt{genres} column contain the genre ids indicated by the artist. Then, given such hierarchical information, we constructed a \texttt{genres\_all} column which contains all the genres encountered when traversing the tree from the indicated genres to the roots. Finally, if the traversal yields only one root, the track is given a top-level genre stored in the \texttt{genre\_top} column.
+\figref{fig:genres_per_track}~and~\ref{fig:genre_distribution} shows the number of genres per track and tracks per genre. As often encountered with natural categories, it obeys a power law.
+ 
+% MSD:
+% not strictly genres (e.g. one of them is romantic dinner music)
+% one non-music category
+
 \begin{figure}[t]
 	\centering
 	\includegraphics[width=\linewidth]{genre_distribution.pdf}
 	\\ \vspace{1em}
 	\includegraphics[width=\linewidth]{genre_top_distribution.pdf}
 	\caption{(top) Tracks per genre, from 1 to 38,154.
-	(bottom) Tracks per top genre (medium), from 21 to 7,103.}
+	(bottom) Tracks per top genre (medium), from 21 to 7,103.
+	Experimental music is less represented in the curated set.}
 	\label{fig:genre_distribution}
 	\label{fig:genre_top_distribution}
 \end{figure}
@@ -435,13 +439,13 @@ Those 518 pre-computed features are distributed in \texttt{features.csv} for all
 
 In addition,
 % a number of descriptive medium-level and high-level audio
-features extracted by \href{http://the.echonest.com/}{Echonest} are provided for some tracks. These features (\tabref{tab:features}, lower part) include high-level audio features (acousticness, danceability, energy, instrumentalness, liveness, speechiness, tempo, valence), social features (artist discovery, artist familiarity, artist hotttness, song currency, song hotttness), and MFCC-like temporal features for a number of segments \cite{echonest_temporal}. They are distributed in \texttt{echonest.csv}.
+features extracted by \href{http://the.echonest.com/}{Echonest} are provided for 13,129 tracks. These features (\tabref{tab:features}, lower part) include high-level audio features (acousticness, danceability, energy, instrumentalness, liveness, speechiness, tempo, valence), social features (artist discovery, artist familiarity, artist hotttness, song currency, song hotttness), and MFCC-like temporal features for a number of segments \cite{echonest_temporal}. They are distributed in \texttt{echonest.csv}.
 %Echonest audio features are described in Kirell's paper
 %Those features can be obtained either by uploading the songs to their website, which are then analyzed and sent back to the user, or simply retrieved from their database if the songs are known to them, i.e. they were analyzed before. All of which can be done through an \href{http://developer.echonest.com}{API}. In our case, we only retrieved features from songs which were already in their database.
 
 \subsection{Subsets} \label{sec:subsets}
 
-Finally, for the dataset to be useful as a development set or for people with lower computational resources, we propose the following subsets, each of which is a subset of the larger set:
+For the dataset to be useful as a development set or for people with lower computational resources, we propose the following sets, each of which is a subset of the larger set:
 \begin{enumerate}
 	\item \textbf{Full}: the complete dataset, described above. All \ngenres genres, unbalanced with 1 to 38,154 tracks per genre (\figref{fig:genre_distribution}) and 0 to 31 genres per track (\figref{fig:genres_per_track}).
 	\item \textbf{Large}: the full dataset with audio limited to 30 seconds clips extracted from the middle of the tracks (or entire track if shorter than 30 seconds). That trimming reduces the size of the data by a factor 10.
@@ -473,9 +477,9 @@ The above constraints are satisfied for all subsets, and a track is assigned to 
 		\cmidrule{5-6}
 		        &       &        &  [s]   & [GiB] & [days] \\
 		\midrule
-		small  &    8,000 &   8 &  30 & 3.4  & 2.8  \\
-		medium &   25,000 &  16 &  30 & 12.2 & 8.7  \\
-		large  & \ntracks & 161 &  30 & 90   & 37 \\
+		small  &    8,000 &   8 &  30 &  7.2 & 2.8  \\
+		medium &   25,000 &  16 &  30 & 23   & 8.7  \\
+		large  & \ntracks & 161 &  30 & 94   & 37 \\
 		full   & \ntracks & 161 & \aduration & \size & \tduration  \\
 		\bottomrule
 	\end{tabular}
@@ -542,6 +546,7 @@ In the FMA, tags can be found at the track, album and artist level: 23,496 track
 % ground truth for genre: AllMusic Guide (album, artist), Gracenote CDDB (song)
 % musicbrainz, playme, 7digital
 % Allmusic: album reviews, artist biographies, discographies as well as classification of albums according to genres, styles, moods and themes. Information is provided and curated by experts.
+% playlists: Art of the Mix playlist categories
 
 % Cover song recognition --> why not, we have track titles
 % Lyrics
