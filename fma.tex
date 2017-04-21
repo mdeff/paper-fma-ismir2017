@@ -38,12 +38,12 @@
 \title{FMA: A Dataset For Music Analysis}
 
 \multauthor
-{\phantom{Michaël Defferrard$^*$ \hspace{.6cm} Kirell Benzi$^*$ \hspace{.6cm} Pierre Vandergheynst$^*$ \hspace{.6cm} Xavier Bresson$^\dagger$}}
-{\phantom{
+{Michaël Defferrard$^*$ \hspace{.6cm} Kirell Benzi$^*$ \hspace{.6cm} Pierre Vandergheynst$^*$ \hspace{.6cm} Xavier Bresson$^\dagger$}
+{
 	$^*$LTS2, EPFL, Lausanne, Switzerland \hspace{0.4cm}
 	$^\dagger$SCSE, NTU, Singapore \hspace{0.4cm}
-	{\small Work conducted when XB was at EPFL.}}\\
-	\phantom{\tt\small \{michael.defferrard,kirell.benzi,pierre.vandergheynst\}@epfl.ch, xbresson@ntu.edu.sg}
+	{\small Work conducted when XB was at EPFL.}\\
+	{\tt\small \{michael.defferrard,kirell.benzi,pierre.vandergheynst\}@epfl.ch, xbresson@ntu.edu.sg}
   }
 
 %\multauthor
@@ -61,7 +61,7 @@
 %  {Third Author} {Affiliation3 \\ {\tt author3@ismir.edu}}
 
 %% To make customize author list in Creative Common license, uncomment and customize the next line
-\def\authorname{\phantom{Kirell Benzi, Michaël Defferrard, Pierre Vandergheynst, Xavier Bresson}}
+\def\authorname{Kirell Benzi, Michaël Defferrard, Pierre Vandergheynst, Xavier Bresson}
 
 \sloppy % please retain sloppy command for improved formatting
 \begin{document}
@@ -80,7 +80,7 @@ By releasing the FMA, we hope to foster research which will improve the state-of
 The released data is composed of \ntracks tracks, \nartists artists, \nalbums albums, \ngenres genres, for a total of \tduration days of audio and \size GiB, all under permissive Creative Commons licenses.
 It features a collection of metadata such as the song title, album, artist name and genres; user data such as play counts and favorites; free-form text such as description, biography, tags, and comments; together with full-length and high-quality audio as well as some pre-computed features. We propose a train/validation/test split and three subsets: a small genre-balanced set of 8,000 songs from 8 major genres, a medium genre-unbalanced set of 25,000 songs from 16 genres, and a 94 GiB version of the full set with clips trimmed to 30s.
 This paper describes the dataset and how it was created, proposes some tasks, and evaluates some baselines for MGR.
-Code, data, and usage examples are available at \url{https://github.com/anonymous}.
+Code, data, and usage examples are available at \url{https://github.com/mdeff/fma}.
 
 % Our major goal is to go beyond the existing limitations of available music datasets, which are either the small size of datasets with raw audio tracks, the availability and legality of the music data, or the lack of metadata for artists analysis or song ratings for recommender systems. Existing datasets such as GTZAN, TagATune, and Million Song suffer from the previous limitations. It is however essential to establish such benchmark datasets to advance the field of music analysis, like the ImageNet dataset which made possible the large success of deep learning techniques in computer vision.
 
@@ -120,7 +120,7 @@ In computer vision, the community has developed over the years established bench
 		\href{http://calab1.ucsd.edu/~datasets/cal10k/}{CAL10k} \cite{cal10k} & 10,271 & 4,597 & 2010 & no \\ % Swat10k
 		\href{http://mirg.city.ac.uk/codeapps/the-magnatagatune-dataset}{TagATune} \cite{magnatagatune} & 25,863\tnote{3} & 230 & 2009 & yes\tnote{4} \\ % MagnaTagATune
 		\href{http://jmir.sourceforge.net/index_Codaich.html}{Codaich} \cite{codaich} & 26,420 & 1,941 & 2006 & no \\ % paper 20,849
-		\bf \href{https://github.com/anonymous/}{FMA} & \bf \ntracks & \bf \nartists & \bf 2017 & \bf yes \\
+		\bf \href{https://github.com/mdeff/fma/}{FMA} & \bf \ntracks & \bf \nartists & \bf 2017 & \bf yes \\
 		\href{http://www.omras2.org/}{OMRAS2} \cite{omras} & 152,410 & 6,938 & 2009 & no \\
 		\href{https://labrosa.ee.columbia.edu/millionsong/}{MSD} \cite{msd} & 1,000,000 & 44,745 & 2011 & no\tnote{2} \\
 		\href{https://research.google.com/audioset/}{AudioSet} \cite{audioset} & 2,084,320 & - & 2017 & no\tnote{2} \\
@@ -161,7 +161,7 @@ In computer vision, the community has developed over the years established bench
 			2,084,320 & 10\cdot44\cdot10^3\cdot2 && 8.8\cdot10^5 & 1.8\cdot10^{12} & 776 & 241 \\
 		\href{https://labrosa.ee.columbia.edu/millionsong/}{MSD} \cite{msd} \tnote{2} &
 			1,000,000 & 49\cdot27\cdot10^3\cdot2 && 2.6\cdot10^6 & 2.6\cdot10^{12} & 625 & 567 \\
-		\href{https://github.com/anonymous/}{FMA} \tnote{2} &
+		\href{https://github.com/mdeff/fma/}{FMA} \tnote{2} &
 			\ntracks & \aduration\cdot44\cdot10^3\cdot2 && 2.4\cdot10^7 & 2.6\cdot10^{12} & \size & \tduration \\
 		\midrule
 		\href{http://yann.lecun.com/exdb/mnist/}{MNIST} \cite{mnist} &
@@ -661,12 +661,11 @@ Let's hope for a future where sharing is first and researchers feed open platfor
 \section{Acknowledgments}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\phantom{
+
 We want to thank the team supporting the \href{https://freemusicarchive.org}{Free Music Archive} as well as all the contributing artists and curators for the fantastic content they made available.
 We are grateful to SWITCH and EPFL for hosting the dataset within the context of the \href{https://projects.switch.ch/scale-up}{SCALE-UP} project, funded in part by the swissuniversities \href{http://www.swissuniversities.ch/isci}{SUC P-2 program}.
 % We are grateful to \href{https://zenodo.org}{zenodo.org}, whose free hosting and archiving of digital research artifacts is promoting a more open scientific process.
 Xavier Bresson is supported by NRF Fellowship NRFF2017-10.
-}
 
 \bibliography{refs}
 \end{document}
