@@ -68,23 +68,26 @@
 \begin{document}
 \maketitle
 
+% ISMIR 199 words abstract:
+% We introduce the Free Music Archive (FMA), an open and easily accessible dataset which can be used to evaluate several tasks in music information retrieval (MIR). The community's growing interest in feature and end-to-end learning is however restrained by the limited availability of large audio datasets. By releasing the FMA, we hope to foster research which will improve the state-of-the-art and hopefully surpass the performance ceiling observed in e.g. genre recognition (MGR). The data is made of 106,574 tracks, 16,341 artists, 14,854 albums, arranged in a taxonomy of 161 genres, for a total of 343 days of audio and 917 GiB. It features metadata like song title, album, artist and genres; user data like play counts, favorites, and comments; free-form text like description, biography, and tags; together with full-length, high-quality audio, and some pre-computed features. We propose a train/validation/test split and three subsets: a genre-balanced set of 8,000 tracks from 8 genres, a genre-unbalanced set of 25,000 tracks from 16 genres, and a 98 GiB version with clips trimmed to 30s. This paper describes the dataset and how it was created, proposes some tasks, and evaluates some baselines for MGR. Code, data, and usage examples are available at [anonymous].
+
 % about 150-200 words.
 \begin{abstract}
-We introduce the Free Music Archive (FMA), an open and easily accessible dataset which can be used to evaluate several tasks in music information retrieval (MIR) such as music classification and annotation or recommendation.
-While content-based MIR tasks have typically been solved with feature engineering,
+We introduce the Free Music Archive (FMA), an open and easily accessible dataset which can be used to evaluate several tasks in music information retrieval (MIR), a field concerned with browsing, searching, and organizing large music collections.
+%While content-based MIR tasks have typically been solved with feature engineering,
 %with a two-stage approach: engineered features are extracted from music audio signals, and are then used as input to a regressor or classifier.
-the community is becoming interested in feature learning and end-to-end learning. %, i.e. learning from signals to labels
-That endeavor is however restrained by the limited availability of large audio datasets.
+%the community is becoming interested in feature learning and end-to-end learning. %, i.e. learning from signals to labels
+%That endeavor is however restrained by the limited availability of large audio datasets.
+The community's growing interest in feature and end-to-end learning is however restrained by the limited availability of large audio datasets.
 % The primary goal of this dataset is to enable the training of large models, which require lots of training data, which could potentially avert the semantic gap currently observed between the extracted low-level features such as MFCCs and the high-level targets such as genre.
-By releasing the FMA, we hope to foster research which will improve the state-of-the-art in several tasks and hopefully surpass the performance ceiling observed in e.g.\ genre recognition (MGR).
+By releasing the FMA, we hope to foster research which will improve the state-of-the-art and hopefully surpass the performance ceiling observed in e.g.\ genre recognition (MGR).
 % as it happened in computer vision with the release of ImageNet.
-The released data is composed of \ntracks tracks, \nartists artists, \nalbums albums, \ngenres genres, for a total of \tduration days of audio and \size GiB, all under permissive Creative Commons licenses.
-It features a collection of metadata such as the song title, album, artist name and genres; user data such as play counts, favorites, and comments; free-form text such as description, biography, and tags; together with full-length and high-quality audio as well as some pre-computed features. We propose a train/validation/test split and three subsets: a small genre-balanced set of 8,000 tracks from 8 major genres, a medium genre-unbalanced set of 25,000 tracks from 16 genres, and a 94 GiB version of the full set with clips trimmed to 30s.
-This paper describes the dataset and how it was created, proposes some tasks, and evaluates some baselines for MGR.
+The data is made of \ntracks tracks, \nartists artists, \nalbums albums, arranged in a hierarchical taxonomy of \ngenres genres, for a total of \tduration days of audio and \size GiB, all under permissive Creative Commons licenses.
+It features metadata like song title, album, artist and genres; user data like play counts, favorites, and comments; free-form text like description, biography, and tags; together with full-length, high-quality audio, and some pre-computed features. We propose a train/validation/test split and three subsets: a genre-balanced set of 8,000 tracks from 8 major genres, a genre-unbalanced set of 25,000 tracks from 16 genres, and a 98 GiB version with clips trimmed to 30s.
+This paper describes the dataset and how it was created, proposes some tasks like music classification and annotation or recommendation, and evaluates some baselines for MGR.
 Code, data, and usage examples are available at \url{\weblink}.
 
 % Our major goal is to go beyond the existing limitations of available music datasets, which are either the small size of datasets with raw audio tracks, the availability and legality of the music data, or the lack of metadata for artists analysis or song ratings for recommender systems. Existing datasets such as GTZAN, MagnaTagATune, and Million Song suffer from the previous limitations. It is however essential to establish such benchmark datasets to advance the field of music analysis, like the ImageNet dataset which made possible the large success of deep learning techniques in computer vision.
-
 \end{abstract}
 
 
@@ -411,7 +414,7 @@ See the \texttt{analysis.ipynb} notebook for a much more detailed analysis of th
 
 \subsection{Genres}
 
-While it is difficult to devise a hierarchy of genres, we followed that of our source. Indeed, the website offers a parent genre for each of the 163 available genres. \tabref{tab:genres} shows an excerp of that information along with the number of tracks per genre and the associated top-level genre, that is the root of the genre tree. \figref{fig:genre_hierarchy} shows an excerpt of the tree.
+While there is no agreement on a taxonomy of genres \cite{mir_review_genre}, we followed the hierarchy used by our source. Indeed, the website offers a parent genre for each of their 163 genres. \tabref{tab:genres} shows an excerpt of that information along with the number of tracks per genre and the associated top-level genre, that is the root of the genre tree. \figref{fig:genre_hierarchy} shows an excerpt of the tree.
 In the per-track table, the \texttt{genres} column contain the genre ids indicated by the artist. Then, given such hierarchical information, we constructed a \texttt{genres\_all} column which contains all the genres encountered when traversing the tree from the indicated genres to the roots. Finally, if the traversal yields only one root, the track is given a top-level genre stored in the \texttt{genre\_top} column.
 \figref{fig:genres_per_track}~and~\ref{fig:genre_distribution} shows the number of genres per track and tracks per genre. As often encountered with natural categories, it obeys a power law.
  
@@ -433,13 +436,13 @@ In the per-track table, the \texttt{genres} column contain the genre ids indicat
 
 \subsection{Features} % Feature sets
 
-\tabref{tab:features} (upper part) lists the features we extracted from the audio with the \href{https://github.com/librosa/librosa}{librosa} Python library, version 0.5.0 \cite{librosa}.
+\tabref{tab:features} lists the features we extracted from the audio with the \href{https://github.com/librosa/librosa}{librosa} Python library, version 0.5.0 \cite{librosa}.
 Each feature set (except zero-crossing rate) is computed on windows of 2048 samples spaced by hops of 512 samples. Seven statistics were then computed over all windows: the mean, standard deviation, skew, kurtosis, median, minimum and maximum.
 Those 518 pre-computed features are distributed in \texttt{features.csv} for all tracks.\footnote{See \texttt{features.py} for the code which computed the features.}
 
 In addition,
 % a number of descriptive medium-level and high-level audio
-features extracted by \href{http://the.echonest.com/}{Echonest} are provided for 13,129 tracks. These features (\tabref{tab:features}, lower part) include high-level audio features (acousticness, danceability, energy, instrumentalness, liveness, speechiness, tempo, valence), social features (artist discovery, artist familiarity, artist hotttness, song currency, song hotttness), and MFCC-like temporal features for a number of segments \cite{echonest_temporal}. They are distributed in \texttt{echonest.csv}.
+features extracted by \href{http://the.echonest.com/}{Echonest} are provided for 13,129 tracks. These features include 8 high-level audio features (acousticness, danceability, energy, instrumentalness, liveness, speechiness, tempo, valence), 5 social features (artist discovery, artist familiarity, artist hotttness, song currency, song hotttness), and 224 MFCC-like temporal features for a number of segments \cite{echonest_temporal}. They are distributed in \texttt{echonest.csv}.
 %Echonest audio features are described in Kirell's paper
 %Those features can be obtained either by uploading the songs to their website, which are then analyzed and sent back to the user, or simply retrieved from their database if the songs are known to them, i.e. they were analyzed before. All of which can be done through an \href{http://developer.echonest.com}{API}. In our case, we only retrieved features from songs which were already in their database.
 
@@ -462,8 +465,8 @@ We propose an 80/10/10\% split into training, validation and test sets to make r
 Below are the followed constraints:
 % Data was stratified according to the following criteria: ground truth, artist and times filters
 \begin{enumerate}
-	\item Stratified sampling was used to preserve the percentage of tracks per genre. This is important for minority genres.
-	\item An artist filter was used, i.e. an artist was forced to appear in one set only. %All songs from a given artist either appear in train, validation or test, never in two of them.
+	\item Stratified sampling to preserve the percentage of tracks per genre (important for minority genres).
+	\item An artist filter for artists to be part of one set only. %All songs from a given artist either appear in train, validation or test, never in two of them.
 	%\item Stratified sampling with a time filter, i.e. for each genre using the earlier songs in the training set, and the later releases in the validation and test sets.
 	\item Artists with lots of tracks were allocated across sets. %The three sets were alternatively filled in descending order of the count of artist songs.
 \end{enumerate}
@@ -489,7 +492,7 @@ The above constraints are satisfied for all subsets, and a track is assigned to 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Proposed usage} % tasks, usage, problems
+\section{Proposed Usage} % tasks, usage, problems
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % List some MIR tasks and propose some who can be done with that dataset
 
@@ -501,10 +504,9 @@ With its rich set of metadata, user data, audio and features, the FMA is amenabl
 % Music classification
 	% Genre recognition / classification
 	% Artist identification / recognition
+	% Singer / composer recognition
 	% Year prediction / recognition
 % Automatic (music) tagging / autotagging --> tag prediction
-
-%On an other hand, unsupervised learning methods could be used for music categorization. Does genre emerge? How?
 
 % Segmentation
 % Visualization
@@ -514,11 +516,13 @@ With its rich set of metadata, user data, audio and features, the FMA is amenabl
 % image covers: generate covers per genre / artist
 % study the influence of covers on ratings
 
-\subsection{Metadata Analysis}
+\subsection{Data Analysis}
+% Musicology?
 
 While the original intention of the dataset was to release a large volume of audio for machine learning algorithms, analyzing metadata from such a collection is also extremely interesting.
-For instance, one could address questions like: How broad artists are, i.e. to which genres do they contribute to? Do we observe some drift in time for the vocabulary used in song titles, album or artist names? To which extent tags correspond to genres? What other semantic categories can we found in them?
-Other lines of work are to test algorithms for the imputation of missing data, or to study to what extent is the FMA representative of mainstream music, or how similar it is to other datasets.
+For instance, one could address questions like: How broad artists are, i.e. to which genres do they contribute to? Do we observe some drift in time for the vocabulary used in song titles, album or artist names? Which semantic categories can we found in tags and to what extent? How are tags correlated (e.g. rock \& guitar, disco \& violin)?
+Other lines of work are to test algorithms for the imputation of missing data, or to study to what extent is the FMA representative of mainstream music and its similarity to other datasets.
+Moreover, such vast amount of audio is certainly of interest to musicologists.
 
 \subsection{Recommendation} % Recommender Systems}
 % Cite Kirell's paper: Song recommendation with non-negative matrix factorization and graph total variation
@@ -539,12 +543,14 @@ The availability of user data such as play counts for tracks and albums (\figref
 
 Music classification is a key problem in MIR with many potential applications. For one, a classification system enables end users to search for the types of music they are interested in. On the other hand, different music types are managed more effectively and efficiently once they are categorized into different groups \cite{mir_review_classif}.
 The classification tasks which can readily be evaluated on FMA include genre recognition, artist identification, year prediction, and music annotation. Automatic tagging is a classification problem which covers different semantic categories, where tags are labels which can be any musical term that describes the genre, mood, instrumentation, and style of the song.
+It helps to convert the music retrieval problem to text retrieval by substituting songs with tags.
 %The task of music annotation has recently gained much popularity in the MIR community.
-In the FMA, tags can be found at the track, album and artist level: 23,496 tracks (22\%), 2,659 albums (18\%) and 1,605 artists (10\%) have at least one tag. \figref{fig:tag_distribution} shows their distribution.\footnote{One of the artist tag is often the artist name, which we subtracted in our counts.}
-A more thorough investigation of the available tags may reveal the feasibility of mood classification or instrument recognition. Similarly, cover song detection may be doable if multiple versions of many songs are featured.
+In the FMA, tags can be found at the track, album and artist level: 23,496 tracks (22\%), 2,659 albums (18\%) and 1,605 artists (10\%) have at least one tag. \figref{fig:tag_distribution} shows their distribution.\footnote{One of the artist tag is often the artist name. We thus subtracted one.}
+In addition to supervised methods which classify music given an arbitrary taxonomy, another approach is to cluster data in an unsupervised way so that a categorization will emerge from the data itself based on objective similarity measures. Then, does genre or another taxonomy naturally come up?
 
 \subsection{Limitations}
 % ground truth for genre: AllMusic Guide (album, artist), Gracenote CDDB (song)
+% genre taxonomy: AllMusic, Amazon, mp3.com
 % musicbrainz, playme, 7digital
 % Allmusic: album reviews, artist biographies, discographies as well as classification of albums according to genres, styles, moods and themes. Information is provided and curated by experts.
 % playlists: Art of the Mix playlist categories
@@ -554,14 +560,14 @@ A more thorough investigation of the available tags may reveal the feasibility o
 % Automatic playlist generation
 % style?
 % Music classification
-	% mood classification --> may be in tags
+	% mood classification (happy, sad, and angry) --> may be in tags
 	% instrument recognition / identification --> may be in tags
 	% music annotation --> temporal labels, e.g. instrument / note
 
 % metadata such as genre, mood, groove, composer, performer, lyrics, meter, chord progressions, instruments present
 
-While the FMA can be used to evaluate many tasks, metadata is missing for e.g.\ mood classification or instrument recognition.
-We can however expect people to cross-reference the dataset with other resources to unlock additional tasks, as has happened for example with the MSD and \href{http://www.allmusic.com}{AllMusic}, \href{https://www.last.fm}{last.fm} and \href{https://beatunes.com}{beaTunes} for genre recognition \cite{msd_features, msd_genres}, \href{https://musixmatch.com}{musixmatch} for lyrics, \href{https://secondhandsongs.com}{SecondHandSongs} for cover songs, or \href{https://www.thisismyjam.com}{This Is My Jam} for user play counts.
+While the FMA can be used to evaluate many tasks, metadata is missing for e.g.\ mood classification or instrument recognition. However, a more thorough investigation of the available tags may reveal their feasibilities. Similarly, cover song detection may be doable if multiple versions of many songs are featured.
+Moreover, we can expect the dataset to be cross-referenced with other resources to unlock additional tasks, as has happened for example with the MSD and \href{http://www.allmusic.com}{AllMusic}, \href{https://www.last.fm}{last.fm} and \href{https://beatunes.com}{beaTunes} for genre recognition \cite{msd_features, msd_genres}, \href{https://musixmatch.com}{musixmatch} for lyrics, \href{https://secondhandsongs.com}{SecondHandSongs} for cover songs, or \href{https://www.thisismyjam.com}{This Is My Jam} for user play counts.
 
 Diversity is another issue: as suggested by \figref{fig:genre_distribution}, this collection is biased toward experimental, electronic, and rock music. Moreover, it probably does not contain hits from renown artists or commercial music.
 
@@ -571,7 +577,7 @@ Diversity is another issue: as suggested by \figref{fig:genre_distribution}, thi
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-Music genres are categories that have arisen through a complex interplay of cultures, artists, and market forces to characterize similarities between compositions and organize music collections. Yet, the boundaries between genres still remain fuzzy, making the problem of music genre recognition (MGR) a nontrivial task.
+Music genres are categories that have arisen through a complex interplay of cultures, artists, and market forces to characterize similarities between compositions and organize music collections. Yet, the boundaries between genres still remain fuzzy, making the problem of music genre recognition (MGR) a nontrivial task \cite{mir_review_genre}.
 % genre not defined by audio content only
 While its utility has been debated, mostly because of its ambiguity and cultural definition, it is widely used and understood by end-users who find it useful to discuss musical categories \cite{mgr_why}.
 As such, it is one of the most researched areas of MIR.
@@ -620,10 +626,10 @@ With availability of audio, DL architectures such as convolutional neural networ
 		3 + 6 & 189 & 60 & 55 & 63 & 54 \\
 		3 + 6 + 4 & 273 & 60 & 55 & 63 & 53 \\
 		1 to 9 & 518 & 61 & 52 & 63 & 58 \\
-		\midrule
-		Ech. audio & 8 & - & - & - & - \\
-		Ech. social & 5 & - & - & - & - \\
-		Ech. temporal \cite{echonest_temporal} & 224 & - & - & - & - \\
+		%\midrule
+		%Ech. audio & 8 & - & - & - & - \\
+		%Ech. social & 5 & - & - & - & - \\
+		%Ech. temporal \cite{echonest_temporal} & 224 & - & - & - & - \\
 		\bottomrule
 	\end{tabular}
 	\caption{Accuracies of various features and classifiers for top genre recognition on the medium subset.}
