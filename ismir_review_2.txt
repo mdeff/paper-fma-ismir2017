@@ -1,0 +1,201 @@
+============================================================================
+                            REVIEWER #2
+============================================================================ 
+
+
+---------------------------------------------------------------------------
+Reviewer's Scores
+---------------------------------------------------------------------------
+
+            Scholarly/scientific quality: medium low
+                                 Novelty: medium high
+                      Relevance of topic: high
+                              Importance: high
+      Readability and paper organisation: low
+                      Title and abstract: yes
+                            Bibliography: yes
+         Make Review Publicly Accessible: Yes
+
+
+---------------------------------------------------------------------------
+Comments
+---------------------------------------------------------------------------
+
+This is a "dataset paper" presenting one of the largest annotated audio
+collections available up to date. Definitely, we can expect this dataset to be
+an important contribution to the MIR field and I congratulate the authors for
+being able to gather this data. I am looking forward to seeing research using
+the FMA dataset.
+
+Still, I have a mixed feeling about this paper. By no doubts, the impact of
+making such a dataset available to researchers is very high, but I would expect
+a higher quality of the paper itself. This paper is supposed to be the first
+academic reference introducing this dataset. It will be the "go to" reference
+for many researchers. For this reason, in my opinion, it deserves the highest
+quality of writing possible and it should be self-sufficient to describe all
+key information related to the dataset.
+
+To me, it seems that the paper is written and formatted rather poorly. It looks
+like a raw draft, but not a final version of the manuscript. Information is
+presented in a rather informal way, and some statements are not justified or
+require further elaboration. Some sentences are too large and complex. They
+should be split up in simpler phrases.
+
+Tables are ordered somewhat chaotically, not following the order of their
+presentation in the text, and some tables captions are misleading. They are
+poorly formatted and sometimes refer to facts that are introduced in the text
+only later.
+
+Some important details are scattered across the whole text and should be
+grouped together better. For example, only in section 3.3, we discover that
+tags annotations are done on various levels (tracks, albums, artists), while
+this should have been presented when describing the dataset in section 2.
+
+To summarize my impressions, the presented dataset is very important, however,
+the paper requires a revision due to the quality of the manuscript and missing
+details.
+
+Detailed comments below.
+
+- I would abstain from using terms such as "legal" and "illegal" because such
+qualifiers would depend on concrete actions and jurisdiction of different
+countries. There may be a possible academic exception that would make "illegal"
+datasets "legal". Use phrases such as "contains copyrighted audio", "does not
+contain audio", and "contains CC-licensed audio" instead.
+
+- It's worth mentioning the recent AcousticBrainz dataset in the review of the
+datasets because it tries to address the copyright issue although from a
+different perspective and it is the largest available dataset of open music
+descriptors up to date.
+
+- "Large datasets are needed ... to effectively learn models that incorporate
+the ambiguities and inconsistencies that one finds with musical categories."
+
+Is that really so? Wouldn't inconsistent taxonomy be still a problem? This is a
+topic to study on its own. Please, provide some references for justification.
+
+- "For statistical learning algorithms, the scale of FMA is comparable to
+ImageNet and the most used ILSVRC (Table 2) and shall thus be sufficient for
+the foreseeable future. Note that while image datasets are larger, the amount
+of data is similar because of their smaller dimensionality."
+
+Is it correct to compare the scales of required data for learning music data to
+images, and why?
+
+- Provide information about audio format apart from the kbit/s value discussing
+audio quality in the available datasets. Are there lossless audio files too?
+
+- Names for the subsets (Section 2.6) are somewhat misleading. "Full", "Medium"
+and "Small" sets contain full tracks while the "Large" set contains audio
+segments. The "Large" subset is conceptually different from the rest of the
+sets, therefore I suggest renaming it to "Full-Segments", or renaming "Large"
+to "Large-Segments" and "Full" to "Large" instead.
+
+Metadata:
+
+- Table 4 introduces available metadata. Where does this metadata come from?
+Who annotated the metadata and what was the annotation process? How many tracks
+are annotated by each metadata field from the table? Is it possible that many
+fields are missing for the majority of the music collection? This information
+is required to understand coverage of the metadata and its quality. For
+instance, in Section 3.3 the authors mention that only 22% of the tracks have
+associated tags.
+
+- Authors propose that music genre recognition is one of the main tasks that
+can be addressed by the FMA dataset. Therefore they should include as many
+details related to genre annotation process as possible. It appears that genre
+annotations are done by artists when uploading their music. Is there any
+further moderation of such annotations and what is their quality? Are genre
+annotations done on release level or on the level of individual tracks? (From
+Table 3 it appears, the genres annotations are on the track level.) This is a
+crucial information that is missing. Also, the authors do not question nor
+justify the use of the FMA genre taxonomy.
+
+- Following the taxonomy, root genres are retrieved for each track. In the case
+there is only one root genre, it is stored in "genre_top". Why not storing all
+root genres in the case there are multiple ones? Are there many cases of
+multiple root genre annotations? It may appear that there are much more tracks
+with multiple root genres than with a single root genre. Authors should provide
+some statistics to address the question whether root genre recognition should
+be treated as a single-label or multi-label problem.
+
+- I would expect a more thorough investigation of the available tags to be the
+part of this paper. How many different tags are present in the dataset? What
+are these tags, can they be grouped by type? How are they different from
+genres? 
+
+- It is mentioned that the maximum number of genre per track is 31. Tracks with
+such a large number of genres are potentially erroneous.
+
+Data format:
+
+- Why tracks.csv contains numbers for "genres_all"? I would expect a list of
+strings similar to top genre and tags. Also, why not storing genre names as
+strings in genres.csv too?
+
+Current file format relies on both files, with annotations and with mapping of
+genre IDs to genre names. This is unnecessary and may be counter-productive. I
+suggest improving the file format for genres_all. For storing genre taxonomy
+information, authors can also consider a simpler json format that would allow
+having the whole genre taxonomy at glance.
+
+Train/validation/test splits:
+
+- It is mentioned that artists with lots of tracks were allocated across sets.
+More details are necessary. I agree that the requirement to apply the artist
+filter may be too difficult to accomplish without a significant loss in the
+dataset size. Still it should be guaranteed that there are no tracks from the
+same release (album) to avoid the potential album effect. Also, is it
+guaranteed that all genre labels are present in training, validation and test
+sets altogether?
+
+Applications:
+
+- Section 3.1 proposes research questions related to metadata analysis (if
+would propose renaming this section to reflect this better). In my opinion,
+there are much better datasets for addressing research questions that are
+proposed, for example, MusicBrainz, AllMusic, Discogs and Last.fm provide large
+amounts of such metadata. This is not a problem, and the FMA can be another
+valid dataset. What I suggest is that this section can intend to give better
+examples of research questions related to metadata for which the FMA dataset is
+really beneficial.
+
+- Section 3.2. It is not clear if play counts are available on a per-user basis
+or they are overall counts by all users. Again, this is an important
+information that is missing, which makes difficult to understand the actual
+usefulness of user-related data in FMA for the task of music recommendation.
+
+Figures and tables:
+
+- Captions for Figures 1 and 2 mention intervals that do not correspond to the
+actual plots.
+
+- Figure 5. It is not clear what is "the full set" and "the curated medium
+subset" at the moment when this figure is introduced in the text for the first
+time.
+
+- Figure 6 should use a simple line plot so that it will be possible to see all
+values for track, album, and artists.
+
+- Table 7: are the accuracies for the validation or for the test set?
+
+- Table 2: Capture can be improved. What is the length and how is it different
+from the number of samples? A simple "(s)" would help and "#examples" or
+"files" or an explanation would clarify too. Rephrase: "Size is for a directory
+containing all .mp3 or .jpg in GiB, an indication..."
+
+Rephrase:
+
+- "Complete" quality. I would not name this paragraph "Complete" as it is now
+clear what this work refers to on its own. Use a better phrase (e.g. "Rich in
+metadata").
+- "quick start using the data" --> "start using the data quickly"
+- "the date of collection" - rephrase as it is not clear the meaning of the
+word "collection" (e.g., "the date of gathering the dataset")
+- "See Figure 1 to visualize the growth" --> "Figure 1 shows the growth"
+- "meta-informations" --> "metadata"
+- "Which semantic categories can we found" --> "can we find"
+- "As often encountered with natural categories, it obeys a power law."
+- "Moreover, researchers are wary of proprietary features such as those
+computed by commercial services like Echonest and have extracted features by
+themselves on the MSD by downloading sample audio, a tedious process [32]."

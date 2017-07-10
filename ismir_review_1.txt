@@ -1,0 +1,415 @@
+============================================================================
+                            REVIEWER #1
+============================================================================ 
+
+
+---------------------------------------------------------------------------
+Reviewer's Scores
+---------------------------------------------------------------------------
+
+            Scholarly/scientific quality: medium high
+                                 Novelty: medium high
+                      Relevance of topic: high
+                              Importance: medium high
+      Readability and paper organisation: low
+                      Title and abstract: no
+                            Bibliography: yes
+         Make Review Publicly Accessible: Yes
+
+
+---------------------------------------------------------------------------
+Comments
+---------------------------------------------------------------------------
+
+## Summary
+
+The authors present in this submission a dataset called FMA (the Free Music
+Archive), whose large amount of high-quality audio and corresponding metadata
+they claim makes it particularly suitable for current trends in music analysis,
+especially for deep learning and end-to-end approaches. They include a summary
+of the main traits of the dataset, as well as some discussion about its
+potential use for different MIR evaluation scenarios.
+
+## Overall analysis
+
+This submission provides, in my opinion, a good example on how to present a new
+annotated collection for MIR evaluation. The dataset, as described in the text,
+seems promising, and I suspect it will be widely adopted by the research
+community, as it offers both proper size and permissive licensing while
+claiming that the annotations are relatively well curated. Whether the
+annotations actually provide reliable ground truth still remains to be checked,
+though.
+
+## Section-by-section analysis
+
+In what follows I provide feedback on specific aspects I believe would improve
+the quality of the submission.
+
+### Abstract
+
+The abstract reads well and provides details that will surely catch the
+reader's attention, however,
+
+(1). From my point of view, the abstract is far too long for a paper of this
+length. Some details, though undeniably interesting, could be removed without
+compromising its effectiveness. I think something like the following example
+would be sufficient, cutting the amount of words almost in half:
+
+ >> "_We introduce the Free Music Archive (FMA), an open and easily accessible
+dataset suitable for several MIR tasks evaluation. The community's growing
+interest in feature and end-to-end learning is however restrained by the
+limited availability of large audio datasets. The FMA aims to overcome this
+hurdle by providing Creative Commons-licensed tracks from 106,574 tracks from
+16,341 artists and 14,854 albums, arranged in a hierarchical taxonomy of 161
+genres. It provides full-length, high-quality audio, together with track- and
+user-level metadata, tags, and free-form text, such as biographies. We here
+describe the dataset and how it was created, propose a train/validation/test
+split and three subsets, discuss some suitable MIR tasks, and evaluate some
+baselines for genre recognition. We make code, data and usage examples
+available._"
+
+(2). I would include all (or at least most) hyperlinks as footnotes, both to
+avoid interrupting the reading flow and to provide those who print the paper a
+glimpse of the address they are proposed to visit. This would apply both here
+at the end of the abstract, and all over the body of the text.
+
+### Introduction
+
+The introduction reads really well, with a particularly engaging starting
+sentence. Using Computer Vision as a comparison seems like a good idea,
+considering the relatively high impact that research in that field has achieved
+due to large scale evaluation campaigns. Nevertheless,
+
+(3). The number of references regarding Computer Vision evaluation could
+probably
+be reduced to save some space.
+
+The short discussion of alternative research music collections seems
+appropriate, and I coincide in the choice of datasets to mention in the text:
+GTZAN, MSD and MagnaTagATune are undeniably among the most widely used ones.
+However,
+
+(4). I would replace "songs" in the description of GTZAN ("a collection of 1000
+_songs_ from 10 genres") with "excerpts" or "clips".
+
+(5). The two Sturm references included here ([38, 39]) could probably be
+replaced
+with a single one (Sturm, 2014).
+
+(6). While legal issues undeniably hamper the reproducibility of MIR studies, I
+am not sure if "illegality" might be regarded as one of the main limitations of
+GTZAN. In the references included repetitions, mislabellings and distortions
+are considered as the main problems of the dataset, as well as its lack of
+control for artists and/or album effects. In any case, I would replace the term
+"illegality" with  "legal/copyright issues", as it is not clear whether the
+sharing of 30-second clips should be considered as "illegal".
+
+(7). References to the discussed datasets should also be included in the text.
+
+(8). Table 1, and most other tables in the submission, could use smaller font
+size without making it much more difficult to read.
+
+(9). The name "GTZAN" in Table 1 is misspelled (GZTAN).
+
+(10). "MagnaTagATune" is referred in Table 1 as "TagATune", and nowhere else.
+
+(11). If the font in Table 1 is reduced, there could be space to include
+further
+columns, such as the audio format in those datasets that provide audio.
+
+(12). The caption of Table 1 should be expanded or clarified, at least
+mentioning
+that the comparison is between FMA and other alternative datasets, and
+preferably summarising the criteria for including those datasets.
+
+(13). I personally miss a mention to the AcousticBrainz initiative, introduced
+in
+(Porter et al, 2015), which has recently been announced as research dataset for
+the MediaEval 2017 Music Genre Task (see
+https://multimediaeval.github.io/2017-AcousticBrainz-Genre-Task/).
+
+(14). A comparison between open benchmarking collections and the approach taken
+in evaluation challenges, such as MIREX (Downie et al, 2010), would also be
+welcome (similar to what (McFee et al, 2016) argued).
+
+The list of desirable properties for research datasets is really interesting,
+and could be the basis for a devoted position paper about which requirements
+should the MIR community enforce for proposed collections. In my opinion,
+however,
+
+(15). A sound sampling procedure, with a strong emphasis in avoiding
+introducing
+biases in the data that learning algorithms might exploit, should be regarded
+as one of the, if not the, most important property of any research collection.
+As recent research has shown, uncontrolled biases in the data might seriously
+put into question the validity of any inferences one might perform from the
+success of studied solutions. See, for instance, the aforementioned (Sturm,
+2014) paper for a discussion of this issue in GTZAN, as well as (Sturm, 2016)
+for a similar problem found in BALLROOM. It would be interesting if you could
+add a short discussion about how the way of the proposed dataset was collected
+deals with such potential problems.
+
+(16). If I understood it properly,Table 4 suggests that all metadata appears in
+a
+single csv file called tracks.csv. That would imply that there would be much
+redundant information, as many tracks by the same artist would share columns.
+Is there any reason to avoid using relational tables?
+
+(17). If space allows it, it would be nice to have a short paragraph linking
+the
+end of the introduction with the next sections.
+
+Finally, for this section, and in some way also for the following ones:
+
+(18). Tables and Figures are not ordered in the same way as they appear in the
+text, which might confuse some readers. I understand this is so to make the
+most of the available space, but I think you should try to rearrange them if
+space permits.
+
+### The Dataset
+
+This section offers an interesting overview of the main characteristics of the
+reported dataset, and the context from which it has been collected.
+
+(19). The location information exemplified in the last column of Table 3
+suggests
+that there is little consistency in what is stored under that heading (country,
+county, town, etc.). Is there any requirement about how authors register their
+location? Can that data be exploited in any meaningful way?
+
+(20). In subsection 2.3 it is mentioned that most tracks have particular audio
+quality, but it would be useful to know what percentage do those roughly
+represent, and have some idea about what one might expect from the remaining
+tracks.
+
+(21). Captions of Figures 2 and 3 are difficult to interpret, as the axes do
+not
+span the duration mentioned in the text.
+
+(22). The two subfigures in Figure 4 seem to have been placed together with the
+only purpose to save space, making it difficult for the reader to understand
+what the authors try to convey.
+
+(23). Some of the "genre" labels that appear in Figure 5 seem to be quite
+"non-musical", such as "noise", or "spoken". I personally find specially 
+interesting that "spoken" is included in the theoretically curated "medium" 
+subset. Is there any reason for that? Is distinction between music and
+non-music 
+signals an intended use case for the proposed dataset?
+
+(24). The statement that closes Sec. 2.4 ("as often encountered [in] natural
+categories, it obeys a power law") seem to require justification. Maybe (Haro
+et al, 2012) would be suitable.
+
+(25). Which criteria was followed to choose which features to extract?
+
+(26). Why only a relatively small subset of tracks include Echonest features?
+
+(27). Similar to comment (18), placing Table 7 much later than other tables
+even
+though it is referenced earlier, makes the reader's task quite annoying.
+
+Proposing the subsets described in Sec. 2.6 is an interesting idea, as well as
+controlled splits as mentioned in Sec. 2.7. However, I have a serious concern
+here:
+
+(28). In the Full subset there are genres with a single track, as well as
+tracks
+with no genre assigned at all. What is the purpose of the inclusion of those
+two cases in the dataset? How are they treated in the splits described in 2.7?
+If the requirements listed are met by all subsets, how is it possible that a
+genre with a single track could be represented in all three splits, or that a
+track without any genre could even be used for training, validation, or
+testing?
+
+As mentioned in comment (6), sampling bias constitutes one of the most
+important threats for the evaluation of MIR solutions, and one can easily
+introduce bias inadvertently when curating collections. For that reason,
+
+(29). More detailed information about the criteria for inclusion into the
+"medium" and "small" datasets would be welcome.
+
+Finally, controlling for artist replication is undeniably a good step towards
+avoiding introducing bias. At this respect,
+
+(30). I would include a reference to (Pampalk et al, 2005) and/or (Flexer,
+2007)
+to justify the importance of artist filtering in genre recognition collections.
+
+(31). The sentence "artists with lots of tracks were allocated across sets"
+seems
+unclear to me.
+
+### Proposed Usage and Genre Recognition
+
+I will comment here about both Sec. 3 and 4, as, from my point of view, the
+description of Genre Recognition in Sec. 4 fits the proposed usage examples in
+Sec. 3 perfectly. In fact,
+
+(32). If possible, I think it would be appropriate to merge sections 3 and 4.
+
+I agree the vast amount of metadata that seems to accompany the audio offers
+great possibilities for research beyond pure content analysis. However,
+
+(33). Sec. 3.1 appears less important than 3.3 as potential use cases of the
+dataset, so it might be more suitable to reorder them.
+
+(34). I would add at least one reference to studies involving music context
+data
+analysis to justify its relevance for the community. The authors can find some
+potential candidates in chapter 3 of (Schedl et al, 2014).
+
+(35). Which kind of analyses are exactly in mind of the authors when they
+propose
+"to study to what extent is the FMA representative of mainstream music and its
+similarity of other datasets"?
+
+The paragraph regarding the recommendation task proposed in Sec. 3.2 seems to
+require some more work.
+
+(36). At the end of the second line, I would replace "ones of" with "among".
+
+(37). Are there any suitable references to support the claim that
+"content-based
+systems have fallen short at predicting user ratings when compared to
+collaborative filtering methods"?
+
+(38). My main concern about the usage of FMA for recommendation studies is that
+it does not seem to include any information at the user level. As far as I have
+understood, play counts and similar information is provided in aggregation, so
+I fail to see how one might exploit that information to personalise
+recommendations. Moreover, there is no description, neither in the paper nor in
+the collection itself, about the user base of the online platform, their
+demographics or browsing experience.
+
+Music classification seems to be the most straightforward use case for FMA,
+with music genre recognition appearing particularly suitable. The inclusion of
+a genre hierarchy makes it specially interesting from my point of view, as it
+offers possibilities rarely found in alternative collections.
+
+(39). I would personally split the paragraph in Sec. 3.3, maybe at the end of
+the
+sentence at line 9, and right after footnote 5.
+
+(40). Is "music annotation" the same task as "automatic tagging"? 
+
+(41). I would include a reference to the proposed tasks. For instance, for
+autotagging, the classical reference might be
+(Bertin-Mahieux et al, 2010).
+
+(42). Figure 6 is difficult to interpret, specially due to the stacked bars
+plot
+chosen to represent the data.
+
+Regarding Sec. 3.4:
+
+(43). I would move the discussion of the dataset limitations to a devoted
+section
+(probably named "Discussion"), just before the conclusions.
+
+(44). The last paragraph in Sec. 3.4 seem to require an expanded discussion, as
+the biases in the data are, in my opinion, the most threatening problem a
+proposed evaluation collection poses.
+
+(45). The fact that the genre hierarchy has been "annotated by the artists
+themselves" is not necessarily a positive trait, as it could be argued that the
+annotations could be inconsistent, and motivated by factors not necessarily
+objective (such as achieving a higher play count by labelling tracks as
+belonging to "trendy" genres). In my opinion, it requires a proper discussion
+on the pros and cons of this choice.
+
+(46). The reference chosen to justify the presence of a "glass ceiling" in the
+performance of MGR systems ([23]) seems quite dated, as it was published more
+than 10 years ago. There have been much work since then, and, as shown in 
+(Sturm, 2014), it has been apparently successful. Whether one can trust the
+reported results or not is source of debate, but in any case does not seem to
+support the "glass ceiling" observed back then. It might be interesting to
+consider the stagnation hypotheses presented by (Scholz et al, 2016) on the
+MIREX tasks, though.
+
+### Conclusion and Perspectives
+
+This section reads really well, and provides a good wrap up for the submission.
+
+### References
+
+Apart from the comments above, I would suggest the following:
+
+(47). Make all entries consistent by using only initials for the first names of
+the authors, thus saving some space.
+
+(48). Make names of conferences consistent (some simply mention ISMIR, while
+others include the whole name of the conference).
+
+(49). To avoid using two whole pages for references, it could be useful to
+shorten keywords
+both for conferences and journals (J. for Journal, Proc. for Proceedings, Int.
+for International,
+Conf. for Conference, Trans. for Transactions, and so on).
+
+(50). Only include in the references section peer-reviewed content. In
+particular, reference 25 could easily be a footnote.
+
+## References cited in this review
+
+Here I include a list of the references that I mentioned above.
+
+Bertin-Mahieux, T., Douglas Eck, D., & Mandel, M. I. (2010).
+Automatic tagging of audio: The state-of-the-art.
+In Wang, editor,
+Machine audition: Principles, algorithms and systems,
+Engineering Science Reference, 2010
+
+Downie, J. S., Ehmann, A. F., Bay, M., & Jones, M. C. (2010).
+The Music Information Retrieval Evaluation eXchange: 
+Some Observations and Insights.
+In Ras and Wiezorkowska, editors, 
+Advances in Music Information Retrieval, 
+vol. 274 of Studies in Computational Intelligence. Springer, 2010.
+
+Flexer, A. (2007). 
+A Closer Look on Artist Filters for Musical Genre Classification. 
+In Proc. 8th International Conference on Music Information Retrieval
+(ISMIR’07). Vienna, Austria.
+
+Haro, M., Serrà, J., Herrera, P., & Corral, Á. (2012).
+Zipf’s Law in Short-Time Timbral Codings of Speech, 
+Music, and Environmental Sound Signals. 
+PloS One, 7(3).
+
+McFee, B., Humphrey, E. J & Urbano, J. (2016).
+A Plan for Sustainable MIR Evaluation.
+In Proc. 17th International Society for Music Information Retrieval
+Conference (ISMIR'16), New York, NY, August 2016
+
+Pampalk, E., Flexer, A., & Widmer, G. (2005). 
+Improvements of Audio-Based Similarity and Genre Classification. 
+In Proc. 6th International Society for Music Information Retrieval
+Conference (ISMIR’05). London, UK.
+
+Porter, A., Bogdanov D., Kaye R., Tsukanov R., & Serra X. (2015).
+AcousticBrainz: A Community Platform for Gathering 
+Music Information Obtained from Audio.
+In Proc. 16th International Society for Music Information Retrieval
+Conference (ISMIR'15), Málaga, Spain, October 2015
+
+Schedl, M., Gómez, E., & Urbano, J. (2014).
+Music Information Retrieval; Recent Developments and Applications. Foundations
+and Trends in Information Retrieval, 8(2–3), 127–261.
+
+Scholz, R., Ramalho, G., & Cabral, G. (2016). 
+Cross Task Study on MIREX Recent Result: An Index for Evolution Measurement and
+Some Stagnation Hypotheses. 
+In Proc. 17th International Society for Music Information Retrieval
+Conference (ISMIR’16). New York City, NY, USA.
+
+Sturm, B. L.. (2014).
+The State of the Art Ten Years After a State of the Art: 
+Future Research in Music Information Retrieval.
+Journal of New Music Research, 43:2, 147-172
+
+Sturm, B. L. (2016). 
+The ``Horse’’ Inside: Seeking Causes of the Behaviours 
+of Music Content Analysis Systems. 
+Computers in Entertainment, 
+Special Issue on Musical Metacreation, 14(2).

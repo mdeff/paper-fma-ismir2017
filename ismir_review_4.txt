@@ -1,0 +1,51 @@
+============================================================================
+                            REVIEWER #4
+============================================================================ 
+
+
+---------------------------------------------------------------------------
+Reviewer's Scores
+---------------------------------------------------------------------------
+
+            Scholarly/scientific quality: medium low
+                                 Novelty: medium high
+                      Relevance of topic: medium high
+                              Importance: medium high
+      Readability and paper organisation: medium high
+                      Title and abstract: yes
+                            Bibliography: yes
+         Make Review Publicly Accessible: Yes
+
+
+---------------------------------------------------------------------------
+Comments
+---------------------------------------------------------------------------
+
+This is a metareview. 
+
+All reviewers have identified pluses and minuses to this work, some with major
+details. We can all see that a significant amount of effort has gone into the
+preparation of this work, but one of the main sticking points is that the
+quality of writing must be greatly improved. 
+
+From my own judgements, I think this is another paper extolling the virtues of
+lots of data without thinking about defining and solving meaningful problems.
+More data is not necessarily better data. The paper is just the tip of the
+iceberg on how much effort has gone into collecting this data, but we don't
+know whether all that effort is actually useful. One major problem is the
+comparison of MIR with image content analysis. Music recordings are not like
+images. "Genre" is not an object. A music signal is not a perspective of
+arranged and opaque objects. Humans don't listen to music like they look at
+photos. So I am not persuaded by the argument that MIR should be more like
+image content analysis. Plus, there's the naive treatment of genre as a
+category. That so many recordings are labeled "experimental" by artists shows a
+major problem: the metadata here is highly dependent on the current time. The
+"artist hotness" etc. will have limited usefulness, if it has any, outside of a
+narrow time window. Anyhow, this paper is presenting a new and larger dataset,
+which will lead to more benchmarking whether it is valid or invalid.
+
+Even with all that said, I am inclined to say "weak accept."
+
+In the discussion among the reviewers, we came to conclusion that if this paper
+is accepted that the authors will take into account all comments and produce an
+improved paper.

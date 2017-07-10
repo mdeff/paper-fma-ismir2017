@@ -1,0 +1,231 @@
+============================================================================
+                            REVIEWER #3
+============================================================================ 
+
+
+---------------------------------------------------------------------------
+Reviewer's Scores
+---------------------------------------------------------------------------
+
+            Scholarly/scientific quality: medium low
+                                 Novelty: medium low
+                      Relevance of topic: medium high
+                              Importance: medium high
+      Readability and paper organisation: medium low
+                      Title and abstract: yes
+                            Bibliography: no
+         Make Review Publicly Accessible: Yes
+
+
+---------------------------------------------------------------------------
+Comments
+---------------------------------------------------------------------------
+
+Summary:
+
+This paper recognizes the very prominent issue of "not enough data" due to the
+current state of copyright laws which stifles research on audio-based content
+in MIR. To help alleviate this issue, the paper presents a new dataset
+consisting of various metadata and (more importantly) complete audio for over
+100,000 music pieces distributed under permissive Creative Commons licenses
+(making it freely shareable). In addition, some steps were taken to ensure the
+dataset's online availability for a prolonged period of time. The paper
+presents some basic statistical evaluation of the dataset contents and provides
+some suggestions on how the dataset can be used. 
+
+I would like to welcome with open arms any well-organized data for MIR
+research, such as the one presented in this paper. However, the quality of
+presentation is rather disappointing. Although I reject this paper in its
+current state, I encourage the authors to improve it and publish as soon as
+possible. The dataset indeed has many desirable properties and many researchers
+would be interested to work with it.
+
+Below are some comments in no particular order.
+
+-----
+
+The authors of this paper are implying that MIR researchers are doing illegal
+research. This implication NOT true; moreover, it is harmful to the MIR
+community. The GTZAN dataset (among others) is not illegal in many countries;
+it is definitely not illegal in the country where it is hosted. The claim
+"often regardless of copyrights" is unsupported, this paper gives no evidence
+that authors of other datasets did not consider the legal issues and fair use
+concepts before making the audio excerpts publically available. In fact, this
+is perhaps one of the main reasons why the new datasets "force researchers to
+download audio excerpts from online services", as the authors of this paper
+recognized but obviously misunderstood. In the long run, this way of going to
+the source distributor of content allows proper adherence with and quick
+response to the ever-changing copyright laws.
+
+-----
+
+This paper refers to the work of Bub Sturm, where he analyzed GTZAN dataset
+extensively, this means that its authors should be aware of the dataset's main
+limitation. The next sentence after Bob Sturm's reference "The main limitations
+of GTZAN is its illegality, small size, and missing metadata (no user ratings
+or even artist name and song title)." is misleading -  it is this paper's
+authors' own conjecture, not supported by [38] and [39], as may seem by
+proximity. Bob Sturm identified completely different issues: duplication,
+distortion, and mislabeling. These should be mentioned next to the citation
+instead of the quoted sentence.
+
+-----
+
+FMA is not "large scale" and it is quite small when compared to MSD and the
+newer AudioSet. Moreover, if ordered chronologically, one can see the growth in
+size over time: 10k, 25k, 1000k, 2000k. The dataset proposed in this paper is a
+relative setback to 100k size, which was already surpassed with the release of
+MSD years ago. FMA is not large scale by today's measures, especially when
+compared to the bar set by ImageNet at 14,000k. 
+
+-----
+
+The sentence containing "researchers are stuck with the set of chosen features"
+implies that this is a problem, however, releasing pre-extracted features with
+a dataset is a good practice. It allows researchers to fairly compare algorithm
+performance to all other reported benchmarks with the peace of mind that
+feature extraction is not a variable. This also allows researchers who are new
+to the area to get a 'quick start' w/o having to learn about audio feature
+extraction. The researchers are not "prevented to leverage feature learning
+algorithms or end-to-end learning systems", as this paper states, in fact they
+always have the freedom to obtain their own LEGAL copy of the audio. Anyway,
+why say all of this and then release pre-extracted features with FMA? Seems
+self-contradictory.
+
+-----
+
+The sentence starting with "Moreover, researchers are wary of proprietary
+features" is misrepresenting the work of Schindler et al., their work was
+motivated by the lack of easily obtainable audio and lack of consistent
+genre/style labels (which were actually obtained by proprietary algorithms from
+proprietary features). This shows that the authors of this paper did not fully
+understand the work of Schindler et al. [32].
+
+-----
+
+Although it does contain many desired attributes, FMA is NOT "complete" as the
+paper claims. For example, it lacks mood, style, instrument, symbolic notation,
+etc. This is noted in Section 3.4 which conflicts with the completeness claim
+in Section 1.
+
+-----
+
+Perhaps one advantage of providing a set of complete tracks (rather than 30
+second excerpts) that should be highlighted is that it allows for proper study
+of music properties that require the complete music track, for example music
+structure analysis. Additionally, it has been shown in the literature that the
+beginning 30 seconds of music tracks yield different classification accuracy
+than the middle or the final 30 seconds. When researchers work with a 30 second
+excerpt, downloaded from some online service, they do not necessarily have
+control over which 30 seconds they get.
+
+-----
+
+The motivation of breaking FMA into subsets is not a particularly good one. Why
+wouldn't a researcher download the entire thing and make own choices about
+subsets based on research goals? Traditionally, a large dataset offered a small
+subset (properly sampled) for quick download and as a toy dataset - to give an
+idea of what the data looks like. Meanwhile, any serious research would make
+use of the entire set. In my opinion, as it is, Section 2.6 can be omitted
+entirely. Unfortunately, the paper does not propose any balanced subsets. 
+
+-----
+
+"3. Artists with lots of tracks were allocated across sets." grossly defeats
+the purpose of doing "2. An artist filter for artists to be part of one set
+only.". Section 2.7 is unclear. Also, why not include a pre-designated splits
+for cross-validation? Two experiments using different random seed to determine
+cross-validation splits could result in slightly different results. 
+
+-----
+
+"we can expect the dataset to be cross-referenced with other resources to
+unlock additional tasks" - this would be a very desirable property of FMA which
+is missing for now. 
+
+-----
+
+"only one top genre per track" implies that some genres have more than one top
+genre, but the "genre_top" defined earlier (Section 2.4) clearly states that
+there is either 1 or none per track.
+
+-----
+
+It is unclear how many genres are considered in the top genre category (what's
+the dictionary size?), if it's 36 (from counting the labels in Figure 5) and
+they are distributed as indicated - then the results in Table 7 most likely
+biased towards the majority classes, which renders them meaningless.
+
+-----
+
+Table 5 suggests that there are at least 1235 top_level genres, judging by the
+genre id. This number is higher than the 163 total genres reported in Section
+2.4.
+
+-----
+
+The paper suggests that the proposed dataset can be used to strengthen
+commercially used algorithms, however, the dataset does not contain any
+mainstream music. There is no study performed to see if a dataset made up
+entirely of mainstream music has the same properties as a dataset made up
+entirely of non-mainstream music. Algorithms tailored for one are not
+guaranteed to perform as well on the other. 
+
+The nature of the proposed dataset, specifically that "it probably does not
+contain hits from renown artists or commercial music", poses a serious problem
+to many MIR tasks which is grossly understated in Section 3.4.
+
+-----
+
+The paper seems to overlook a serious limitation of FMA. When any study into
+music tags is concerned (such as genre recognition), the proposed dataset is
+limited to 23,496 tracks, according to: "In the FMA, tags can be found at the
+track, album and artist level: 23,496 tracks (22%), 2,659 albums (18%) and
+1,605 artists (10%) have at least one tag". This contradicts another statement
+found elsewhere in the paper: "Tracks per genre on the full set, from 1 to
+38,154".
+
+In either case, the actual size of the proposed dataset for many MIR is less
+than half the reported size.
+
+-----
+
+The authors of this paper are obviously familiar with work of Bob Sturm,
+however, his suggestions and methodology are overlooked in this paper; when
+they seem most applicable to creating a new dataset.
+
+-----
+
+Paper organization comment: based on the sections' content I suspect the "Genre
+Recognition" is ought to be 3.4 and "Limitations" to be 4.
+
+-----
+
+References section comments:
+
+Some author names are abbreviated (should be in full). 
+
+ISMIR should be expanded, like other conferences' and journals' names.
+
+Some citations appear inappropriately throughout the text.
+
+References [4], [8], [11], [14], and [28] do not appear anywhere in text.
+
+-----
+
+Some wording issues:
+
+To "unlock achievement" is nonsense unless speaking about video games, I
+suggest either "unlock potential" or "attain achievement".
+
+Sentence starting with "Unlike other modalities such as" is poorly structured,
+the word "modalities" calls for audio modality to complete the parallel, not
+"dataset for MIR".
+
+I suspect that "Cheyenne Hohman, the director of the FMA" should read that he
+is the director of WFMU. Similar comment for the sentence with "the FMA
+provides a legal and technological platform".
+
+100,000 tracks is not a "vast amount of audio" by today's standards.
+
+The use of word "illegal" is inappropriate.
