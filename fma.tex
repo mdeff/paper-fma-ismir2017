@@ -69,28 +69,15 @@
 \begin{document}
 \maketitle
 
-% ISMIR 199 words abstract:
-% We introduce the Free Music Archive (FMA), an open and easily accessible dataset which can be used to evaluate several tasks in music information retrieval (MIR). The community's growing interest in feature and end-to-end learning is however restrained by the limited availability of large audio datasets. By releasing the FMA, we hope to foster research which will improve the state-of-the-art and hopefully surpass the performance ceiling observed in e.g. genre recognition (MGR). The data is made of 106,574 tracks, 16,341 artists, 14,854 albums, arranged in a taxonomy of 161 genres, for a total of 343 days of audio and 917 GiB. It features metadata like song title, album, artist and genres; user data like play counts, favorites, and comments; free-form text like description, biography, and tags; together with full-length, high-quality audio, and some pre-computed features. We propose a train/validation/test split and three subsets: a genre-balanced set of 8,000 tracks from 8 genres, a genre-unbalanced set of 25,000 tracks from 16 genres, and a 98 GiB version with clips trimmed to 30s. This paper describes the dataset and how it was created, proposes some tasks, and evaluates some baselines for MGR. Code, data, and usage examples are available at http://164.132.40.229/fma/.
-
 % about 150-200 words.
 \begin{abstract}
-We introduce the Free Music Archive (FMA), an open and easily accessible dataset which can be used to evaluate several tasks in music information retrieval (MIR), a field concerned with browsing, searching, and organizing large music collections.
-%While content-based MIR tasks have typically been solved with feature engineering,
-%with a two-stage approach: engineered features are extracted from music audio signals, and are then used as input to a regressor or classifier.
-%the community is becoming interested in feature learning and end-to-end learning. %, i.e. learning from signals to labels
-%That endeavor is however restrained by the limited availability of large audio datasets.
+We introduce the Free Music Archive (FMA), an open and easily accessible dataset suitable for evaluating several tasks in MIR, a field concerned with browsing, searching, and organizing large music collections.
 The community's growing interest in feature and end-to-end learning is however restrained by the limited availability of large audio datasets.
-% The primary goal of this dataset is to enable the training of large models, which require lots of training data, which could potentially avert the semantic gap currently observed between the extracted low-level features such as MFCCs and the high-level targets such as genre.
-By releasing the FMA, we hope to foster research which will improve the state-of-the-art and hopefully surpass the performance ceiling observed in e.g.\ genre recognition (MGR).
-% as it happened in computer vision with the release of ImageNet.
-The data is made of \ntracks tracks, \nartists artists, \nalbums albums, arranged in a hierarchical taxonomy of \ngenres genres, for a total of \tduration days of audio and \size GiB, all under permissive Creative Commons licenses.
-It features metadata like song title, album, artist and genres; user data like play counts, favorites, and comments; free-form text like description, biography, and tags; together with full-length, high-quality audio, and some pre-computed features. We propose a train/validation/test split and three subsets: a genre-balanced set of 8,000 tracks from 8 major genres, a genre-unbalanced set of 25,000 tracks from 16 genres, and a 98 GiB version with clips trimmed to 30s.
-This paper describes the dataset and how it was created, proposes some tasks like music classification and annotation or recommendation, and evaluates some baselines for MGR.
+The FMA aims to overcome this hurdle by providing \size GiB and \tduration days of Creative Commons-licensed audio from \ntracks tracks from \nartists artists and \nalbums albums, arranged in a hierarchical taxonomy of \ngenres genres.
+It provides metadata like song title, album, artist and genres; user data like play counts, favorites, and comments; free-form text like description, biography, and tags; together with full-length, high-quality audio, and some pre-computed features. We propose a train/validation/test split and three subsets: a genre-balanced set of 8,000 tracks from 8 major genres, a genre-unbalanced set of 25,000 tracks from 16 genres, and a 98 GiB version with clips trimmed to 30s.
+This paper describes the dataset and how it was created, discuss some suitable MIR tasks, and evaluates some baselines for genre recognition.
 Code, data, and usage examples are available at \url{\weblink}.
-
-% Our major goal is to go beyond the existing limitations of available music datasets, which are either the small size of datasets with raw audio tracks, the availability and legality of the music data, or the lack of metadata for artists analysis or song ratings for recommender systems. Existing datasets such as GTZAN, MagnaTagATune, and Million Song suffer from the previous limitations. It is however essential to establish such benchmark datasets to advance the field of music analysis, like the ImageNet dataset which made possible the large success of deep learning techniques in computer vision.
 \end{abstract}
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Introduction} % and Motivation}
