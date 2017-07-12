@@ -194,8 +194,7 @@ what the authors try to convey.
 "non-musical", such as "noise", or "spoken". I personally find specially 
 interesting that "spoken" is included in the theoretically curated "medium" 
 subset. Is there any reason for that? Is distinction between music and
-non-music 
-signals an intended use case for the proposed dataset?
+non-music signals an intended use case for the proposed dataset?
 
 (24). The statement that closes Sec. 2.4 ("as often encountered [in] natural
 categories, it obeys a power law") seem to require justification. Maybe (Haro
@@ -206,15 +205,13 @@ et al, 2012) would be suitable.
 (26). Why only a relatively small subset of tracks include Echonest features?
 
 (27). Similar to comment (18), placing Table 7 much later than other tables
-even
-though it is referenced earlier, makes the reader's task quite annoying.
+even though it is referenced earlier, makes the reader's task quite annoying.
 
 Proposing the subsets described in Sec. 2.6 is an interesting idea, as well as
 controlled splits as mentioned in Sec. 2.7. However, I have a serious concern
 here:
 
-(28). In the Full subset there are genres with a single track, as well as
-tracks
+(28). In the Full subset there are genres with a single track, as well as tracks
 with no genre assigned at all. What is the purpose of the inclusion of those
 two cases in the dataset? How are they treated in the splits described in 2.7?
 If the requirements listed are met by all subsets, how is it possible that a
@@ -254,13 +251,11 @@ great possibilities for research beyond pure content analysis. However,
 (33). Sec. 3.1 appears less important than 3.3 as potential use cases of the
 dataset, so it might be more suitable to reorder them.
 
-(34). I would add at least one reference to studies involving music context
-data
+(34). I would add at least one reference to studies involving music context data
 analysis to justify its relevance for the community. The authors can find some
 potential candidates in chapter 3 of (Schedl et al, 2014).
 
-(35). Which kind of analyses are exactly in mind of the authors when they
-propose
+(35). Which kind of analyses are exactly in mind of the authors when they propose
 "to study to what extent is the FMA representative of mainstream music and its
 similarity of other datasets"?
 
@@ -298,14 +293,12 @@ autotagging, the classical reference might be
 (Bertin-Mahieux et al, 2010).
 
 (42). Figure 6 is difficult to interpret, specially due to the stacked bars
-plot
-chosen to represent the data.
+plot chosen to represent the data.
 
 Regarding Sec. 3.4:
 
 (43). I would move the discussion of the dataset limitations to a devoted
-section
-(probably named "Discussion"), just before the conclusions.
+section (probably named "Discussion"), just before the conclusions.
 
 (44). The last paragraph in Sec. 3.4 seem to require an expanded discussion, as
 the biases in the data are, in my opinion, the most threatening problem a
@@ -344,8 +337,7 @@ others include the whole name of the conference).
 (49). To avoid using two whole pages for references, it could be useful to
 shorten keywords
 both for conferences and journals (J. for Journal, Proc. for Proceedings, Int.
-for International,
-Conf. for Conference, Trans. for Transactions, and so on).
+for International, Conf. for Conference, Trans. for Transactions, and so on).
 
 (50). Only include in the references section peer-reviewed content. In
 particular, reference 25 could easily be a footnote.

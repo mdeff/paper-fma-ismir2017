@@ -1,59 +1,3 @@
-@Inproceedings{mnist,
-  author =   {Y. LeCun and L. Bottou and Y. Bengio and P. Haffner},
-  title =    {{Gradient-Based Learning Applied to Document Recognition}},
-  booktitle =    {Proceedings of the IEEE, 86(11)},
-  year =     {1998},
-  pages =    {2278-2324},
-}
-
-@Article{cifar,
-  author =   {A. Krizhevsky},
-  title =    {{Learning Multiple Layers of Features from Tiny Images}},
-  journal =      {Technical Report, Department of Computer Science, University of Torento},
-  year =     {2009},
-  volume =   {},
-  pages =    {},
-}
-
-@Article{imagenet,
-  author =   {J. Deng and W. Dong and R. Socher and L.J. Li and K. Li and L. Fei-Fei},
-  title =    {{ImageNet: A Large-Scale Hierarchical Image Database}},
-  journal =      {Computer Vision and Pattern Recognition (CVPR)},
-  year =     {2009},
-  volume =   {},
-  pages =    {},
-}
-
-@article{imagenet_challenge,
-  author = {Olga Russakovsky and Jia Deng and Hao Su and Jonathan Krause and Sanjeev Satheesh and Sean Ma and Zhiheng Huang and Andrej Karpathy and Aditya Khosla and Michael Bernstein and Alexander C. Berg and Li Fei-Fei},
-  title = {{ImageNet Large Scale Visual Recognition Challenge}},
-  year = {2015},
-  journal   = {International Journal of Computer Vision (IJCV)},
-  doi = {10.1007/s11263-015-0816-y},
-  volume={115},
-  number={3},
-  pages={211-252}
-}
-
-@Article{art:HochreiterSchmidhuber97LSTM,
-  author =   {S. Hochreiter and J. Schmidhuber},
-  title =    {{Long Short-Term Memory}},
-  journal =      {Neural Computation},
-  year =     {1997},
-  volume =   {9(8)},
-  pages =    {1735--1780},
-}
-
-@Article{art:MossFMA,
-  author =   {Ceci Moss},
-  title =    {{Interview with Jason Sigal of the Free Music Archive, \href{http://rhizome.org/editorial/2009/may/1/interview-with-jason-sigal-of-the-free-music-archi}{link}}},
-  journal =      {Rhizome.org},
-  year =     {},
-  volume =   {},
-  pages =    {},
-}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % MIR reviews (audio/content-based)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -62,58 +6,102 @@
 % general MIR review (audio and symbolic representations)
 @article{mir_review_1,
   title={Music retrieval: A tutorial and review},
-  author={Orio, Nicola and others},
-  journal={Foundations and Trends{\textregistered} in Information Retrieval},
-  volume={1},
-  number={1},
-  pages={1--90},
+  author={Orio, N and others},
+  journal={Foundations and Trends in Information Retrieval},
   year={2006},
-  publisher={Now Publishers, Inc.}
 }
 
 % general MIR review
 @article{mir_review_2,
   title={Content-based music information retrieval: Current directions and future challenges},
-  author={Casey, Michael A and Veltkamp, Remco and Goto, Masataka and Leman, Marc and Rhodes, Christophe and Slaney, Malcolm},
-  journal={Proceedings of the IEEE},
-  volume={96},
-  number={4},
-  pages={668--696},
+  author={Casey, M A and Veltkamp, R and Goto, M and Leman, M and Rhodes, C and Slaney, M},
+  journal={Proc. of the IEEE},
   year={2008},
-  publisher={IEEE}
 }
 
 % MIR review for classification: genre, mood, tags
 @article{mir_review_classif,
   title={A survey of audio-based music classification and annotation},
-  author={Fu, Zhouyu and Lu, Guojun and Ting, Kai Ming and Zhang, Dengsheng},
-  journal={IEEE transactions on multimedia},
-  volume={13},
-  number={2},
-  pages={303--319},
+  author={Fu, Z and Lu, G and Ting, K M and Zhang, D},
+  journal={IEEE Trans. on Multimedia},
   year={2011},
-  publisher={IEEE}
 }
 
 % review of audio feature extraction and classification for genre classification only
 @article{mir_review_genre,
   title={Automatic genre classification of music content: a survey},
-  author={Scaringella, Nicolas and Zoia, Giorgio and Mlynek, Daniel},
+  author={Scaringella, N and Zoia, G and Mlynek, D},
   journal={IEEE Signal Processing Magazine},
-  volume={23},
-  number={2},
-  pages={133--141},
   year={2006},
-  publisher={IEEE}
 }
 
-@inproceedings{mgr_eval,
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MIR evaluations
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+@inproceedings{mgr_eval_1,
   title={A survey of evaluation in music genre recognition},
-  author={Sturm, Bob L},
-  booktitle={International Workshop on Adaptive Multimedia Retrieval},
-  pages={29--66},
+  author={Sturm, B L},
+  booktitle={Int. Workshop on Adaptive Multimedia Retrieval},
   year={2012},
-  organization={Springer}
+}
+
+@article{mgr_eval_2,
+  title={The state of the art ten years after a state of the art: Future research in music information retrieval},
+  author={Sturm, B L},
+  journal={J. of New Music Research},
+  year={2014},
+}
+
+@article{album_artist_effects,
+  title={Album and artist effects for audio similarity at the scale of the web},
+  author={Flexer, A and Schnitzer, D},
+  journal={Children},
+  year={2009}
+}
+
+@inproceedings{artist_filters_1,
+  title={A Closer Look on Artist Filters for Musical Genre Classification},
+  author={Flexer, A},
+  booktitle={ISMIR},
+  year={2007}
+}
+
+@inproceedings{artist_filters_2,
+  title={Improvements of Audio-Based Music Similarity and Genre Classificaton},
+  author={Pampalk, E and Flexer, A and Widmer, G},
+  booktitle={ISMIR},
+  year={2005},
+}
+
+@inproceedings{jams,
+  title={JAMS: A JSON Annotated Music Specification for Reproducible MIR Research},
+  author={Humphrey, E J and Salamon, J and Nieto, O and Forsyth, J and Bittner, R M and Bello, J P},
+  booktitle={ISMIR},
+  year={2014}
+}
+
+@article{mirex,
+  title={The music information retrieval evaluation exchange: Some observations and insights},
+  author={Downie, J and Ehmann, A and Bay, M and Jones, M},
+  journal={Advances in Music Information Retrieval},
+  year={2010},
+}
+
+@inproceedings{mirex_critic,
+  title={A Plan for Sustainable MIR Evaluation},
+  author={McFee, B and Humphrey, E J and Urbano, J},
+  booktitle={ISMIR},
+  year={2016},
+}
+
+@inproceedings{mirex_stagnation,
+  title={Cross Task Study on MIREX Recent Results: An Index for Evolution Measurement and Some Stagnation Hypotheses},
+  author={Scholz, R and Ramalho, G and Cabral, G},
+  booktitle={ISMIR},
+  year={2016},
 }
 
 
@@ -124,27 +112,21 @@
 
 @book{frow2014genre,
   title={Genre},
-  author={Frow, John},
+  author={Frow, J},
   year={2014},
-  publisher={Routledge}
 }
 
 @article{dl,
   title={Deep learning},
-  author={LeCun, Yann and Bengio, Yoshua and Hinton, Geoffrey},
+  author={LeCun, Y and Bengio, Y and Hinton, G},
   journal={Nature},
-  volume={521},
-  number={7553},
-  pages={436--444},
   year={2015},
-  publisher={Nature Research}
 }
 
 @inproceedings{convnet_imagenet,
   title={Imagenet classification with deep convolutional neural networks},
-  author={Krizhevsky, Alex and Sutskever, Ilya and Hinton, Geoffrey E},
-  booktitle={Advances in neural information processing systems},
-  pages={1097--1105},
+  author={Krizhevsky, A and Sutskever, I and Hinton, G E},
+  booktitle={NIPS},
   year={2012}
 }
 
@@ -156,55 +138,43 @@
 
 @book{mfcc,
   title={Fundamentals of speech recognition},
-  author={Rabiner, Lawrence R and Juang, Biing-Hwang},
+  author={Rabiner, L R and Juang, BH},
   year={1993},
-  publisher={PTR Prentice Hall}
 }
 
 @article{chroma,
   title={A chorus section detection method for musical audio signals and its application to a music listening station},
-  author={Goto, Masataka},
-  journal={IEEE Transactions on Audio, Speech, and Language Processing},
-  volume={14},
-  number={5},
-  pages={1783--1794},
+  author={Goto, M},
+  journal={IEEE Trans. on Audio, Speech, and Language Processing},
   year={2006},
-  publisher={IEEE}
 }
 
 @inproceedings{chroma_cens,
   title={Chroma Toolbox: MATLAB implementations for extracting variants of chroma-based audio features},
-  author={Müller, Meinard and Ewert, Sebastian},
-  booktitle={Proceedings of the 12th International Conference on Music Information Retrieval (ISMIR)},
+  author={Müller, M and Ewert, S},
+  booktitle={ISMIR},
   year={2011},
 }
 
 @inproceedings{tonnetz,
   title={Detecting harmonic change in musical audio},
-  author={Harte, Christopher and Sandler, Mark and Gasser, Martin},
-  booktitle={Proceedings of the 1st ACM workshop on Audio and music computing multimedia},
-  pages={21--26},
+  author={Harte, C and Sandler, M and Gasser, M},
+  booktitle={In Proc. of Audio and Music Computing for Multimedia Workshop},
   year={2006},
-  organization={ACM}
 }
 
 @inproceedings{contrast,
   title={Music type classification by spectral contrast feature},
-  author={Jiang, Dan-Ning and Lu, Lie and Zhang, Hong-Jiang and Tao, Jian-Hua and Cai, Lian-Hong},
-  booktitle={Multimedia and Expo, 2002. ICME'02. Proceedings. 2002 IEEE International Conference on},
-  volume={1},
-  pages={113--116},
+  author={Jiang, DN and Lu, L and Zhang, HJ and Tao, JH and Cai, LH},
+  booktitle={IEEE Int. Conf. on Multimedia and Expo},
   year={2002},
-  organization={IEEE}
 }
 
 @inproceedings{echonest_temporal,
   title={Capturing the temporal domain in echonest features for improved classification effectiveness},
-  author={Schindler, Alexander and Rauber, Andreas},
-  booktitle={International Workshop on Adaptive Multimedia Retrieval},
-  pages={214--227},
+  author={Schindler, A and Rauber, A},
+  booktitle={Int. Workshop on Adaptive Multimedia Retrieval},
   year={2012},
-  organization={Springer}
 }
 
 
@@ -215,25 +185,21 @@
 
 @article{marsyas,
   title={Marsyas: A framework for audio analysis},
-  author={Tzanetakis, George and Cook, Perry},
-  journal={Organised sound},
-  volume={4},
-  number={3},
-  pages={169--175},
+  author={Tzanetakis, G and Cook, P},
+  journal={Organised Sound},
   year={2000}
 }
 
 @inproceedings{rpextract,
   title={Evaluation of feature extractors and psycho-acoustic transformations for music genre classification},
-  author={Lidy, Thomas and Rauber, Andreas},
+  author={Lidy, T and Rauber, A},
   booktitle={ISMIR},
-  pages={34--41},
   year={2005}
 }
 
 @phdthesis{jmir,
   title={Automatic music classification with jMIR},
-  author={McKay, Cory},
+  author={McKay, C},
   year={2010},
 }
 
@@ -244,45 +210,17 @@
 
 
 @misc{librosa,
-  author       = {McFee, Brian and
-                  McVicar, Matt and
-                  Nieto, Oriol and
-                  Balke, Stefan and
-                  Thome, Carl and
-                  Liang, Dawen and
-                  Battenberg, Eric and
-                  Moore, Josh and
-                  Bittner, Rachel and
-                  Yamamoto, Ryuichi and
-                  Ellis, Dan and
-                  Stoter, Fabian-Robert and
-                  Repetto, Douglas and
-                  Waloschek, Simon and
-                  Carr, CJ and
-                  Kranzler, Seth and
-                  Choi, Keunwoo and
-                  Viktorin, Petr and
-                  Santos, Joao Felipe and
-                  Holovaty, Adrian and
-                  Pimenta, Waldir and
-                  Lee, Hojin},
+  author       = {McFee, B and others},
   title        = {librosa 0.5.0},
-  month        = feb,
   year         = 2017,
   doi          = {10.5281/zenodo.293021},
-  url          = {https://doi.org/10.5281/zenodo.293021}
 }
 
 
 @article{scikit-learn,
- title={Scikit-learn: Machine Learning in {P}ython},
- author={Pedregosa, F. and Varoquaux, G. and Gramfort, A. and Michel, V.
-         and Thirion, B. and Grisel, O. and Blondel, M. and Prettenhofer, P.
-         and Weiss, R. and Dubourg, V. and Vanderplas, J. and Passos, A. and
-         Cournapeau, D. and Brucher, M. and Perrot, M. and Duchesnay, E.},
- journal={Journal of Machine Learning Research},
- volume={12},
- pages={2825--2830},
+ title={Scikit-learn: Machine Learning in Python},
+ author={Pedregosa, F and others},
+ journal={J. of Machine Learning Research},
  year={2011}
 }
 
@@ -294,20 +232,16 @@
 
 @inproceedings{dieleman2013multiscale,
   title={Multiscale approaches to music audio feature learning},
-  author={Dieleman, Sander and Schrauwen, Benjamin},
-  booktitle={14th International Society for Music Information Retrieval Conference (ISMIR-2013)},
-  pages={116--121},
+  author={Dieleman, S and Schrauwen, B},
+  booktitle={ISMIR},
   year={2013},
-  organization={Pontif{\'\i}cia Universidade Cat{\'o}lica do Paran{\'a}}
 }
 
 @inproceedings{sigtia2014improved,
   title={Improved music feature learning with deep neural networks},
-  author={Sigtia, Siddharth and Dixon, Simon},
-  booktitle={Acoustics, Speech and Signal Processing (ICASSP), 2014 IEEE International Conference on},
-  pages={6959--6963},
+  author={Sigtia, S and Dixon, S},
+  booktitle={ICASSP},
   year={2014},
-  organization={IEEE}
 }
 
 
@@ -319,58 +253,53 @@
 % DL on spectrograms
 @article{choi2016transfer,
   title={Transfer learning for music classification and regression tasks},
-  author={Choi, Keunwoo and Fazekas, György and Sandler, Mark and Cho, Kyunghyun},
-  journal={arXiv preprint arXiv:1703.09179},
+  author={Choi, K and Fazekas, G and Sandler, M and Cho, K},
+  journal={arXiv:1703.09179},
   year={2017}
 }
 
 % DL on spectrograms
 @article{choi2016convolutional,
   title={Convolutional Recurrent Neural Networks for Music Classification},
-  author={Choi, Keunwoo and Fazekas, George and Sandler, Mark and Cho, Kyunghyun},
-  journal={arXiv preprint arXiv:1609.04243},
+  author={Choi, K and Fazekas, G and Sandler, M and Cho, K},
+  journal={arXiv:1609.04243},
   year={2016}
 }
 
 % DL on spectrograms
 @article{choi2016automatic,
   title={Automatic tagging using deep convolutional neural networks},
-  author={Choi, Keunwoo and Fazekas, George and Sandler, Mark},
-  journal={arXiv preprint arXiv:1606.00298},
+  author={Choi, K and Fazekas, G and Sandler, M},
+  journal={arXiv:1606.00298},
   year={2016}
 }
 
 % DL on spectrograms and audio --> spectrograms better
 @inproceedings{dieleman_endtoend,
   title={End-to-end learning for music audio},
-  author={Dieleman, Sander and Schrauwen, Benjamin},
-  booktitle={Acoustics, Speech and Signal Processing (ICASSP), 2014 IEEE International Conference on},
-  pages={6964--6968},
+  author={Dieleman, S and Schrauwen, B},
+  booktitle={ICASSP},
   year={2014},
-  organization={IEEE}
 }
 
 @inproceedings{van2013deep,
   title={Deep content-based music recommendation},
-  author={Van den Oord, Aaron and Dieleman, Sander and Schrauwen, Benjamin},
-  booktitle={Advances in neural information processing systems},
-  pages={2643--2651},
+  author={Van den Oord, A and Dieleman, S and Schrauwen, B},
+  booktitle={NIPS},
   year={2013}
 }
 
 @inproceedings{mir_dl_feature_learning,
   title={Moving Beyond Feature Design: Deep Architectures and Automatic Feature Learning in Music Informatics},
-  author={Humphrey, Eric J and Bello, Juan Pablo and LeCun, Yann},
+  author={Humphrey, E J and Bello, Juan P and LeCun, Y},
   booktitle={ISMIR},
-  pages={403--408},
   year={2012},
-  organization={Citeseer}
 }
 % Same as above.
 %article{humphrey2013feature,
 %  title={Feature learning and deep architectures: New directions for music informatics},
 %  author={Humphrey, Eric J and Bello, Juan P and LeCun, Yann},
-%  journal={Journal of Intelligent Information Systems},
+%  journal={J. of Intelligent Information Systems},
 %  volume={41},
 %  number={3},
 %  pages={461--481},
@@ -380,63 +309,58 @@
 
 @inproceedings{li2010automatic,
   title={Automatic musical pattern feature extraction using convolutional neural network},
-  author={Li, Tom LH and Chan, Antoni B and Chun, A},
+  author={Li, T LH and Chan, A B and Chun, A},
   booktitle={Proc. Int. Conf. Data Mining and Applications},
   year={2010}
 }
 
 @article{kereliuk2015deep,
   title={Deep learning and music adversaries},
-  author={Kereliuk, Corey and Sturm, Bob L and Larsen, Jan},
-  journal={IEEE Transactions on Multimedia},
-  volume={17},
-  number={11},
-  pages={2059--2071},
+  author={Kereliuk, C and Sturm, B L and Larsen, J},
+  journal={IEEE Trans. on Multimedia},
   year={2015},
-  publisher={IEEE}
 }
 
 @inproceedings{hamel2010learning,
   title={Learning Features from Music Audio with Deep Belief Networks},
-  author={Hamel, Philippe and Eck, Douglas},
+  author={Hamel, P and Eck, D},
   booktitle={ISMIR},
-  volume={10},
-  pages={339--344},
   year={2010},
-  organization={Utrecht, The Netherlands}
 }
 
 % Used as basis for my master thesis
 @inproceedings{henaff2011unsupervised,
-  title={Unsupervised learning of sparse features for scalable audio classification.},
-  author={Henaff, Mikael and Jarrett, Kevin and Kavukcuoglu, Koray and LeCun, Yann},
+  title={Unsupervised learning of sparse features for scalable audio classification},
+  author={Henaff, M and Jarrett, K and Kavukcuoglu, K and LeCun, Y},
   booktitle={ISMIR},
-  volume={11},
-  number={445},
-  pages={2011},
   year={2011}
 }
 
 @inproceedings{lee2009unsupervised,
   title={Unsupervised feature learning for audio classification using convolutional deep belief networks},
-  author={Lee, Honglak and Pham, Peter and Largman, Yan and Ng, Andrew Y},
-  booktitle={Advances in neural information processing systems},
-  pages={1096--1104},
+  author={Lee, H and Pham, P and Largman, Y and Ng, A Y},
+  booktitle={NIPS},
   year={2009}
 }
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Automatic genre classification
+% Tasks
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 @inproceedings{mgr_why,
   title={Musical genre classification: Is it worth pursuing and how can it be improved?},
-  author={McKay, Cory and Fujinaga, Ichiro},
+  author={McKay, C and Fujinaga, I},
   booktitle={ISMIR},
-  pages={101--106},
   year={2006}
+}
+
+@article{autotagging,
+  title={Automatic tagging of audio: The state-of-the-art},
+  author={Bertin-Mahieux, T and Eck, D and Mandel, M},
+  journal={Machine Audition: Principles, Algorithms and Systems},
+  year={2010},
 }
 
 
@@ -446,204 +370,213 @@
 
 
 @inproceedings{rwc,
-  title={RWC Music Database: Popular, Classical and Jazz Music Databases.},
-  author={Goto, Masataka and Hashiguchi, Hiroki and Nishimura, Takuichi and Oka, Ryuichi},
+  title={RWC Music Database: Popular, Classical and Jazz Music Databases},
+  author={Goto, M and Hashiguchi, H and Nishimura, T and Oka, R},
   booktitle={ISMIR},
-  volume={2},
-  pages={287--288},
   year={2002}
 }
 
 @article{gtzan,
   title={Musical genre classification of audio signals},
-  author={Tzanetakis, George and Cook, Perry},
-  journal={IEEE Transactions on speech and audio processing},
-  volume={10},
-  number={5},
-  pages={293--302},
+  author={Tzanetakis, G and Cook, P},
+  journal={IEEE Trans. on Speech and Audio Processing},
   year={2002},
-  publisher={IEEE}
 }
 @inproceedings{gtzan_critic_1,
   title={An analysis of the GTZAN music genre dataset},
-  author={Sturm, Bob L},
-  booktitle={Proceedings of the second international ACM workshop on Music information retrieval with user-centered and multimodal strategies},
-  pages={7--12},
+  author={Sturm, B L},
+  booktitle={Proc. of the Int. ACM workshop on Music information retrieval with user-centered and multimodal strategies},
   year={2012},
-  organization={ACM}
 }
 @article{gtzan_critic_2,
   title={The GTZAN dataset: Its contents, its faults, their effects on evaluation, and its future use},
-  author={Sturm, Bob L},
-  journal={arXiv preprint arXiv:1306.1461},
+  author={Sturm, B L},
+  journal={arXiv:1306.1461},
   year={2013}
 }
 
 @article{uspop,
   title={A large-scale evaluation of acoustic and subjective music-similarity measures},
-  author={Berenzweig, Adam and Logan, Beth and Ellis, Daniel PW and Whitman, Brian},
-  journal={Computer Music Journal},
-  volume={28},
-  number={2},
-  pages={63--76},
+  author={Berenzweig, A and Logan, B and Ellis, D PW and Whitman, B},
+  journal={Computer Music J.},
   year={2004},
-  publisher={MIT Press}
 }
 
 @inproceedings{ballroom,
   title={Evaluating rhythmic descriptors for musical genre classification},
-  author={Gouyon, Fabien and Dixon, Simon and Pampalk, Elias and Widmer, Gerhard},
-  booktitle={Proceedings of the AES 25th International Conference},
-  pages={196--204},
+  author={Gouyon, F and Dixon, S and Pampalk, E and Widmer, G},
+  booktitle={Proc. of the AES 25th Int. Conf.},
   year={2004}
 }
 % Faults in the Ballroom dataset
 % http://media.aau.dk/null_space_pursuits/2014/01/ballroom-dataset.html
 @article{extballroom,
   title={The Extended Ballroom Dataset},
-  author={Marchand, Ugo and Peeters, Geoffroy},
+  author={Marchand, U and Peeters, G},
+  booktitle={ISMIR (Late Breaking)},
   year={2016}
+}
+@article{ballroom_critic,
+  title={The “Horse” Inside: Seeking Causes Behind the Behaviors of Music Content Analysis Systems},
+  author={Sturm, B L},
+  journal={Computers in Entertainment},
+  year={2016},
 }
 
 @inproceedings{homburg,
   title={A Benchmark Dataset for Audio Classification and Clustering},
-  author={Homburg, Helge and Mierswa, Ingo and M{\"o}ller, B{\"u}lent and Morik, Katharina and Wurst, Michael},
+  author={Homburg, H and Mierswa, I and M{\"o}ller, B and Morik, K and Wurst, M},
   booktitle={ISMIR},
-  volume={2005},
-  pages={528--31},
   year={2005}
 }
 
 @inproceedings{103artists,
-  title={Improvements of Audio-Based Music Similarity and Genre Classificaton.},
-  author={Pampalk, Elias and Flexer, Arthur and Widmer, Gerhard and others},
+  title={Improvements of Audio-Based Music Similarity and Genre Classificaton},
+  author={Pampalk, E and Flexer, A and Widmer, G and others},
   booktitle={ISMIR},
-  volume={5},
-  pages={634--637},
   year={2005},
-  organization={London, UK}
 }
 
 @inproceedings{codaich,
   title={A Large Publicly Accassible Prototype Audio Database for Music Research},
-  author={McKay, Cory and McEnnis, Daniel and Fujinaga, Ichiro},
+  author={McKay, C and McEnnis, D and Fujinaga, I},
   booktitle={ISMIR},
-  pages={160--163},
   year={2006}
 }
 
 @inproceedings{artist20,
   title={Classifying Music Audio with Timbral and Chroma Features},
-  author={Ellis, Daniel PW},
+  author={Ellis, D PW},
   booktitle={ISMIR},
-  volume={7},
-  pages={339--340},
   year={2007}
 }
 
 @inproceedings{lmd,
   title={The Latin Music Database},
-  author={Silla Jr, Carlos Nascimento and Koerich, Alessandro L and Kaestner, Celso AA},
+  author={Silla Jr, C N and Koerich, A L and Kaestner, C AA},
   booktitle={ISMIR},
-  pages={451--456},
   year={2008}
 }
 @article{lmd_critic,
   title={Faults in the latin music database and with its use},
-  author={Sturm, Bob L},
-  journal={Proc. ISMIR (Late breaking demo)},
+  author={Sturm, B L},
+  journal={ISMIR (Late Breaking)},
   year={2015}
 }
 
 @article{cal500,
   title={Semantic Annotation and Retrieval of Music and Sound Effects},
-  author={Turnbull, Douglas and Barrington, Luke and Torres, David and Lanckriet, Gert},
-  journal={IEEE Transactions on Audio, Speech, and Language Processing},
-  volume={16},
-  number={2},
-  pages={467--476},
+  author={Turnbull, D and Barrington, L and Torres, D and Lanckriet, G},
+  journal={IEEE Trans. on Audio, Speech, and Language Processing},
   year={2008},
-  publisher={IEEE}
 }
 
 @inproceedings{1517artists,
-  title={Frame level audio similarity-a codebook approach},
-  author={Seyerlehner, Klaus and Widmer, Gerhard and Knees, Peter},
-  booktitle={Proc. of the 11th Int. Conf. on Digital Audio Effects (DAFx-08)},
+  title={Frame level audio similarity - a codebook approach},
+  author={Seyerlehner, K and Widmer, G and Knees, P},
+  booktitle={Proc. of the Int. Conf. on Digital Audio Effects},
   year={2008}
 }
 
 @inproceedings{omras,
   title={OMRAS2 Metadata Project 2009},
-  author={Mauch, Matthias and Cannam, Chris and Davies, Matthew and Dixon, Simon and Harte, Christopher and Kolozali, Sefki and Tidhar, Dan and Sandler, Mark},
-  booktitle={Proc. of 10th International Conference on Music Information Retrieval},
-  pages={1},
+  author={Mauch, M and Cannam, C and Davies, M and Dixon, S and Harte, C and Kolozali, S and Tidhar, D and Sandler, M},
+  booktitle={ISMIR},
   year={2009}
 }
 
 @inproceedings{magnatagatune,
-  title={Evaluation of Algorithms Using Games: The Case of Music Tagging.},
-  author={Law, Edith and West, Kris and Mandel, Michael I and Bay, Mert and Downie, J Stephen},
+  title={Evaluation of Algorithms Using Games: The Case of Music Tagging},
+  author={Law, E and West, K and Mandel, M I and Bay, M and Downie, J S},
   booktitle={ISMIR},
-  pages={387--392},
   year={2009}
 }
 
 @inproceedings{unique,
   title={Fusing block-level features for music similarity estimation},
-  author={Seyerlehner, Klaus and Widmer, Gerhard and Pohle, Tim},
-  booktitle={Proc. of the 13th Int. Conference on Digital Audio Effects (DAFx-10)},
-  pages={225--232},
+  author={Seyerlehner, K and Widmer, G and Pohle, T},
+  booktitle={Proc. of the Int. Conf. on Digital Audio Effects},
   year={2010}
 }
 
 @inproceedings{cal10k,
   title={Exploring automatic music annotation with acoustically-objective tags},
-  author={Tingle, Derek and Kim, Youngmoo E and Turnbull, Douglas},
-  booktitle={Proceedings of the international conference on Multimedia information retrieval},
-  pages={55--62},
+  author={Tingle, D and Kim, Y E and Turnbull, D},
+  booktitle={Proc. of the Int. Conf. on Multimedia Information Retrieval},
   year={2010},
-  organization={ACM}
 }
 
 @inproceedings{msd,
   title={The Million Song Dataset},
-  author={Bertin-Mahieux, Thierry and Ellis, Daniel PW and Whitman, Brian and Lamere, Paul},
+  author={Bertin-Mahieux, T and Ellis, D PW and Whitman, B and Lamere, P},
   booktitle={ISMIR},
-  volume={2},
-  number={9},
-  pages={10},
   year={2011}
 }
 % provides genres through last.fm and beatunes
 @inproceedings{msd_genres,
-  title={Improving Genre Annotations for the Million Song Dataset.},
-  author={Schreiber, Hendrik},
+  title={Improving Genre Annotations for the Million Song Dataset},
+  author={Schreiber, H},
   booktitle={ISMIR},
-  pages={241--247},
   year={2015}
 }
 % provides features and genres through All Music Guide
 @inproceedings{msd_features,
   title={Facilitating Comprehensive Benchmarking Experiments on the Million Song Dataset},
-  author={Schindler, Alexander and Mayer, Rudolf and Rauber, Andreas},
+  author={Schindler, A and Mayer, R and Rauber, A},
   booktitle={ISMIR},
-  pages={469--474},
   year={2012}
 }
 
 @inproceedings{musiclef,
   title={A Professionally Annotated and Enriched Multimodal Data Set on Popular Music},
-  author={Schedl, Markus and Orio, Nicola and Liem, Cynthia and Peeters, Geoffroy},
-  booktitle={Proceedings of the 4th ACM Multimedia Systems Conference},
-  pages={78--83},
+  author={Schedl, M and Orio, N and Liem, C and Peeters, G},
+  booktitle={Proc. of the ACM Multimedia Systems Conference},
   year={2013},
-  organization={ACM}
 }
 
 @inproceedings{audioset,
   title={Audio Set: An ontology and human-labeled dartaset for audio events},
-  author={Gemmeke, Jort F and Ellis, Daniel PW and Freedman, Dylan and Jansen, Aren and Lawrence, Wade and Moore, R Channing and Plakal, Manoj and Ritter, Marvin},
-  booktitle={IEEE ICASSP},
+  author={Gemmeke, J F and Ellis, D PW and Freedman, D and Jansen, A and Lawrence, W and Moore, R C and Plakal, M and Ritter, M},
+  booktitle={ICASSP},
   year={2017}
+}
+
+@inproceedings{acousticbrainz,
+  title={Acousticbrainz: a community platform for gathering music information obtained from audio},
+  author={Porter, A and Bogdanov, D and Kaye, R and Tsukanov, R and Serra, X},
+  booktitle={ISMIR},
+  year={2015}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Computer Vision
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+@inproceedings{mnist,
+  title =    {Gradient-Based Learning Applied to Document Recognition},
+  author =   {Y LeCun and L Bottou and Y Bengio and P Haffner},
+  booktitle =    {Proc. of the IEEE},
+  year =     {1998},
+}
+
+@article{cifar,
+  author =   {A Krizhevsky},
+  title =    {{Learning Multiple Layers of Features from Tiny Images}},
+  year =     {2009},
+}
+
+@article{imagenet,
+  author =   {J Deng and W Dong and R Socher and LJ Li and K Li and L Fei-Fei},
+  title =    {ImageNet: A Large-Scale Hierarchical Image Database},
+  journal =  {Computer Vision and Pattern Recognition},
+  year =     {2009},
+}
+
+@article{imagenet_challenge,
+  author = {O Russakovsky and others},
+  title = {ImageNet Large Scale Visual Recognition Challenge},
+  year = {2015},
+  journal   = {Int. J. of Computer Vision},
 }
