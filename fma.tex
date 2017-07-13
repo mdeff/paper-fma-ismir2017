@@ -121,57 +121,8 @@ In computer vision, the community has developed established benchmark datasets s
 % Lists of datasets:
 % * http://www.audiocontentanalysis.org/data-sets/
 % * A Survey of Evaluation in Music Genre Recognition
-
-\begin{table*}[t]
-	\centering
-	\begin{threeparttable}
-		\begin{tabular}{l@{\hspace{2.7em}}r
-			@{\hspace{2.7em}}>{$}r<{$}
-			@{}>{${}={}$}c@{}
-			>{$}l<{$}
-			@{\hspace{2.7em}}>{$}c<{$}
-			@{\hspace{2.7em}}c@{\hspace{2.7em}}c}
-		\toprule
-		dataset & \#samples & \multicolumn{3}{c}{dimensionality} & \multicolumn{3}{c}{size} \\
-		\cmidrule{6-8}
-				&           & \multicolumn{3}{c}{}               & \text{volume} & [GiB] & \#days \\
-		\midrule
-		\href{http://mirg.city.ac.uk/codeapps/the-magnatagatune-dataset}{MagnaTagATune} \cite{magnatagatune} &
-			25,863 & 29\cdot16\cdot10^3\cdot1 && 4.6\cdot10^5 & 1.2\cdot10^{10} & 3 & 8.7 \\
-		\href{https://research.google.com/audioset/}{AudioSet} \cite{audioset} \tnote{1} &
-			2,084,320 & 10\cdot44\cdot10^3\cdot2 && 8.8\cdot10^5 & 1.8\cdot10^{12} & 776 & 241 \\
-		\href{https://labrosa.ee.columbia.edu/millionsong/}{MSD} \cite{msd} \tnote{2} &
-			1,000,000 & 49\cdot27\cdot10^3\cdot2 && 2.6\cdot10^6 & 2.6\cdot10^{12} & 625 & 567 \\
-		\href{\weblink}{FMA} \tnote{2} &
-			\ntracks & \aduration\cdot44\cdot10^3\cdot2 && 2.4\cdot10^7 & 2.6\cdot10^{12} & \size & \tduration \\
-		\midrule
-		\href{http://yann.lecun.com/exdb/mnist/}{MNIST} \cite{mnist} &
-			70,000 & 28\cdot28\cdot1 && 7.8\cdot10^2 & 5.5\cdot10^{7\phantom0} & 0.011 & - \\
-		\href{https://www.cs.toronto.edu/~kriz/cifar.html}{CIFAR-10} \cite{cifar} &
-			60,000 & 32\cdot32\cdot3 && 3.0\cdot10^3 & 1.8\cdot10^{8\phantom0} & 0.16 & - \\
-		\href{http://www.image-net.org/challenges/LSVRC/2012/}{ILSVRC 2012-17} \cite{imagenet_challenge} \tnote{3,4} &
-			1,341,167 & 482\cdot415\cdot3 && 6.0\cdot10^5 & 8.0\cdot10^{11} & 100 & - \\
-		\href{http://www.image-net.org}{ImageNet} \cite{imagenet} \tnote{3} &
-			14,197,122 & 482\cdot415\cdot3 && 6.0\cdot10^5 & 8.5\cdot10^{12} & 1000 & - \\
-		\bottomrule
-	\end{tabular}
-	\begin{tablenotes}
-		\item[1] \href{https://support.google.com/youtube/answer/6039860}{YouTube recommended} sample rate for music videos. Size in GiB calculated for mp3 encoded at 320 kbit/s.
-		\item[2] Average duration and sample rate. Most clips from \href{https://www.7digital.com}{7digital} are 30 or 60s and 22 or 44kHz \cite{msd_features}.
-		\item[3] Average resolutions. Most applications resize or crop to $256\cdot256$ for a scale of $2.6\cdot10^{11}$ and $2.8\cdot10^{12}$.
-		\item[4] Object detection / classification task. It is the most used dataset for image classification.
-	\end{tablenotes}
-	\end{threeparttable}
-	\caption{Comparison between the largest public audio and image datasets. Dimensionality is (length [s] $\cdot$ sample rate $\cdot$ \#channels) for audio and (xdim $\cdot$ ydim $\cdot$ \#channels) for images. Volume is the number of samples times the dimensionality. Size is for a directory containing all \texttt{.mp3} or \texttt{.jpg} in GiB, an indication of the quantity of information affected by the size and diversity of the data. The last column is the number of days necessary to listen to the whole available audio.}
-	\label{tab:size}
-\end{table*}
 % Magnatagature dead links: http://tagatune.org/Datasets.html http://tagatune.org/Magnatagatune.html
 % Announcement: https://musicmachinery.com/2009/04/01/magnatagatune-a-new-research-data-set-for-mir/
-% Robin: Alors il télécharge aussi des clips audios de 10 secondes, non-compressé et à 48 kHz pour un total de 4 Terabytes! Donc environ 8x la taille de ton dataset il semble.
-% uncompressed: 2084320*10*48e3*2*2 / 1024**4 = 3.6
-% 320 kbit/s mp3: 2084320*10*320e3 / 8 / 1024**3 = 776
-
-% Xavier: De meme pour Table 2, c'est interessant bien sur, mais encore une fois, les datasets de MSD et autres n'ont pas disponible (directement et facilement) les raw audio data. Cela rend confusing le main message. Aussi, je ne parlerais pas des MNIST, CIFAR et autres image datasets, ce n'est pas le point de ce papier, targeted music, et cela peut rendre notre message confusing.
 
 \begin{figure*}
 	\begin{minipage}{0.74\linewidth}
@@ -261,8 +212,6 @@ On the other hand, the proposed dataset offers the following qualities, which in
 
 \textbf{Large scale.} Large datasets are needed to avoid overtraining and to effectively learn models that incorporate the ambiguities and inconsistencies that one finds with musical categories. They are also more diverse and allows to average out annotation noise as well as characteristics who might be confounded with the ground truth and exploited by learning algorithms.
 While FMA features less clips than MSD or AudioSet, every other dataset with readily available quality audio are two orders of magnitude smaller (\tabref{tab:datasets}).
-\todo{For statistical learning algorithms, the scale of FMA is comparable to ImageNet and the most used ILSVRC (\tabref{tab:size}). % and shall thus be sufficient for the foreseable future.
-Note that while image datasets are larger, the amount of data is similar because of their smaller dimensionality.}
 
 \textbf{Permissive licensing.} MIR research has historically suffered from the lack of publicly available benchmark datasets, which stem from the commercial interest in music by record labels, and therefore imposed rigid copyright.
 The FMA's solution is to aim for tracks which license permits redistribution.
@@ -666,7 +615,7 @@ While the present dump only captures listening and downloading counts in aggrega
 
 % importance of open data
 
-Benchmarking is an important aspect in experimental sciences -- results reported by individual research groups need to be comparable. Important aspects of these are datasets that can be easily shared among researchers, together with a set of defined tasks and splits. The FMA enables researchers to test algorithms on a large-scale collection, closer to real-world environments. Even though it is still two orders of magnitude behind commercial services who have access to tens of millions of tracks,\footnote{\href{http://the.echonest.com}{37M Echonest}, \href{https://en.wikipedia.org/wiki/Spotify}{30M Spotify}, \href{http://www.skilledtests.com/wiki/Last.fm_statistics}{45M last.fm}, \href{http://bupz.com/best-websites-to-buy-musics}{45M 7digital}, \href{https://www.apple.com/pr/library/2013/02/06iTunes-Store-Sets-New-Record-with-25-Billion-Songs-Sold.html}{26M iTunes}} it is of the same scale as the largest image dataset (\tabref{tab:size}) which opened the door to dramatic performance improvements for many tasks in computer vision.
+Benchmarking is an important aspect in experimental sciences -- results reported by individual research groups need to be comparable. Important aspects of these are datasets that can be easily shared among researchers, together with a set of defined tasks and splits. The FMA enables researchers to test algorithms on a large-scale collection, closer to real-world environments. Even though it is still two orders of magnitude behind commercial services who have access to tens of millions of tracks,\footnote{\href{http://the.echonest.com}{37M Echonest}, \href{https://en.wikipedia.org/wiki/Spotify}{30M Spotify}, \href{http://www.skilledtests.com/wiki/Last.fm_statistics}{45M last.fm}, \href{http://bupz.com/best-websites-to-buy-musics}{45M 7digital}, \href{https://www.apple.com/pr/library/2013/02/06iTunes-Store-Sets-New-Record-with-25-Billion-Songs-Sold.html}{26M iTunes}} it is of the same scale as the largest image dataset which opened the door to dramatic performance improvements for many tasks in computer vision.
 %is also far behind the amount of tagged photos \href{https://www.facebook.com}{Facebook} has access to for example.
 By providing audio, we do not limit the benchmarking to pre-computed features and allow scientists to develop and test new feature sets, learn features, or learn mappings directly from the audio.
 % talk about metadata ?
