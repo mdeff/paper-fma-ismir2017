@@ -60,8 +60,8 @@ We introduce the Free Music Archive (FMA), an open and easily accessible dataset
 The community's growing interest in feature and end-to-end learning is however restrained by the limited availability of large audio datasets.
 The FMA aims to overcome this hurdle by providing \size GiB and \tduration days of Creative Commons-licensed audio from \ntracks tracks from \nartists artists and \nalbums albums, arranged in a hierarchical taxonomy of \ngenres genres.
 It provides full-length and high-quality audio, pre-computed features, together with track- and user-level metadata, tags, and free-form text such as biographies.
-We propose a train/validation/test split and three subsets: a genre-balanced set of 8,000 tracks from 8 major genres, a genre-unbalanced set of 25,000 tracks from 16 genres, and a 98 GiB version with 30s clips.
-This paper describes the dataset and how it was created, discuss some suitable MIR tasks, and evaluates some baselines for genre recognition.
+We here describe the dataset and how it was created, propose a train/validation/test split and three subsets, discuss some suitable MIR tasks, and evaluate some
+baselines for genre recognition.
 Code, data, and usage examples are available at \url{\weblink}.
 \end{abstract}
 
@@ -193,7 +193,7 @@ In computer vision, the community has developed established benchmark datasets s
 	\label{tab:metadata}
 \end{table}
 
-An alternative to open benchmarking is the approach taken by evaluation challenges such as the music information retrieval evaluation exchange (MIREX) \cite{mirex}. The imposed constraint that input data cannot be made available to participants however incurs an approximately linear cost with the number of submissions as all algorithms have to be run by the organizers. By releasing this open dataset, we realize part of the vision of McFee et al.\ in ''a distributed, community-centric paradigm for system evaluation, built upon the principles of openness, transparency, and reproducibility`` \cite{mirex_critic}.
+An alternative to open benchmarking is the approach taken by evaluation challenges such as the music information retrieval evaluation exchange (MIREX) \cite{mirex}. The imposed constraint that input data cannot be made available to participants however incurs an approximately linear cost with the number of submissions as all algorithms have to be run by the organizers. By releasing this open dataset, we realize part of the vision of McFee et al.\ in ``a distributed, community-centric paradigm for system evaluation, built upon the principles of openness, transparency, and reproducibility'' \cite{mirex_critic}.
 
 % {\bf Available music datasets and their limitations.}
 Unlike the wealth of available visual or textual content, the lack of a large-scale, complete and easily available dataset for MIR has hindered research on data-heavy models such as DL.
@@ -284,7 +284,7 @@ The dataset is a dump of the \href{https://freemusicarchive.org/}{Free Music Arc
 %Cheyenne Hohman, the director of the FMA, \href{http://freemusicarchive.org/member/cheyenne_h/blog/100000_SONGS}{announced} in July 2016 that the website had reached the landmark of 100,000 tracks.
 Inspired by \href{https://creativecommons.org/}{Creative Commons} and the open-source software movement, the FMA provides a platform for curators, artists, and listeners to harness the potential of music sharing.
 The website provides a large catalog of artists and tracks, hand-picked by established audio curators. Each track is legally free to download as artists decided to release their works under permissive licenses.
-While the archive is free and open to anyone, written and audio content is curated, and permission to upload or edit content is granted on an invitation basis.\footnote{\href{http://rhizome.org/editorial/2009/may/1/interview-with-jason-sigal-of-the-free-music-archi}{Interview with Jason Sigal of the Free Music Archive, Rhizome.}}
+While the archive is free and open to anyone, written and audio content is curated, and permission to upload or edit content is granted on an invitation basis. While the FMA is not the only source of CC-licensed music, see e.g.\ \href{https://www.jamendo.com}{Jamendo}, it is unique as it combines user-generated content with the curatorial role that WFMU and others have always played.\footnote{\href{http://rhizome.org/editorial/2009/may/1/interview-with-jason-sigal-of-the-free-music-archi}{Interview with Jason Sigal of the Free Music Archive, Rhizome.}}
 
 \subsection{Creation} % Collection, Creation, Generation
 % How it was collected.
@@ -358,8 +358,7 @@ See the \texttt{analysis.ipynb} notebook for a much more detailed analysis of th
 
 \subsection{Genres}
 
-\todo{The high coverage of genre information and fine-graine... makes the FMA well suited for MGR.}
-Labeling noise is unavoidable
+\todo{Labeling noise is unavoidable}
 The FMA is especially suited for MGR as it features fine genre information, i.e.\ multiple (sub-)genres associated to individual tracks, has a built-in genre hierarchy (\tabref{tab:genres}), and is annotated by the artists themselves. While the artists are the best placed to judge the positioning of their creations, they might be inconsistent and motivated by factors not necessarily objective, such as achieving a higher play count. Ideally those labels should be one of many ground truths, to be complemented by crowd-sourcing and experts (from different music metadata websites).
 
 While there is no agreement on a taxonomy of genres \cite{mir_review_genre}, we followed the hierarchy used by the archive, which is the one the authors had in mind when annotating their tracks. That hierarchy is composed of \ngenres genres of which 16 are roots, the others being sub-genres. \tabref{tab:genres} shows an excerpt of that information along with the number of tracks per genre and the associated top-level genre, that is the root of the genre tree. \figref{fig:genre_hierarchy} shows an excerpt of the tree.
@@ -391,9 +390,9 @@ To allow researchers to experiment without dealing with feature extraction, we p
 Each feature set (except zero-crossing rate) is computed on windows of 2048 samples spaced by hops of 512 samples. Seven statistics were then computed over all windows: the mean, standard deviation, skew, kurtosis, median, minimum and maximum.
 Those 518 pre-computed features are distributed in \texttt{features.csv} for all tracks.\footnote{See \texttt{features.py} for the code which computed the features.}
 
-In addition,
+%In addition,
 % a number of descriptive medium-level and high-level audio
-features extracted by \href{http://the.echonest.com/}{Echonest} are provided for 13,129 tracks. These features include 8 high-level audio features (acousticness, danceability, energy, instrumentalness, liveness, speechiness, tempo, valence), 5 social features (artist discovery, artist familiarity, artist hotttness, song currency, song hotttness), and 224 MFCC-like temporal features for a number of segments \cite{echonest_temporal}. They are distributed in \texttt{echonest.csv}.
+%features extracted by \href{http://the.echonest.com/}{Echonest} are provided for 13,129 tracks. These features include 8 high-level audio features (acousticness, danceability, energy, instrumentalness, liveness, speechiness, tempo, valence), 5 social features (artist discovery, artist familiarity, artist hotttness, song currency, song hotttness), and 224 MFCC-like temporal features for a number of segments \cite{echonest_temporal}. They are distributed in \texttt{echonest.csv}.
 %Echonest audio features are described in Kirell's paper
 %Those features can be obtained either by uploading the songs to their website, which are then analyzed and sent back to the user, or simply retrieved from their database if the songs are known to them, i.e.\ they were analyzed before. All of which can be done through an \href{http://developer.echonest.com}{API}. In our case, we only retrieved features from songs which were already in their database.
 
@@ -558,6 +557,7 @@ Finally, the metadata is surely a valuable addition to existing datasets\footnot
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion} % Limitations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%The full potential of the FMA has yet to be unlashed.
 
 
 % ground truth for genre: AllMusic Guide (album, artist), Gracenote CDDB (song)
@@ -579,33 +579,19 @@ Finally, the metadata is surely a valuable addition to existing datasets\footnot
 
 % metadata such as genre, mood, groove, composer, performer, lyrics, meter, chord progressions, instruments present
 
-Music classification is the most straightforward use case for FMA, with MGR being particularly suitable. The inclusion of a genre hierarchy makes it specially interesting, as it offers possibilities rarely found in alternative collections.
-
 While the FMA can be used to evaluate many tasks, metadata is missing for e.g.\ mood classification or instrument recognition. However, a more thorough investigation of the available tags may reveal their feasibilities. Similarly, cover song detection may be doable if multiple versions of many songs are featured.
-Moreover, we can expect the dataset to be cross-referenced with other resources to unlock additional tasks, as has happened for example with the MSD and \href{http://www.allmusic.com}{AllMusic}, \href{https://www.last.fm}{last.fm} and \href{https://beatunes.com}{beaTunes} for genre recognition \cite{msd_features, msd_genres}, \href{https://musixmatch.com}{musixmatch} for lyrics, \href{https://secondhandsongs.com}{SecondHandSongs} for cover songs, or \href{https://www.thisismyjam.com}{This Is My Jam} for user play counts.
-
-Diversity is another issue: as suggested by \figref{fig:genre_distribution}, this collection is biased toward experimental, electronic, and rock music. Moreover, it probably does not contain mainstream music.
-%hits from renown artists or commercial music.
-It is unknown whether datasets made up of mainstream or non-mainstream music have the same properties and if algorithms tailored on one perform similarly on the other. Nevertheless, algorithms should ideally be evaluated on multiple datasets.
-\todo{more discussion after reading Sturm}
-study to what extent is the FMA representative of mainstream music and its similarity to other datasets.
-\todo{McFee}
-% features some renown artists (wikipedia list)
-
-%The full potential of the FMA has yet to be unlashed.
-
-\subsection{Music Recommendation} % Recommendation, Recommender Systems
-% Cite Kirell's paper: Song recommendation with non-negative matrix factorization and graph total variation
-%Cheyenne: We do have lists for each user of which songs, albums and artists a user marked as 'favorites' though.
-%friends form a social networks
-% fans and favorites
-% user mixes
-
-Due to the potential commercial value of a working system, music recommendation and music similarity are among the best studied areas of MIR.
-%So far, content-based systems have fallen short at predicting user ratings when compared to collaborative filtering methods. \todo{ref}
-While the present dump only captures listening and downloading counts in aggregates (\figref{fig:listens_distribution})\footnote{That information can be useful to e.g.\ predict hits.}, the lists of which songs, albums and artists a user marked as favorites or commented are public. While not public, listening and downloading activities are logged and might be shared after anonymization.\footnote{Private discussion with the administrators.} Moreover, users form a public social network via \textit{friend requests}.
+% Due to the potential commercial value of a working system, music recommendation and similarity are among the best studied areas of MIR.
+% So far, content-based systems have fallen short at predicting user ratings when compared to collaborative filtering methods. \todo{ref}
+While the present dump only captures listening and downloading counts in aggregates\footnote{That information can be useful to e.g.\ analyze and predict hits.}, the lists of which songs, albums and artists a user marked as favorites or commented are public, as well as \textit{user mixes}. While not public, listening and downloading activities are logged and might be shared after anonymization.\footnote{Private discussion with the administrators.} Moreover, users form a public social network via \textit{friend requests}.
+Collecting this information would opens the possibility of a large-scale evaluation of content-based recommender systems.
 %The wealth of available data opens the possibility of a large-scale evaluation of content-based recommender systems based on rich metadata, audio, or derived features.
-%with a clean ground truth.
+Finally, we can expect the dataset to be cross-referenced with other resources to unlock additional tasks, as has happened for example with the MSD and \href{http://www.allmusic.com}{AllMusic}, \href{https://www.last.fm}{last.fm} and \href{https://beatunes.com}{beaTunes} for genre recognition \cite{msd_features, msd_genres}, \href{https://musixmatch.com}{musixmatch} for lyrics, \href{https://secondhandsongs.com}{SecondHandSongs} for cover songs, or \href{https://www.thisismyjam.com}{This Is My Jam} for user play counts.
+
+Diversity is another issue: as suggested by \figref{fig:genre_distribution}, this collection is biased toward experimental, electronic, and rock music. Moreover, it does not contain mainstream music and few commercially successful artists.
+A common criticism of basing research on CC-licensed music is that the music is of substantially lower ``quality''. Moreover, it is unknown whether datasets made up of mainstream or non-mainstream music have similar properties and if algorithms tailored on one perform similarly on the other. While those points are valid for high-level tasks such as recommendation (which depend on a variety of factors beyond the acoustic content), this is a much more tenuous case for the majority of tasks, in particular perceptual tasks.
+% \cite{mirex_critic}
+% features some renown artists (wikipedia list)
+Nevertheless, algorithms should ideally be evaluated on multiple datasets, which will help answer such questions.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -615,22 +601,23 @@ While the present dump only captures listening and downloading counts in aggrega
 
 % importance of open data
 
-Benchmarking is an important aspect in experimental sciences -- results reported by individual research groups need to be comparable. Important aspects of these are datasets that can be easily shared among researchers, together with a set of defined tasks and splits. The FMA enables researchers to test algorithms on a large-scale collection, closer to real-world environments. Even though it is still two orders of magnitude behind commercial services who have access to tens of millions of tracks,\footnote{\href{http://the.echonest.com}{37M Echonest}, \href{https://en.wikipedia.org/wiki/Spotify}{30M Spotify}, \href{http://www.skilledtests.com/wiki/Last.fm_statistics}{45M last.fm}, \href{http://bupz.com/best-websites-to-buy-musics}{45M 7digital}, \href{https://www.apple.com/pr/library/2013/02/06iTunes-Store-Sets-New-Record-with-25-Billion-Songs-Sold.html}{26M iTunes}} it is of the same scale as the largest image dataset which opened the door to dramatic performance improvements for many tasks in computer vision.
+Benchmarking is an important aspect in experimental sciences --- results reported by individual research groups need to be comparable. Important aspects of these are datasets that can be easily shared among researchers, together with a set of defined tasks and splits. The FMA enables researchers to test algorithms on a large-scale collection, closer to real-world environments. Even though it is still two orders of magnitude behind commercial services who have access to tens of millions of tracks,\footnote{\href{http://the.echonest.com}{37M Echonest}, \href{https://en.wikipedia.org/wiki/Spotify}{30M Spotify}, \href{http://www.skilledtests.com/wiki/Last.fm_statistics}{45M last.fm}, \href{http://bupz.com/best-websites-to-buy-musics}{45M 7digital}, \href{https://www.apple.com/pr/library/2013/02/06iTunes-Store-Sets-New-Record-with-25-Billion-Songs-Sold.html}{26M iTunes}} it is of the same scale as the largest image dataset which opened the door to dramatic performance improvements for many tasks in computer vision.
 %is also far behind the amount of tagged photos \href{https://www.facebook.com}{Facebook} has access to for example.
 By providing audio, we do not limit the benchmarking to pre-computed features and allow scientists to develop and test new feature sets, learn features, or learn mappings directly from the audio.
 % talk about metadata ?
 % Kirell: less DL oriented, some people don't like it. Insist on available audio.
+For now, music classification, and MGR in particular, is the most straightforward use case for FMA. The inclusion of a genre hierarchy makes it specially interesting, as it offers possibilities rarely found in alternative collections.
 
 % Once that problem is well advanced, researchers will be able to tackle more difficult tasks such as tagging or annotation.
 % Besides, standard data analysis tasks such as classification, clustering, regression, text analysis, visualization can also be applied to this new music dataset.
 
 % Future work
-\todo{If the community finds interest in the dataset and validate its use, future work should focus on validating the ground truth and collecting additional information.}
+\todo{If the community finds interest in the dataset and validate its use, future work should focus on validating the ground truth and collecting additional information by cross-referencing the dataset with other databases.}
 In addition to the proposed usage and many others people will find, future work on the dataset itself may consider to scrap the website for information not available through the API, e.g.\ the number of downloads or the user comments. Moreover, cross-referencing with other resources or crowd-sourcing (with e.g.\ \href{https://www.mturk.com}{Mechanical Turk} or \href{https://www.crowdflower.com/}{CrowdFlower}) is desirable to obtain additional labels or measure agreement on the current ones by independent annotators.
 
-In a \href{https://freemusicarchive.org/member/cheyenne_h/blog/FMA_Dataset_for_Researchers}{post about the dataset}, Cheyenne Hohman, the Director at the Archive, wrote that ''by embracing the
+In a \href{https://freemusicarchive.org/member/cheyenne_h/blog/FMA_Dataset_for_Researchers}{post about the dataset}, Cheyenne Hohman, the Director at the Archive, wrote that ``by embracing the
 ~\ldots~%some rights reserved
-philosophy of Creative Commons, artists are not only making their music available for the public to listen to, but also for educational and research applications``.
+philosophy of Creative Commons, artists are not only making their music available for the public to listen to, but also for educational and research applications''.
 Let's hope for a future where sharing is first and researchers feed open platforms with algorithms while they feed us with data.
 % Foster usage of CC and tighter interplay / integration between artists, platforms, users and researchers.
 
