@@ -16,5 +16,6 @@ International Society for Music Information Retrieval Conference (ISMIR), 2017.
 ## Resources
 
 * PDF: [arXiv](https://arxiv.org/abs/1612.01840), [ISMIR](https://archives.ismir.net/ismir2017/paper/000075.pdf), [EPFL](https://infoscience.epfl.ch/record/227512).
+* Reviews: [#1](ismir_review_1.txt), [#2](ismir_review_2.txt), [#3](ismir_review_3.txt), [metareview](ismir_review_4.txt).
 * Code: <https://github.com/mdeff/fma>.
 * Presentation: [slides](https://doi.org/10.5281/zenodo.1066119) and [poster](https://doi.org/10.5281/zenodo.1035847).
