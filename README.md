@@ -19,3 +19,12 @@ International Society for Music Information Retrieval Conference (ISMIR), 2017.
 * Reviews: [#1](ismir_review_1.txt), [#2](ismir_review_2.txt), [#3](ismir_review_3.txt), [metareview](ismir_review_4.txt).
 * Code: <https://github.com/mdeff/fma>.
 * Presentation: [slides](https://doi.org/10.5281/zenodo.1066119) and [poster](https://doi.org/10.5281/zenodo.1035847).
+
+## Compilation
+
+Compile the latex source into a PDF with `make`.
+Run `make clean` to remove temporary files and `make arxiv.zip` to prepare an archive to be uploaded on arXiv.
+
+## Figures
+
+All the figures are in the [`figs`](figs/) folder.
