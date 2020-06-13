@@ -27,4 +27,4 @@ Run `make clean` to remove temporary files and `make arxiv.zip` to prepare an ar
 
 ## Figures
 
-All the figures are in the [`figs`](figs/) folder.
+All the figures are in the [`figures`](figures/) folder.
