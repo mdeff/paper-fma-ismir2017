@@ -47,3 +47,7 @@ Run `make clean` to remove temporary files and `make arxiv.zip` to prepare an ar
 ## Figures
 
 All the figures are in the [`figures`](figures/) folder.
+
+## Peer-review
+
+The paper got a [metareview](ismir_review_4.txt) based on three reviews ([#1](ismir_review_1.txt), [#2](ismir_review_2.txt), [#3](ismir_review_3.txt)).
