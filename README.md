@@ -13,6 +13,18 @@ International Society for Music Information Retrieval Conference (ISMIR), 2017.
 > We here describe the dataset and how it was created, propose a train/validation/test split and three subsets, discuss some suitable MIR tasks, and evaluate some baselines for genre recognition.
 > Code, data, and usage examples are available at https://github.com/mdeff/fma.
 
+```
+@inproceedings{fma_dataset,
+  title = {{FMA}: A Dataset for Music Analysis},
+  author = {Defferrard, Micha\"el and Benzi, Kirell and Vandergheynst, Pierre and Bresson, Xavier},
+  booktitle = {18th International Society for Music Information Retrieval Conference (ISMIR)},
+  year = {2017},
+  archiveprefix = {arXiv},
+  eprint = {1612.01840},
+  url = {https://arxiv.org/abs/1612.01840},
+}
+```
+
 ## Resources
 
 * PDF: [arXiv](https://arxiv.org/abs/1612.01840), [ISMIR](https://archives.ismir.net/ismir2017/paper/000075.pdf), [EPFL](https://infoscience.epfl.ch/record/227512).
